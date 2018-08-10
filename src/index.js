@@ -1,0 +1,12 @@
+import './global'
+
+import './Object'
+import './Array'
+import './Number'
+import './String'
+import './Date'
+import './Math'
+import './RegExp'
+import './Promise'
+import './FileSize'
+import './HTMLCanvasElement'

@@ -1,0 +1,34 @@
+{
+  "name": "finka-js",
+  "description": "Finka.js",
+  "main": "dist/finka.min.js",
+  "authors": [
+    "Marek Sierociński (https://github.com/marverix)",
+    "tpiechaczek (https://github.com/tpiechaczek)",
+    "Bartosz Trzos (https://github.com/Trzosoo)",
+    "Alberto Luis Fernandez Reyes (https://github.com/alberto-f)",
+    "ToniaR (https://github.com/ToniaR)",
+    "Toni (https://github.com/ToniVaakanainen)",
+    "gfduszynski (https://github.com/gfduszynski)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "library",
+    "helper",
+    "tool",
+    "util",
+    "js",
+    "javascript",
+    "finka",
+    "finka-js"
+  ],
+  "homepage": "https://github.com/bitbar/finka-js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "test",
+    "tests"
+  ]
+}

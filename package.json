@@ -1,0 +1,45 @@
+{
+  "name": "finka-js",
+  "version": "0.1.0",
+  "description": "Finka.js",
+  "main": "dist/finka.min.js",
+  "scripts": {
+    "build": "npx rollup -c",
+    "test": "npx mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitbar/finka-js.git"
+  },
+  "keywords": [
+    "library",
+    "helper",
+    "tool",
+    "util",
+    "js",
+    "javascript",
+    "finka",
+    "finka-js"
+  ],
+  "author": "Marek Sierociński (https://github.com/marverix)",
+  "contributors": [
+    "tpiechaczek (https://github.com/tpiechaczek)",
+    "Bartosz Trzos (https://github.com/Trzosoo)",
+    "Alberto Luis Fernandez Reyes (https://github.com/alberto-f)",
+    "ToniaR (https://github.com/ToniaR)",
+    "Toni (https://github.com/ToniVaakanainen)",
+    "gfduszynski (https://github.com/gfduszynski)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bitbar/finka-js/issues"
+  },
+  "homepage": "https://github.com/bitbar/finka-js#readme",
+  "devDependencies": {
+    "mocha": "^5.1.1",
+    "rollup": "^0.58.2",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^3.0.0"
+  }
+}
