@@ -1,4 +1,4 @@
-/* Finka.js v0.1.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v0.1.1 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -7,12 +7,7 @@
 
 	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-	function createCommonjsModule(fn, module) {
-		return module = { exports: {} }, fn(module, module.exports), module.exports;
-	}
-
-	var global_1 = createCommonjsModule(function (module) {
-	commonjsGlobal.isNodeJs = module != null && module.exports != null;
+	commonjsGlobal.isNodeJs = typeof commonjsGlobal.module != 'undefined' && typeof commonjsGlobal.module.exports != 'undefined';
 
 	commonjsGlobal.isJSONString = function(str) {
 	  try {
@@ -62,7 +57,6 @@
 	commonjsGlobal.xor = function(a, b) {
 	  return !a != !b;
 	};
-	});
 
 	Object.copy = function(src, dst, what) {
 	  if(what == null || what.length == 0) {

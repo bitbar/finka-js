@@ -1,6 +1,18 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/bitbar/finka-js/master/logo.png"
+       alt="Finka.js"
+       title="Finka.js" />
+</p>
+
 # Finka.js
 
-Finks.js
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
+
+Handy tool in nowadays JavaScript jungle.
+
+It's extending default JS classes like `Array` or `String` with new handy methods,
+that probably sooner or later you are going to search for on Stack Overflow ;) 
+
 
 ## Getting Started
 
@@ -25,9 +37,9 @@ npm install finka-js
 
 Download version that fits your better:
 
-[Compressed version - 1.44KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/kasza.min.js)
+[Compressed version - 15KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.min.js)
 
-[Uncompressed version - 2.41KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/kasza.js)
+[Uncompressed version - 31KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.js)
 
 And simply add HTML tag:
 

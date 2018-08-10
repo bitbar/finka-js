@@ -1,4 +1,4 @@
-global.isNodeJs = module != null && module.exports != null;
+global.isNodeJs = typeof global.module != 'undefined' && typeof global.module.exports != 'undefined';
 
 global.isJSONString = function(str) {
   try {

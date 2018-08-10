@@ -1,7 +1,7 @@
 {
   "name": "finka-js",
-  "version": "0.1.0",
-  "description": "Finka.js",
+  "version": "0.1.1",
+  "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.min.js",
   "scripts": {
     "build": "npx rollup -c",

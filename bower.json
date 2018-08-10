@@ -1,6 +1,6 @@
 {
   "name": "finka-js",
-  "description": "Finka.js",
+  "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.min.js",
   "authors": [
     "Marek Sierociński (https://github.com/marverix)",
