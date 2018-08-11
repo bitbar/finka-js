@@ -1,0 +1,491 @@
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Source: Date.js | Finka.js</title>
+    <link type="text/css" rel="stylesheet" href="styles/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+
+    
+        
+            <link type="text/css" rel="stylesheet" href="style.css">
+        
+    
+</head>
+<body>
+<div class="main-container">
+    <input type="checkbox" id="nav-trigger" class="nav-trigger">
+    <label for="nav-trigger" class="navicon-button x">
+      <div class="navicon"></div>
+    </label>
+    <label for="nav-trigger" class="overlay"></label>
+    <nav class="lnb" id="lnb">
+        <div class="nav-search js-search">
+            <div class="logo" style="">
+                <img src="logo.png" width="100%" height="100%">
+            </div>
+            <input type="text" placeholder="Search docs">
+            <ul class="searched-list"></ul>
+        </div>
+
+        <div class="nav-main">
+            <h1><a href="index.html" class="link">Finka.js</a></h1>
+            <span class="version">
+            
+            </span>
+        </div>
+
+        
+
+        <div class="scroll">
+        <div class="nav-api hidden"><h3>Global</h3><ul><li class="nav-item"><a href="global.html#getCountry">getCountry</a></li><li class="nav-item"><a href="global.html#getLanguage">getLanguage</a></li><li class="nav-item"><a href="global.html#isNodeJs">isNodeJs</a></li><li class="nav-item"><a href="global.html#isNumeric">isNumeric</a></li><li class="nav-item"><a href="global.html#md5">md5</a></li><li class="nav-item"><a href="global.html#parseValue">parseValue</a></li></ul></div><div class="nav-api hidden"><h3>Namespaces</h3><ul class="nav-items"><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="Array.html">Array</a>
+                <div class="nav-item-sub hidden" id="Array_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Array.html#.deepCloneArrayOfObjects">deepCloneArrayOfObjects</a></a></li><li class="sub-nav-item"><a href="Array.html#.sortArrayOfObjects">sortArrayOfObjects</a></a></li><li class="sub-nav-item"><a href="Array.html#.wrap">wrap</a></a></li><li class="sub-nav-item"><a href="Array.html#absorb">absorb</a></a></li><li class="sub-nav-item"><a href="Array.html#clone">clone</a></a></li><li class="sub-nav-item"><a href="Array.html#diff">diff</a></a></li><li class="sub-nav-item"><a href="Array.html#empty">empty</a></a></li><li class="sub-nav-item"><a href="Array.html#filterLike">filterLike</a></a></li><li class="sub-nav-item"><a href="Array.html#lookFor">lookFor</a></a></li><li class="sub-nav-item"><a href="Array.html#shuffle">shuffle</a></a></li><li class="sub-nav-item"><a href="Array.html#unique">unique</a></a></li></ul></div>
+            </li><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="Boolean.html">Boolean</a>
+                <div class="nav-item-sub hidden" id="Boolean_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Boolean.html#.xor">xor</a></a></li></ul></div>
+            </li><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="Date.html">Date</a>
+                <div class="nav-item-sub hidden" id="Date_sub"><div class="member-type">Members</div><ul class="inner"><li class="sub-nav-item"><a href="Date.html#.DAY">DAY</a></a></li><li class="sub-nav-item"><a href="Date.html#.DAYAFTERTOMORROW">DAYAFTERTOMORROW</a></a></li><li class="sub-nav-item"><a href="Date.html#.HOUR">HOUR</a></a></li><li class="sub-nav-item"><a href="Date.html#.MINUTE">MINUTE</a></a></li><li class="sub-nav-item"><a href="Date.html#.SECOND">SECOND</a></a></li><li class="sub-nav-item"><a href="Date.html#.TODAY">TODAY</a></a></li><li class="sub-nav-item"><a href="Date.html#.TOMORROW">TOMORROW</a></a></li><li class="sub-nav-item"><a href="Date.html#.WEEK">WEEK</a></a></li><li class="sub-nav-item"><a href="Date.html#.YESTERDAY">YESTERDAY</a></a></li></ul><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Date.html#.daysFromNow">daysFromNow</a></a></li><li class="sub-nav-item"><a href="Date.html#.getHms">getHms</a></a></li><li class="sub-nav-item"><a href="Date.html#.getLocalDateFormat">getLocalDateFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.getTimezoneName">getTimezoneName</a></a></li><li class="sub-nav-item"><a href="Date.html#.toHmsFormat">toHmsFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.toStopwatchFormat">toStopwatchFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.toTimerFormat">toTimerFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#addTime">addTime</a></a></li><li class="sub-nav-item"><a href="Date.html#daysPassed">daysPassed</a></a></li><li class="sub-nav-item"><a href="Date.html#toCustomDate">toCustomDate</a></a></li><li class="sub-nav-item"><a href="Date.html#toInputDateFormat">toInputDateFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#toInputTimeFormat">toInputTimeFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiDate">toUiDate</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiDateTime">toUiDateTime</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiTime">toUiTime</a></a></li></ul></div>
+            </li><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="JSON.html">JSON</a>
+                <div class="nav-item-sub hidden" id="JSON_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="JSON.html#.isJSONString">isJSONString</a></a></li></ul></div>
+            </li><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="Math.html">Math</a>
+                <div class="nav-item-sub hidden" id="Math_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Math.html#.avg">avg</a></a></li><li class="sub-nav-item"><a href="Math.html#.median">median</a></a></li><li class="sub-nav-item"><a href="Math.html#.rand">rand</a></a></li><li class="sub-nav-item"><a href="Math.html#.roundTo">roundTo</a></a></li><li class="sub-nav-item"><a href="Math.html#.sum">sum</a></a></li></ul></div>
+            </li><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="Number.html">Number</a>
+                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInt">isInt</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
+            </li><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="Object.html">Object</a>
+                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li></ul></div>
+            </li><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="Promise.html">Promise</a>
+                <div class="nav-item-sub hidden" id="Promise_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Promise.html#.isPromise">isPromise</a></a></li></ul></div>
+            </li><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="RegExp.html">RegExp</a>
+                <div class="nav-item-sub hidden" id="RegExp_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="RegExp.html#.escapeString">escapeString</a></a></li></ul></div>
+            </li><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="String.html">String</a>
+                <div class="nav-item-sub hidden" id="String_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="String.html#.editDistance">editDistance</a></a></li><li class="sub-nav-item"><a href="String.html#.getSimilarity">getSimilarity</a></a></li><li class="sub-nav-item"><a href="String.html#capitaliseFirstLetter">capitaliseFirstLetter</a></a></li><li class="sub-nav-item"><a href="String.html#includes">includes</a></a></li><li class="sub-nav-item"><a href="String.html#isLike">isLike</a></a></li><li class="sub-nav-item"><a href="String.html#lowerFirstLetter">lowerFirstLetter</a></a></li><li class="sub-nav-item"><a href="String.html#noCase">noCase</a></a></li><li class="sub-nav-item"><a href="String.html#reverse">reverse</a></a></li><li class="sub-nav-item"><a href="String.html#toBoolean">toBoolean</a></a></li><li class="sub-nav-item"><a href="String.html#toCamelCase">toCamelCase</a></a></li><li class="sub-nav-item"><a href="String.html#toChecksum">toChecksum</a></a></li><li class="sub-nav-item"><a href="String.html#toKebabCase">toKebabCase</a></a></li><li class="sub-nav-item"><a href="String.html#toPascalCase">toPascalCase</a></a></li></ul></div>
+            </li></ul></div><div class="nav-api hidden"><h3>Classes</h3><ul class="nav-items"><li class="nav-item">
+                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
+                <a href="FileSize.html">FileSize</a>
+                <div class="nav-item-sub hidden" id="FileSize_sub"><div class="member-type">Members</div><ul class="inner"><li class="sub-nav-item"><a href="FileSize.html#.B">B</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.EB">EB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.GB">GB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.KB">KB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.MB">MB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.TB">TB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.UNITS">UNITS</a></a></li><li class="sub-nav-item"><a href="FileSize.html#bytes">bytes</a></a></li></ul><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="FileSize.html#.getReadableString">getReadableString</a></a></li><li class="sub-nav-item"><a href="FileSize.html#toReadableString">toReadableString</a></a></li></ul></div>
+            </li></ul></div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <ul class="breadcrumbs">
+            <li><a href="index.html">Docs</a> »</li>
+            <li>Source: Date.js</li>
+        </ul>
+        <hr>
+        
+
+
+
+    
+<article>
+    <pre class="prettyprint source linenums"><code>/**
+ * @namespace Date
+ */
+
+const DATE_LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
+const DATE_LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
+
+/**
+ * Second in milliseconds
+ *
+ * @constant
+ * @type {number}
+ */
+Date.SECOND = 1000;
+
+/**
+ * Minute in milliseconds
+ *
+ * @constant
+ * @type {number}
+ */
+Date.MINUTE = 60 * Date.SECOND;
+
+/**
+ * Hour in milliseconds
+ *
+ * @constant
+ * @type {number}
+ */
+Date.HOUR = 60 * Date.MINUTE;
+
+/**
+ * Day in milliseconds
+ *
+ * @constant
+ * @type {number}
+ */
+Date.DAY = 24 * Date.HOUR;
+
+/**
+ * Week in milliseconds
+ *
+ * @constant
+ * @type {number}
+ */
+Date.WEEK = 7  * Date.DAY;
+
+/**
+ * Today in milliseconds
+ *
+ * @constant
+ * @type {number}
+ */
+Date.TODAY = Date.HOUR * Math.floor( Date.now() / Date.HOUR );
+
+/**
+ * Yesterday in milliseconds
+ *
+ * @constant
+ * @type {number}
+ */
+Date.YESTERDAY = Date.TODAY - Date.DAY;
+
+/**
+ * Tomorrow in milliseconds
+ *
+ * @constant
+ * @type {number}
+ */
+Date.TOMORROW = Date.TODAY + Date.DAY;
+
+/**
+ * Day after tomorrow in milliseconds
+ *
+ * @constant
+ * @type {number}
+ */
+Date.DAYAFTERTOMORROW = Date.TOMORROW + Date.DAY;
+
+/**
+ * Return timestamp of now + days
+ *
+ * @param days {number} Number of days difference
+ * @returns {number} Timestamp
+ */
+Date.daysFromNow = function(days) {
+  return Date.now() + Date.DAY * days;
+};
+
+/**
+ * Get local date format
+ *
+ * @param [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
+ * @returns {string} Local date format
+ */
+Date.getLocalDateFormat = function(fullFormat) {
+  var countryCode, format;
+
+  if(typeof fullFormat == 'undefined') {
+    fullFormat = true;
+  }
+
+  try {
+    countryCode = getCountry() || 'US';
+  } catch(e) {
+    countryCode = 'US';
+  }
+
+  if(DATE_LOCAL_FORMAT_YMD.indexOf(countryCode) >= 0) {
+    format = 'y-m-d';
+  } else if(DATE_LOCAL_FORMAT_MDY.indexOf(countryCode) >= 0) {
+    format = 'm/d/y';
+  } else {
+    format = 'd.m.y';
+  }
+
+  if(fullFormat == true) {
+    format = format.replace('d', 'dd');
+    format = format.replace('m', 'mm');
+    format = format.replace('y', 'yyyy');
+  }
+
+  return format;
+};
+
+/**
+ * Get timezone name
+ *
+ * @returns {string}
+ */
+Date.getTimezoneName = function() {
+  return new this().toString().match(/\(([^)]+)\)$/)[1];
+};
+
+/**
+ * Returns object with time parts
+ *
+ * @example
+ * // returns { h: 0, m: 1, s: 1, ms: 500 }
+ * Date.getHms(61500)
+ * @param time {number} Time to be used
+ * @returns {Object} Time in stopwatch format
+ */
+Date.getHms = function(time) {
+  var obj = {
+    h: 0,
+    m: 0,
+    s: 0,
+    ms: 0
+  };
+
+  obj.ms = Math.max(0, time % 1000);
+  time -= obj.ms;
+
+  time /= 1000;
+  obj.s = Math.max(0, time % 60);
+  time -= obj.s;
+
+  time /= 60;
+  obj.m = Math.max(0, time % 60);
+  time -= obj.m;
+
+  time /= 60;
+  obj.h = Math.max(0, time);
+
+  return obj;
+};
+
+/**
+ * Returns given time (in milliseconds) in HMS format
+ *
+ * @example
+ * // returns '1m 5s'
+ * Date.toHmsFormat(61500)
+ * @param time {number} Time to be converted
+ * @param [accuracy=seconds] {string} Accuracy
+ * @returns {string} Time in HMS format
+ */
+Date.toHmsFormat = function(time, accuracy) {
+  if(typeof accuracy == 'undefined') {
+    accuracy = 'seconds';
+  }
+
+  var obj = Date.getHms(time);
+  var ret = [];
+
+  switch(accuracy) {
+    case 'hours':
+      ret.push(obj.h + 'h');
+      break;
+
+    case 'minutes':
+      if(obj.h > 0) {
+        ret.push(obj.h + 'h');
+      }
+
+      ret.push(obj.m + 'm');
+      break;
+
+    case 'seconds':
+      if(obj.h > 0) {
+        ret.push(obj.h + 'h');
+        ret.push(obj.m + 'm');
+      } else if(obj.m > 0) {
+        ret.push(obj.m + 'm');
+      }
+
+      ret.push(obj.s + 's');
+      break
+
+    default:
+      throw new TypeError('Unknown accuracy');
+      break;
+  }
+
+  return ret.join(' ');
+};
+
+/**
+ * Returns given time (in milliseconds) in stopwatch format - [HH:]MM:SS.XXX
+ *
+ * @example
+ * // returns '01:01.5'
+ * Date.toStopwatchFormat(61500)
+ * @param time {number} Time to be converted
+ * @returns {string} Time in stopwatch format
+ */
+Date.toStopwatchFormat = function(time) {
+  var obj = Date.getHms(time);
+  var ret = obj.m.pad(2) + ':' + obj.s.pad(2) + '.' + Math.floor(obj.ms / 100);
+
+  if(obj.h > 0) {
+    ret = obj.h.pad(2) + ':' + ret;
+  }
+
+  return ret;
+};
+
+/**
+ * Returns given time (in milliseconds) in timer format - [HH:]MM:SS
+ *
+ * @example
+ * // returns '01:01'
+ * Date.toStopwatchFormat(61500)
+ * @param time {number} Time to be converted
+ * @returns {string} Time in timer format
+ */
+Date.toTimerFormat = function(time) {
+  var obj = Date.getHms(time);
+  var ret = obj.m.pad(2) + ':' + obj.s.pad(2);
+
+  if(obj.h > 0) {
+    ret = obj.h.pad(2) + ':' + ret;
+  }
+
+  return ret;
+};
+
+/**
+ * Return number of days passed between this Date and given in argument
+ *
+ * @param [toDate=now] {(Date|string|number)} Proper date
+ * @returns {number} Number of days passed
+ */
+Date.prototype.daysPassed = function(toDate) {
+  if(typeof toDate == 'undefined') {
+    toDate = new Date();
+  } else if(typeof toDate == 'number' || typeof toDate == 'string') {
+    toDate = new Date(toDate);
+  }
+
+  if(!(toDate instanceof Date)) {
+    throw new TypeError('toDate is not instance of Date');
+  }
+
+  return Math.floor(Math.abs((this.getTime() - toDate.getTime()) / Date.DAY));
+};
+
+/**
+ * Returns this Date in custom date format
+ *
+ * @param format {string} String representing date format
+ * @returns {string} Date string
+ */
+Date.prototype.toCustomDate = function(format) {
+  format = format.replace('d', this.getDate().pad(2));
+  format = format.replace('m', (this.getMonth() + 1).pad(2));
+  format = format.replace('y', this.getFullYear());
+
+  return format;
+};
+
+/**
+ * Returns this Date in UI time string
+ *
+ * @param [showSeconds=true] {boolean} Flag if seconds also should be returned
+ * @returns {string} Time string
+ */
+Date.prototype.toUiTime = function(showSeconds) {
+  if(typeof showSeconds == 'undefined') {
+    showSeconds = true;
+  }
+
+  if(showSeconds) {
+    showSeconds = ':' + this.getSeconds().pad(2);
+  } else {
+    showSeconds = '';
+  }
+
+  return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + showSeconds;
+};
+
+/**
+ * Returns this Date in UI date string
+ *
+ * @see Date#getLocalDateFormat
+ * @returns {string} Date string
+ */
+Date.prototype.toUiDate = function() {
+  return this.toCustomDate(Date.getLocalDateFormat(false));
+};
+
+/**
+ * Returns this Date in UI datetime string
+ *
+ * @param [showSeconds=true] {boolean} Flag if seconds also should be returned
+ * @returns {string} Time string
+ */
+Date.prototype.toUiDateTime = function(showSeconds) {
+  return this.toUiDate() + ' ' + this.toUiTime(showSeconds);
+};
+
+/**
+ * Returns this Date in form inputs time string
+ *
+ * @returns {string} Time string
+ */
+Date.prototype.toInputTimeFormat = function() {
+  return this.toUiTime(false);
+};
+
+/**
+ * Returns this Date in forms input date string
+ *
+ * @returns {string} Date string
+ */
+Date.prototype.toInputDateFormat = function() {
+  return this.toCustomDate('y-m-d');
+};
+
+/**
+ * Add time to this Date
+ *
+ * @param time {number} Time to add
+ * @returns {number} New timestamp of this Date
+ */
+Date.prototype.addTime = function(time) {
+  return this.setTime(this.getTime() + time );
+};
+</code></pre>
+</article>
+
+
+
+
+
+        <hr>
+        <footer>
+            <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
+            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+        </footer>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script>
+
+window.isApi = true
+window.isManual = false
+window.doc = {
+    name: '',
+    longname: '',
+}
+
+if (!doc.name) isApi = false
+
+</script>
+<script src="js/rtd.js"></script>
+</body>
+</html>

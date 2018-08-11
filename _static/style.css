@@ -1,0 +1,88 @@
+:root {
+    --dark-brown: #59281c;
+    --brown: #763626;
+    --light-brown: #b57f72;
+    --dark-skin: #d4b8b1;
+    --skin: #ecd8d3;
+    --dark-jeans: #336b87;
+    --jeans: #90afc5;
+    --fog: #f3f3f3;
+}
+
+.main-container .content {
+    background: var(--fog);
+}
+
+a,
+a:visited,
+a:active {
+    color: var(--brown);
+}
+
+nav {
+    background: var(--brown);
+}
+
+nav .nav-item a {
+    color: var(--skin);
+}
+
+nav .nav-item a:visited {
+    color: var(--dark-skin);
+}
+
+nav .nav-item a:active {
+    color: var(--dark-brown);
+}
+
+nav .nav-item a:hover {
+    background: var(--dark-brown);
+}
+
+nav .nav-item-sub .inner a:visited {
+    color: #4e4a4a;
+}
+
+nav span.toggle-subnav {
+    color: var(--light-brown);
+}
+
+nav h3 {
+    color: var(--light-brown);
+}
+
+.nav-search {
+    background: white;
+}
+
+.nav-search .logo img {
+    height: 60px;
+    width: auto;
+}
+
+.nav-search input {
+    background: var(--fog);
+}
+
+nav .nav-item a.selected {
+    background: var(--fog);
+    color: var(--dark-jeans);
+}
+
+nav .nav-item a.selected:hover {
+    background: var(--fog);
+    color: var(--jeans);
+}
+
+dt h4.name {
+    background: var(--dark-jeans);
+}
+
+dt h4.name .type-signature,
+dt h4.name .signature {
+    color: var(--jeans);
+}
+
+table {
+    background: white;
+}

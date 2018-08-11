@@ -1,3 +1,13 @@
-Promise.isPromise = function(value) {
-  return typeof value === 'object' && (value instanceof Promise || typeof value.then === 'function');
+/**
+ * @namespace Promise
+ */
+
+/**
+ * Returns verdict if given subject is Promise or not
+ *
+ * @param subject {*} Subject of examination
+ * @returns {boolean} Verdict
+ */
+Promise.isPromise = function(subject) {
+  return typeof subject === 'object' && (subject instanceof Promise || typeof subject.then === 'function');
 };

@@ -1,0 +1,26 @@
+{
+  "source": {
+    "include": ["src"]
+  },
+  "opts": {
+    "template": "node_modules/jsdoc-rtd",
+    "encoding": "utf8",
+    "destination": "docs",
+    "recurse": true
+  },
+  "templates": {
+    "default": {
+      "staticFiles": {
+        "include": ["_static/"]
+      }
+    },
+    "css": [
+      "style.css"
+    ],
+    "logo": {
+      "url": "logo.png"
+    },
+    "name": "Finka.js",
+    "footerText": "Copyright 2018 &copy; Bitbar Technologies"
+  }
+}

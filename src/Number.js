@@ -1,46 +1,42 @@
-global.isNumeric = function(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-};
+/**
+ * @namespace Number
+ */
 
-Number.isInt = function(n){
+/**
+ * Check if given number is integer
+ *
+ * @param n {number} Number to check
+ * @returns {boolean} Verdict
+ */
+Number.isInt = function(n) {
   return Number(n) === n && n % 1 === 0;
 };
 
+/**
+ * Check if given number is float
+ *
+ * @param n {number} Number to check
+ * @returns {boolean} Verdict
+ */
 Number.isFloat = function(n){
   return n === Number(n) && n % 1 !== 0;
 };
 
-Number.prototype.pad = function(n) {
+/**
+ * Returns string padded with leading zeros to length equal given length
+ *
+ * @param length {number} Length to which should be number padded
+ * @returns {string} Padded string
+ */
+Number.prototype.pad = function(length) {
   var value, i, toAdd;
 
   value = this.toString();
-  toAdd = n - value.length;
+  toAdd = length - value.length;
 
   for(i = 0; i < toAdd; i++) {
     value = '0' + value;
   }
 
   return value;
-};
-
-// not sure if it should be here or in Date
-Number.prototype.toClockString = function(inSeconds) {
-  var value, minutes, seconds;
-
-  value = this.valueOf();
-
-  if(typeof inSeconds == 'undefined') {
-    inSeconds = false;
-    // if inSeconds param is set to true, then value will be treated as seconds
-    // by default value is treated as milliseconds
-  }
-
-  if(!inSeconds) {
-    value = Math.round(value/1000);
-  }
-
-  minutes = Math.floor(value/60);
-  seconds = Math.floor(value-minutes*60);
-
-  return minutes.pad(2)+':'+seconds.pad(2);
 };

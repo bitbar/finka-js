@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/bitbar/finka-js/master/logo.png"
+  <img src="https://raw.githubusercontent.com/bitbar/finka-js/master/_static/logo.png"
        alt="Finka.js"
        title="Finka.js" />
 </p>
@@ -37,9 +37,9 @@ npm install finka-js
 
 Download version that fits your better:
 
-[Compressed version - 15KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.min.js)
+[Compressed version - 13KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.min.js)
 
-[Uncompressed version - 31KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.js)
+[Uncompressed version - 33KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.js)
 
 And simply add HTML tag:
 
@@ -50,7 +50,22 @@ And simply add HTML tag:
 
 ### Documentation
 
-TODO
+[https://bitbar.github.io/finka-js/](https://bitbar.github.io/finka-js/)
+
+
+## Contribution
+
+### Building
+
+```sh
+npm run build
+```
+
+### Updating documentation
+
+```sh
+npm run docs
+```
 
 
 ## Authors

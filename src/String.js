@@ -1,3 +1,15 @@
+/**
+ * @namespace String
+ */
+
+/**
+ * Calculate edit distance between string a and b
+ *
+ * @see {@link https://en.wikipedia.org/wiki/Edit_distance|Article on Wikipedia}
+ * @param a {string} A
+ * @param b {string} B
+ * @returns {number} Distance
+ */
 String.editDistance = function(a, b) {
   var matrix = [], i, j;
 
@@ -31,12 +43,25 @@ String.editDistance = function(a, b) {
   return matrix[b.length][a.length];
 };
 
+/**
+ * Get similarity ratio based on edit distance
+ *
+ * @see {@link String.editDistance}
+ * @param a {string} A
+ * @param b {string} B
+ * @returns {number} Ratio
+ */
 String.getSimilarity = function(a, b) {
   var l = Math.max(a.length, b.length);
   return (l - String.editDistance(a, b) / 2) / l;
 };
 
-
+/**
+ * Returns string with capitalised first letter
+ *
+ * @param [lower=false] {boolean} Flag if should lower all letters first
+ * @returns {string} New string
+ */
 String.prototype.capitaliseFirstLetter = function(lower) {
   var value = this.valueOf();
 
@@ -47,36 +72,85 @@ String.prototype.capitaliseFirstLetter = function(lower) {
   return value.replace(/[a-z]/i, (m) => m.toUpperCase());
 };
 
+/**
+ * Returns string with lower first letter
+ *
+ * @returns {string} New string
+ */
 String.prototype.lowerFirstLetter = function() {
   return this.valueOf().replace(/[a-z]/i, (m) => m.toLowerCase());
 };
 
-String.prototype.toCamelCase = function() {
-  var value, arr, ret, i;
-  value = this.valueOf();
+/**
+ * Returns string with removed cases
+ *
+ * @returns {string} New string
+ */
+String.prototype.noCase = function() {
+  var value = this.valueOf();
 
-  if(value.indexOf('-') < 0) {
-    return value;
-  }
+  // clean kebab and snake case
+  value = value.replace(/[-_]/g, ' ');
 
-  arr = value.split('-');
-  ret = arr[0];
-  for(i = 1; i < arr.length; i++) {
-    ret += arr[i].capitaliseFirstLetter();
-  }
+  // clean pascal case
+  value = value.lowerFirstLetter();
 
-  return ret;
+  // clean camel case
+  value = value.replace(/[A-Z][a-z]/g, (m) => ' ' + m.toLowerCase());
+  value = value.replace(/([a-z])([A-Z])/g, (m, m1, m2) => m1 + ' ' + m2);
+
+  return value;
 };
 
+/**
+ * Returns string in camelCase
+ *
+ * @returns {string} String in camelCase
+ */
+String.prototype.toCamelCase = function() {
+  var value = this.valueOf();
+
+  // normalize
+  value = value.noCase();
+
+  // replace
+  value = value.replace(/ [a-z]/gi, (m) => m[1].toUpperCase());
+
+  return value;
+};
+
+/**
+ * Returns string in PascalCase
+ *
+ * @returns {string} String in PascalCase
+ */
 String.prototype.toPascalCase = function() {
   return this.toCamelCase().capitaliseFirstLetter();
 };
 
+/**
+ * Returns string in kebab-case
+ *
+ * @returns {string} String in kebab-case
+ */
 String.prototype.toKebabCase = function() {
-  return this.valueOf().trim().toLowerCase().replace(/\s/g, '-');
+  var value = this.valueOf();
+
+  // normalize
+  value = value.noCase();
+
+  // replace
+  value = value.trim().toLowerCase().replace(/\s/g, '-');
+
+  return value;
 };
 
-// Checksum CRC32 - By schnaader (MIT Licensed)
+/**
+ * Returns checksum crc32
+ *
+ * @author schnaader
+ * @returns {number} Checksum
+ */
 String.prototype.toChecksum = function() {
   var value, i, chk;
 
@@ -90,20 +164,51 @@ String.prototype.toChecksum = function() {
   return chk;
 };
 
-String.prototype.reverse = function() {
-  return this.valueOf().split('').reverse().join('');
-};
-
+/**
+ * Returns string in boolean
+ *
+ * @returns {boolean} True if string looks somehow like 'true'
+ */
 String.prototype.toBoolean = function() {
   return this.valueOf().toLowerCase() === 'true';
 };
 
-String.prototype.isLike = function(str) {
-  return new RegExp('^' + str + '$').test(this.valueOf());
+/**
+ * Returns reversed string
+ *
+ * @returns {string} Reversed string
+ */
+String.prototype.reverse = function() {
+  return this.valueOf().split('').reverse().join('');
+};
+
+/**
+ * Check if string is like given query (you can use regexp notation)
+ *
+ * @param query {string} Query
+ * @returns {boolean} Verdict
+ */
+String.prototype.isLike = function(query) {
+  return new RegExp('^' + query + '$').test(this.valueOf());
 };
 
 if(typeof String.prototype.includes != 'function') {
-  String.prototype.includes = function(str) {
-    return this.valueOf().indexOf(str) > -1;
-  }
+  /**
+   * Polyfill for ECMAScript 2015 for String.prototype.includes
+   *
+   * @param search {string} Search for
+   * @param [start=0] {number} Searching start position
+   * @returns {boolean} Verdict
+   */
+  String.prototype.includes = function(search, start) {
+    if (typeof start !== 'number') {
+      start = 0;
+    }
+
+    if (start + search.length > this.length) {
+      return false;
+    } else {
+      return this.indexOf(search, start) !== -1;
+    }
+  };
 }

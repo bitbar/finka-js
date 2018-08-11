@@ -1,4 +1,4 @@
-/* Finka.js v0.1.1 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v0.9.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -6,657 +6,6 @@
 }(this, (function () { 'use strict';
 
 	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-	commonjsGlobal.isNodeJs = typeof commonjsGlobal.module != 'undefined' && typeof commonjsGlobal.module.exports != 'undefined';
-
-	commonjsGlobal.isJSONString = function(str) {
-	  try {
-	    JSON.parse(str);
-	  } catch(e) {
-	    return false;
-	  }
-	  return true;
-	};
-
-	commonjsGlobal.getLanguage = function() {
-	  if(isNodeJs) {
-	    var lang = process.env.LANG || process.env.LANGUAGE || process.env.LC_ALL || process.env.LC_MESSAGES;
-	    return lang.replace(/^([a-z]{2})_([A-Z]{2}).+$/, (m, m1, m2) => m1 + '-' + m2);
-	  } else {
-	    return navigator.language;
-	  }
-	};
-
-	commonjsGlobal.getCountry = function() {
-	  return getLanguage().substr(0, 2).toUpperCase();
-	};
-
-	commonjsGlobal.parseValue = function(value) {
-	  // check if it's even a string
-	  if(typeof value != 'string') {
-	    return value;
-	  }
-
-	  // check if it's number
-	  if (isNumeric(value)) {
-	    return parseFloat(value);
-	  }
-
-	  // check if it's a boolean
-	  var _value = value.toLowerCase();
-	  if (_value === 'true' || _value === 'false') {
-	    return _value === 'true';
-	  }
-
-	  // add more check here if you want
-
-	  // return unparsed value in the end
-	  return value;
-	};
-
-	commonjsGlobal.xor = function(a, b) {
-	  return !a != !b;
-	};
-
-	Object.copy = function(src, dst, what) {
-	  if(what == null || what.length == 0) {
-	    for(var i in src) {
-	      dst[i] = src[i];
-	    }
-	  } else {
-	    for(var i = 0; i < what.length; i++) {
-	      dst[what[i]] = src[what[i]];
-	    }
-	  }
-
-	};
-
-	Object.isLike = function(subject, query) {
-	  var k, v;
-	  if(typeof query == 'object' && typeof subject == 'object') {
-	    for(k in query) {
-	      v = typeof subject[k] == 'function' ? subject[k]() : subject[k];
-	      if(v !== query[k]) {
-	        return false;
-	      }
-	    }
-	  } else {
-	    if(subject !== query) {
-	      return false;
-	    }
-	  }
-	  return true;
-	};
-
-	Object.count = function(obj) {
-	  var size = 0;
-	  for(let i in obj) {
-	    if(obj.hasOwnProperty(i)) {
-	      size += 1;
-	    }
-	  }
-	  return size;
-	};
-
-	Array.prototype.empty = function() {
-	  this.length = 0;
-	  return this;
-	};
-
-	Array.prototype.absorb = function(arr) {
-	  this.push.apply(this, arr);
-	  return this;
-	};
-
-	Array.prototype.diff = function(arr) {
-	  return this.filter((i) => arr.indexOf(i) < 0);
-	};
-
-	Array.prototype.clone = function() {
-	  return this.slice(0);
-	};
-
-	Array.prototype.lookFor = function(query) {
-	  var i;
-
-	  for(i = 0; i < this.length; i++) {
-	    if(Object.isLike(this[i], query)) {
-	      return i;
-	    }
-	  }
-
-	  return -1;
-	};
-
-	Array.prototype.filterLike = function(query) {
-	  var i, ret;
-
-	  if(query == null) {
-	    return this;
-	  }
-
-	  ret = [];
-	  for(i = 0; i < this.length; i++) {
-	    if(Object.isLike(this[i], query)) {
-	      ret.push(this[i]);
-	    }
-	  }
-
-	  return ret;
-	};
-
-	Array.prototype.unique = function() {
-	  var a = this.concat();
-	  for(var i=0; i<a.length; ++i) {
-	    for(var j=i+1; j<a.length; ++j) {
-	      if(a[i] === a[j])
-	        a.splice(j--, 1);
-	    }
-	  }
-
-	  return a;
-	};
-
-	Array.prototype.shuffle = function() {
-	  for (var i = this.length - 1; i > 0; i--) {
-	    var j = Math.floor(Math.rand() * (i + 1));
-	    var temp = this[i];
-	    this[i] = this[j];
-	    this[j] = temp;
-	  }
-	};
-
-	Array.sortArrayOfObjects = function(arr, propertyName, inverted) {
-	  var _a, _b;
-
-	  if(inverted == null) {
-	    inverted = false;
-	  }
-	  inverted = inverted ? -1 : 1;
-
-	  arr.sort(function(a, b) {
-	    _a = a[propertyName];
-	    _b = b[propertyName];
-
-	    if(typeof _a == 'string') {
-	      _a = _a.toLowerCase();
-	    }
-	    if(typeof _b == 'string') {
-	      _b = _b.toLowerCase();
-	    }
-
-	    if(_a > _b) {
-	      return inverted * 1;
-	    } else if(_a < _b) {
-	      return inverted * -1;
-	    }
-	    return 0;
-	  });
-	};
-
-	Array.cloneArrayOfObjects = function(arr) {
-	  return arr.map(function(obj) {
-	    return $.extend({}, obj);
-	  });
-	};
-
-	// Wrap in Array if needed
-	Array.wrap = function(val) {
-	  return Array.isArray(val) ? val : [val];
-	};
-
-	commonjsGlobal.isNumeric = function(n) {
-	  return !isNaN(parseFloat(n)) && isFinite(n);
-	};
-
-	Number.isInt = function(n){
-	  return Number(n) === n && n % 1 === 0;
-	};
-
-	Number.isFloat = function(n){
-	  return n === Number(n) && n % 1 !== 0;
-	};
-
-	Number.prototype.pad = function(n) {
-	  var value, i, toAdd;
-
-	  value = this.toString();
-	  toAdd = n - value.length;
-
-	  for(i = 0; i < toAdd; i++) {
-	    value = '0' + value;
-	  }
-
-	  return value;
-	};
-
-	// not sure if it should be here or in Date
-	Number.prototype.toClockString = function(inSeconds) {
-	  var value, minutes, seconds;
-
-	  value = this.valueOf();
-
-	  if(typeof inSeconds == 'undefined') {
-	    inSeconds = false;
-	    // if inSeconds param is set to true, then value will be treated as seconds
-	    // by default value is treated as milliseconds
-	  }
-
-	  if(!inSeconds) {
-	    value = Math.round(value/1000);
-	  }
-
-	  minutes = Math.floor(value/60);
-	  seconds = Math.floor(value-minutes*60);
-
-	  return minutes.pad(2)+':'+seconds.pad(2);
-	};
-
-	String.editDistance = function(a, b) {
-	  var matrix = [], i, j;
-
-	  if(a.length === 0) { return b.length; }
-	  if(b.length === 0) { return a.length; }
-	  if(a == b) { return 0; }
-
-	  // increment along the first column of each row
-	  for(i = 0; i <= b.length; i++) {
-	    matrix[i] = [i];
-	  }
-
-	  // increment each column in the first row
-	  for(j = 0; j <= a.length; j++){
-	    matrix[0][j] = j;
-	  }
-
-	  // Fill in the rest of the matrix
-	  for(i = 1; i <= b.length; i++){
-	    for(j = 1; j <= a.length; j++){
-	      if(b.charAt(i-1) == a.charAt(j-1)){
-	        matrix[i][j] = matrix[i-1][j-1];
-	      } else {
-	        matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
-	          Math.min(matrix[i][j-1] + 1, // insertion
-	            matrix[i-1][j] + 1)); // deletion
-	      }
-	    }
-	  }
-
-	  return matrix[b.length][a.length];
-	};
-
-	String.getSimilarity = function(a, b) {
-	  var l = Math.max(a.length, b.length);
-	  return (l - String.editDistance(a, b) / 2) / l;
-	};
-
-
-	String.prototype.capitaliseFirstLetter = function(lower) {
-	  var value = this.valueOf();
-
-	  if(lower) {
-	    value = value.toLowerCase();
-	  }
-
-	  return value.replace(/[a-z]/i, (m) => m.toUpperCase());
-	};
-
-	String.prototype.lowerFirstLetter = function() {
-	  return this.valueOf().replace(/[a-z]/i, (m) => m.toLowerCase());
-	};
-
-	String.prototype.toCamelCase = function() {
-	  var value, arr, ret, i;
-	  value = this.valueOf();
-
-	  if(value.indexOf('-') < 0) {
-	    return value;
-	  }
-
-	  arr = value.split('-');
-	  ret = arr[0];
-	  for(i = 1; i < arr.length; i++) {
-	    ret += arr[i].capitaliseFirstLetter();
-	  }
-
-	  return ret;
-	};
-
-	String.prototype.toPascalCase = function() {
-	  return this.toCamelCase().capitaliseFirstLetter();
-	};
-
-	String.prototype.toKebabCase = function() {
-	  return this.valueOf().trim().toLowerCase().replace(/\s/g, '-');
-	};
-
-	// Checksum CRC32 - By schnaader (MIT Licensed)
-	String.prototype.toChecksum = function() {
-	  var value, i, chk;
-
-	  value = this.valueOf();
-	  chk = 0x12345678;
-
-	  for (i = 0; i < value.length; i++) {
-	    chk += value.charCodeAt(i) * (i + 1);
-	  }
-
-	  return chk;
-	};
-
-	String.prototype.reverse = function() {
-	  return this.valueOf().split('').reverse().join('');
-	};
-
-	String.prototype.toBoolean = function() {
-	  return this.valueOf().toLowerCase() === 'true';
-	};
-
-	String.prototype.isLike = function(str) {
-	  return new RegExp('^' + str + '$').test(this.valueOf());
-	};
-
-	if(typeof String.prototype.includes != 'function') {
-	  String.prototype.includes = function(str) {
-	    return this.valueOf().indexOf(str) > -1;
-	  };
-	}
-
-	Date.SECOND = 1000;
-	Date.MINUTE = 60 * Date.SECOND;
-	Date.HOUR   = 60 * Date.MINUTE;
-	Date.DAY    = 24 * Date.HOUR;
-	Date.WEEK   = 7  * Date.DAY;
-
-	Date.TODAY            = Date.HOUR * Math.floor( Date.now() / Date.HOUR );
-	Date.YESTERDAY        = Date.TODAY - Date.DAY;
-	Date.TOMORROW         = Date.TODAY + Date.DAY;
-	Date.DAYAFTERTOMORROW = Date.TOMORROW + Date.DAY;
-
-	Date.daysFromNow = function(days) {
-	  return Date.now() + Date.DAY * days;
-	};
-
-	Date.getFormat = function(full) {
-	  var ymd, mdy, countryCode, format;
-
-	  if(typeof full == 'undefined') {
-	    full = true;
-	  }
-
-	  ymd = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
-	  mdy = ['BZ', 'FM', 'US'];
-
-	  try {
-	    countryCode = getCountry() || 'US';
-	  } catch(e) {
-	    countryCode = 'US';
-	  }
-
-	  if(ymd.indexOf(countryCode) >= 0) {
-	    format = 'y-m-d';
-	  } else if(mdy.indexOf(countryCode) >= 0) {
-	    format = 'm/d/y';
-	  } else {
-	    format = 'd.m.y';
-	  }
-
-	  if(full == true) {
-	    format = format.replace('d', 'dd');
-	    format = format.replace('m', 'mm');
-	    format = format.replace('y', 'yyyy');
-	  }
-
-	  return format;
-	};
-
-	Date.getTimezoneName = function() {
-	  return new this().toString().match(/\(([^)]+)\)$/)[1];
-	};
-
-	Date.toHmsFormat = function(time, round, accuracy, inSeconds) {
-	  var h, m, s, seconds = 0, ret,
-	    format, setRet;
-
-	  if(typeof round == 'undefined') {
-	    round = 'round';
-	  }
-	  if(typeof accuracy == 'undefined') {
-	    accuracy = 'seconds';
-	  }
-
-	  format = function(value, suffix){
-	    return value > 0 ? value + suffix : '';
-	  };
-
-	  setRet = function() {
-	    ret = (h + m + s).trim();
-	  };
-
-	  time = parseInt(time);
-	  if(typeof inSeconds != 'undefined' && inSeconds){
-	    seconds = time;
-	  } else {
-	    seconds = Math.round(time / 1000);
-	  }
-
-	  if (accuracy == 'hours'){
-	    h = format(Math[round](seconds / 3600), 'h ');
-	    m = format(0, 'm ');
-	    s = format(0 + 's');
-
-	    setRet();
-	    if(ret.length == 0) {
-	      ret = '0h';
-	    }
-
-	  } else if (accuracy == 'minutes'){
-	    h = format(Math.floor(seconds / 3600), 'h ');
-	    m = format(Math[round](seconds % 3600 / 60), 'm ');
-	    s = format(0 + 's');
-
-	    setRet();
-	    if(ret.length == 0) {
-	      ret = '0m';
-	    }
-
-	  } else { // accuracy == "seconds"
-	    h = format(Math.floor(seconds / 3600), 'h ');
-	    m = format(Math.floor(seconds % 3600 / 60), 'm ');
-	    s = Math[round](seconds % 3600 % 60) + 's';
-
-	    setRet();
-	    if(ret.length == 0) {
-	      ret = '0s';
-	    }
-
-	  }
-
-	  return ret;
-	};
-
-	Date.toStopwatchFormat = function(time) {
-	  // [HH:]MM:SS.XXX
-
-	  var ms, s, m, h, ret;
-
-	  ms = Math.max(0, time % 1000);
-	  time -= ms;
-	  ms = Math.floor(ms / 100);
-
-	  time /= 1000;
-	  s = Math.max(0, time % 60);
-	  time -= s;
-
-	  time /= 60;
-	  m = Math.max(0, time % 60);
-	  time -= m;
-
-	  time /= 60;
-	  h = Math.max(0, time);
-
-	  ret = m.pad(2) + ':' + s.pad(2) + '.' + ms;
-	  if(h > 0) {
-	    ret = h.pad(2) + ':' + ret;
-	  }
-
-	  return ret;
-	};
-
-	Date.prototype.daysPassed = function(toDate) {
-	  if(typeof toDate == 'undefined') {
-	    toDate = new Date();
-	  } else if(typeof toDate == 'number' || typeof toDate == 'string') {
-	    toDate = new Date(toDate);
-	  }
-
-	  if(!(toDate instanceof Date)) {
-	    throw 'Date.daysPassed: toDate is not instance of Date';
-	  }
-
-	  return Math.floor(Math.abs((this.getTime() - toDate.getTime()) / 86400000));
-	};
-
-
-	Date.prototype.toUiTime = function(showSeconds) {
-	  if(typeof showSeconds == 'undefined') {
-	    showSeconds = true;
-	  }
-
-	  if(showSeconds) {
-	    showSeconds = ':' + this.getSeconds().pad(2);
-	  } else {
-	    showSeconds = '';
-	  }
-
-	  return this.getHours().pad(2)+':'+this.getMinutes().pad(2)+showSeconds;
-	};
-
-	Date.prototype.toCustomDate = function(format) {
-	  format = format.replace('d', this.getDate().pad(2));
-	  format = format.replace('m', (this.getMonth()+1).pad(2));
-	  format = format.replace('y', this.getFullYear());
-
-	  return format;
-	};
-	Date.prototype.toUiDate = function() {
-	  return this.toCustomDate(Date.getFormat(false));
-	};
-
-	Date.prototype.toUiDateTime = function(showSeconds) {
-	  return this.toUiDate()+' '+this.toUiTime(showSeconds);
-	};
-
-	Date.prototype.toInputDateFormat = function() {
-	  return this.toCustomDate('y-m-d');
-	};
-	Date.prototype.toInputTimeFormat = function() {
-	  return this.toUiTime(false);
-	};
-
-	Date.prototype.addTime = function(time) {
-	  return this.setTime( this.getTime() + time );
-	};
-
-	function Mash() {
-	  var n = 0xefc8249d;
-
-	  var mash = function(data) {
-	    data = data.toString();
-	    for (var i = 0; i < data.length; i++) {
-	      n += data.charCodeAt(i);
-	      var h = 0.02519603282416938 * n;
-	      n = h >>> 0;
-	      h -= n;
-	      h *= n;
-	      n = h >>> 0;
-	      h -= n;
-	      n += h * 0x100000000; // 2^32
-	    }
-	    return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
-	  };
-
-	  return mash;
-	}
-
-	function MRG32k3a() {
-	  return (function(args) {
-	    var m1 = 4294967087;
-	    var m2 = 4294944443;
-	    var s10 = 12345,
-	      s11 = 12345,
-	      s12 = 123,
-	      s20 = 12345,
-	      s21 = 12345,
-	      s22 = 123;
-
-	    if (args.length === 0) {
-	      args = [+new Date()];
-	    }
-	    var mash = Mash();
-	    for (var i = 0; i < args.length; i++) {
-	      s10 += mash(args[i]) * 0x100000000; // 2 ^ 32
-	      s11 += mash(args[i]) * 0x100000000;
-	      s12 += mash(args[i]) * 0x100000000;
-	      s20 += mash(args[i]) * 0x100000000;
-	      s21 += mash(args[i]) * 0x100000000;
-	      s22 += mash(args[i]) * 0x100000000;
-	    }
-	    s10 %= m1;
-	    s11 %= m1;
-	    s12 %= m1;
-	    s20 %= m2;
-	    s21 %= m2;
-	    s22 %= m2;
-	    mash = null;
-
-	    var uint32 = function() {
-	      var m1 = 4294967087;
-	      var m2 = 4294944443;
-	      var a12 = 1403580;
-	      var a13n = 810728;
-	      var a21 = 527612;
-	      var a23n = 1370589;
-
-	      var k, p1, p2;
-
-	      p1 = a12 * s11 - a13n * s10;
-	      k = p1 / m1 | 0;
-	      p1 -= k * m1;
-	      if (p1 < 0) p1 += m1;
-	      s10 = s11;
-	      s11 = s12;
-	      s12 = p1;
-
-	      p2 = a21 * s22 - a23n * s20;
-	      k = p2 / m2 | 0;
-	      p2 -= k * m2;
-	      if (p2 < 0) p2 += m2;
-	      s20 = s21;
-	      s21 = s22;
-	      s22 = p2;
-
-	      if (p1 <= p2) return p1 - p2 + m1;
-	      else return p1 - p2;
-	    };
-
-	    var random = function() {
-	      return uint32() * 2.3283064365386963e-10; // 2^-32
-	    };
-	    random.uint32 = uint32;
-	    random.fract53 = function() {
-	      return random() +
-	        (uint32() & 0x1fffff) * 1.1102230246251565e-16; // 2^-53
-	    };
-	    random.args = args;
-
-	    return random;
-	  } (Array.prototype.slice.call(arguments)));
-	}
-
-	var MRG32k3a$1 = /*#__PURE__*/Object.freeze({
-		default: MRG32k3a
-	});
 
 	function md5cycle(x, k) {
 	  var a = x[0], b = x[1], c = x[2], d = x[3];
@@ -846,18 +195,1108 @@
 		default: md5
 	});
 
-	var MRG32k3a$2 = ( MRG32k3a$1 && MRG32k3a ) || MRG32k3a$1;
-
 	var require$$0 = ( md5$1 && md5 ) || md5$1;
 
-	commonjsGlobal.md5 = require$$0;
+	/**
+	 * Flag if environment is Node JS
+	 *
+	 * @global
+	 * @type {boolean}
+	 */
+	commonjsGlobal.isNodeJs = typeof commonjsGlobal.module != 'undefined' && typeof commonjsGlobal.module.exports != 'undefined';
 
-	Math.MRG32k2a = new MRG32k3a$2();
+	/**
+	 * Get ISO 639-1 language string
+	 *
+	 * @global
+	 * @returns {string} ISO 639-1 language string
+	 */
+	commonjsGlobal.getLanguage = function() {
+	  var lang;
 
-	Math.rand = function() {
-	  return this.MRG32k2a();
+	  if(isNodeJs) {
+	    lang = process.env.LANGUAGE || process.env.LANG;
+	  } else {
+	    lang = navigator.language || navigator.languages && navigator.languages[0];
+	  }
+
+	  lang = lang.substr(0, 2);
+
+	  return lang;
 	};
 
+	/**
+	 * Tries to get country from language
+	 *
+	 * @global
+	 * @returns {(string|null)} Country code or null if couldn't find
+	 */
+	commonjsGlobal.getCountry = function() {
+	  if(typeof commonjsGlobal.userCountry != 'undefined') {
+	    return commonjsGlobal.userCountry;
+	  }
+
+	  var country;
+
+	  if(isNodeJs) {
+	    country = process.env.LANG;
+	  } else {
+	    country = navigator.language;
+
+	    if(country.length < 3 && navigator.languages) {
+	      for(let i = 0; i < navigator.languages.length; i++) {
+	        if(navigator.languages[i].length > 2) {
+	          country = navigator.languages[i];
+	          break;
+	        }
+	      }
+	    }
+	  }
+
+	  var country = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
+	  if(country != null) {
+	    country = country[1];
+	  }
+
+	  return country;
+	};
+
+	/**
+	 * Check if given argument is numeric
+	 *
+	 * @global
+	 * @param n {*} Subject of examination
+	 * @returns {boolean} Verdict
+	 */
+	commonjsGlobal.isNumeric = function(n) {
+	  return !isNaN(parseFloat(n)) && isFinite(n);
+	};
+
+	/**
+	 * Parse value to proper type
+	 *
+	 * @global
+	 * @param value {*} Value to be parsed
+	 * @returns {*} Parsed value
+	 */
+	commonjsGlobal.parseValue = function(value) {
+	  // check if it's even a string
+	  if(typeof value != 'string') {
+	    return value;
+	  }
+
+	  // check if it's number
+	  if (isNumeric(value)) {
+	    return parseFloat(value);
+	  }
+
+	  // check if it's a boolean
+	  var _value = value.toLowerCase();
+	  if (_value === 'true' || _value === 'false') {
+	    return _value === 'true';
+	  }
+
+	  // add more check here if you want
+
+	  // return not parsed value in the end
+	  return value;
+	};
+
+	/**
+	 * MD5
+	 *
+	 * @global
+	 * @method
+	 * @param {string} String to be hashed
+	 * @returns {string} Hash
+	 */
+	commonjsGlobal.md5 = require$$0;
+
+	/**
+	 * @namespace Boolean
+	 */
+
+	/**
+	 * Returns result of logic XOR operation between a and b arguments
+	 *
+	 * @returns {boolean} Result
+	 */
+	Boolean.xor = function(a, b) {
+	  return !a != !b;
+	};
+
+	/**
+	 * @namespace Number
+	 */
+
+	/**
+	 * Check if given number is integer
+	 *
+	 * @param n {number} Number to check
+	 * @returns {boolean} Verdict
+	 */
+	Number.isInt = function(n) {
+	  return Number(n) === n && n % 1 === 0;
+	};
+
+	/**
+	 * Check if given number is float
+	 *
+	 * @param n {number} Number to check
+	 * @returns {boolean} Verdict
+	 */
+	Number.isFloat = function(n){
+	  return n === Number(n) && n % 1 !== 0;
+	};
+
+	/**
+	 * Returns string padded with leading zeros to length equal given length
+	 *
+	 * @param length {number} Length to which should be number padded
+	 * @returns {string} Padded string
+	 */
+	Number.prototype.pad = function(length) {
+	  var value, i, toAdd;
+
+	  value = this.toString();
+	  toAdd = length - value.length;
+
+	  for(i = 0; i < toAdd; i++) {
+	    value = '0' + value;
+	  }
+
+	  return value;
+	};
+
+	/**
+	 * @namespace String
+	 */
+
+	/**
+	 * Calculate edit distance between string a and b
+	 *
+	 * @see {@link https://en.wikipedia.org/wiki/Edit_distance|Article on Wikipedia}
+	 * @param a {string} A
+	 * @param b {string} B
+	 * @returns {number} Distance
+	 */
+	String.editDistance = function(a, b) {
+	  var matrix = [], i, j;
+
+	  if(a.length === 0) { return b.length; }
+	  if(b.length === 0) { return a.length; }
+	  if(a == b) { return 0; }
+
+	  // increment along the first column of each row
+	  for(i = 0; i <= b.length; i++) {
+	    matrix[i] = [i];
+	  }
+
+	  // increment each column in the first row
+	  for(j = 0; j <= a.length; j++){
+	    matrix[0][j] = j;
+	  }
+
+	  // Fill in the rest of the matrix
+	  for(i = 1; i <= b.length; i++){
+	    for(j = 1; j <= a.length; j++){
+	      if(b.charAt(i-1) == a.charAt(j-1)){
+	        matrix[i][j] = matrix[i-1][j-1];
+	      } else {
+	        matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
+	          Math.min(matrix[i][j-1] + 1, // insertion
+	            matrix[i-1][j] + 1)); // deletion
+	      }
+	    }
+	  }
+
+	  return matrix[b.length][a.length];
+	};
+
+	/**
+	 * Get similarity ratio based on edit distance
+	 *
+	 * @see {@link String.editDistance}
+	 * @param a {string} A
+	 * @param b {string} B
+	 * @returns {number} Ratio
+	 */
+	String.getSimilarity = function(a, b) {
+	  var l = Math.max(a.length, b.length);
+	  return (l - String.editDistance(a, b) / 2) / l;
+	};
+
+	/**
+	 * Returns string with capitalised first letter
+	 *
+	 * @param [lower=false] {boolean} Flag if should lower all letters first
+	 * @returns {string} New string
+	 */
+	String.prototype.capitaliseFirstLetter = function(lower) {
+	  var value = this.valueOf();
+
+	  if(lower) {
+	    value = value.toLowerCase();
+	  }
+
+	  return value.replace(/[a-z]/i, (m) => m.toUpperCase());
+	};
+
+	/**
+	 * Returns string with lower first letter
+	 *
+	 * @returns {string} New string
+	 */
+	String.prototype.lowerFirstLetter = function() {
+	  return this.valueOf().replace(/[a-z]/i, (m) => m.toLowerCase());
+	};
+
+	/**
+	 * Returns string with removed cases
+	 *
+	 * @returns {string} New string
+	 */
+	String.prototype.noCase = function() {
+	  var value = this.valueOf();
+
+	  // clean kebab and snake case
+	  value = value.replace(/[-_]/g, ' ');
+
+	  // clean pascal case
+	  value = value.lowerFirstLetter();
+
+	  // clean camel case
+	  value = value.replace(/[A-Z][a-z]/g, (m) => ' ' + m.toLowerCase());
+	  value = value.replace(/([a-z])([A-Z])/g, (m, m1, m2) => m1 + ' ' + m2);
+
+	  return value;
+	};
+
+	/**
+	 * Returns string in camelCase
+	 *
+	 * @returns {string} String in camelCase
+	 */
+	String.prototype.toCamelCase = function() {
+	  var value = this.valueOf();
+
+	  // normalize
+	  value = value.noCase();
+
+	  // replace
+	  value = value.replace(/ [a-z]/gi, (m) => m[1].toUpperCase());
+
+	  return value;
+	};
+
+	/**
+	 * Returns string in PascalCase
+	 *
+	 * @returns {string} String in PascalCase
+	 */
+	String.prototype.toPascalCase = function() {
+	  return this.toCamelCase().capitaliseFirstLetter();
+	};
+
+	/**
+	 * Returns string in kebab-case
+	 *
+	 * @returns {string} String in kebab-case
+	 */
+	String.prototype.toKebabCase = function() {
+	  var value = this.valueOf();
+
+	  // normalize
+	  value = value.noCase();
+
+	  // replace
+	  value = value.trim().toLowerCase().replace(/\s/g, '-');
+
+	  return value;
+	};
+
+	/**
+	 * Returns checksum crc32
+	 *
+	 * @author schnaader
+	 * @returns {number} Checksum
+	 */
+	String.prototype.toChecksum = function() {
+	  var value, i, chk;
+
+	  value = this.valueOf();
+	  chk = 0x12345678;
+
+	  for (i = 0; i < value.length; i++) {
+	    chk += value.charCodeAt(i) * (i + 1);
+	  }
+
+	  return chk;
+	};
+
+	/**
+	 * Returns string in boolean
+	 *
+	 * @returns {boolean} True if string looks somehow like 'true'
+	 */
+	String.prototype.toBoolean = function() {
+	  return this.valueOf().toLowerCase() === 'true';
+	};
+
+	/**
+	 * Returns reversed string
+	 *
+	 * @returns {string} Reversed string
+	 */
+	String.prototype.reverse = function() {
+	  return this.valueOf().split('').reverse().join('');
+	};
+
+	/**
+	 * Check if string is like given query (you can use regexp notation)
+	 *
+	 * @param query {string} Query
+	 * @returns {boolean} Verdict
+	 */
+	String.prototype.isLike = function(query) {
+	  return new RegExp('^' + query + '$').test(this.valueOf());
+	};
+
+	if(typeof String.prototype.includes != 'function') {
+	  /**
+	   * Polyfill for ECMAScript 2015 for String.prototype.includes
+	   *
+	   * @param search {string} Search for
+	   * @param [start=0] {number} Searching start position
+	   * @returns {boolean} Verdict
+	   */
+	  String.prototype.includes = function(search, start) {
+	    if (typeof start !== 'number') {
+	      start = 0;
+	    }
+
+	    if (start + search.length > this.length) {
+	      return false;
+	    } else {
+	      return this.indexOf(search, start) !== -1;
+	    }
+	  };
+	}
+
+	/**
+	 * @namespace Object
+	 */
+
+	/**
+	 * Copy key and values from src Object to dst  Object
+	 *
+	 * @param src {Object} Source
+	 * @param dst {Object} Destination
+	 * @param [what] {(Array|null)} What should be copied? By default those are all keys and values from source
+	 */
+	Object.copy = function(src, dst, what) {
+	  if(what == null || what.length == 0) {
+	    for(var i in src) {
+	      dst[i] = src[i];
+	    }
+	  } else {
+	    for(var i = 0; i < what.length; i++) {
+	      dst[what[i]] = src[what[i]];
+	    }
+	  }
+	};
+
+	/**
+	 * Returns verdict if subject match query
+	 *
+	 * @param subject {Object} Subject of examination
+	 * @param query {Object|*} Query - if object then will compare each key of query with subject,
+	 * otherwise will just use standard comparator
+	 * @returns {boolean} Verdict
+	 */
+	Object.isLike = function(subject, query) {
+	  var k, v;
+	  if(typeof query == 'object' && typeof subject == 'object') {
+	    for(k in query) {
+	      v = typeof subject[k] == 'function' ? subject[k]() : subject[k];
+	      if(v !== query[k]) {
+	        return false;
+	      }
+	    }
+	  } else {
+	    if(subject !== query) {
+	      return false;
+	    }
+	  }
+	  return true;
+	};
+
+	/**
+	 * Count number of items in given subject
+	 *
+	 * @param subject {Object} Subject of examination
+	 * @returns {number} Number of items
+	 */
+	Object.count = function(subject) {
+	  var items = 0;
+	  for(let i in subject) {
+	    if(subject.hasOwnProperty(i)) {
+	      items += 1;
+	    }
+	  }
+	  return items;
+	};
+
+	/**
+	 * @namespace Array
+	 */
+
+	/**
+	 * Sort array of objects
+	 *
+	 * @param arr {Object[]} Array of objects that should be sorted
+	 * @param propertyName {string} Name of property by which sorting will be done
+	 * @param [descending=false] {boolean} Flag to sort in descending order
+	 */
+	Array.sortArrayOfObjects = function(arr, propertyName, descending) {
+	  var _a, _b;
+
+	  if(descending == null) {
+	    descending = false;
+	  }
+	  descending = descending ? -1 : 1;
+
+	  arr.sort(function(a, b) {
+	    _a = a[propertyName];
+	    _b = b[propertyName];
+
+	    if(typeof _a == 'string') {
+	      _a = _a.toLowerCase();
+	    }
+	    if(typeof _b == 'string') {
+	      _b = _b.toLowerCase();
+	    }
+
+	    if(_a > _b) {
+	      return descending * 1;
+	    } else if(_a < _b) {
+	      return descending * -1;
+	    }
+	    return 0;
+	  });
+	};
+
+	/**
+	 * Deep clone array of object
+	 *
+	 * @param arr Array of objects
+	 * @returns {Object[]} Clone of arr
+	 */
+	Array.deepCloneArrayOfObjects = function(arr) {
+	  return arr.map(function(obj) {
+	    return Object.assign({}, obj);
+	  });
+	};
+
+	/**
+	 * Wrap in Array if @param is not an Array already
+	 *
+	 * @param something {(*|Array)} Something that should be an Array
+	 * @returns {Array}
+	 */
+	Array.wrap = function(something) {
+	  return Array.isArray(something) ? something : [something];
+	};
+
+	/**
+	 * Empty this Array
+	 *
+	 * @returns {Array} this
+	 */
+	Array.prototype.empty = function() {
+	  this.length = 0;
+	  return this;
+	};
+
+	/**
+	 * Absorb (push) every item of given array to this Array
+	 *
+	 * @param arr {Array} Array to be absorbed
+	 * @returns {Array} this
+	 */
+	Array.prototype.absorb = function(arr) {
+	  this.push.apply(this, arr);
+	  return this;
+	};
+
+	/**
+	 * Returns the difference between this Array and given in argument
+	 *
+	 * @param arr {Array} Array to compare
+	 * @returns {Array} Array with elements that are different
+	 */
+	Array.prototype.diff = function(arr) {
+	  return this.filter((i) => arr.indexOf(i) < 0);
+	};
+
+	/**
+	 * Clone this Array
+	 *
+	 * @returns {Array} Clone of this Array
+	 */
+	Array.prototype.clone = function() {
+	  return this.slice(0);
+	};
+
+	/**
+	 * Look for index of item matching to query
+	 *
+	 * @param query {Object} Query
+	 * @returns {number} Index of matching index; -1 if not found
+	 */
+	Array.prototype.lookFor = function(query) {
+	  for(let i = 0; i < this.length; i++) {
+	    if(Object.isLike(this[i], query)) {
+	      return i;
+	    }
+	  }
+
+	  return -1;
+	};
+
+	/**
+	 * Returns the new array based on current one by filtering according to query
+	 *
+	 * @see Object#isLike
+	 * @param query {Object} Query
+	 * @returns {Array} New Array with matching elements
+	 */
+	Array.prototype.filterLike = function(query) {
+	  if(query == null) {
+	    return [];
+	  } else {
+	    return this.filter((item) => Object.isLike(item, query));
+	  }
+	};
+
+	/**
+	 * Unique this Array - remove all duplicate items
+	 *
+	 * @returns {Array} this
+	 */
+	Array.prototype.unique = function() {
+	  for(var i = 0; i < this.length; ++i) {
+	    for(var j = i + 1; j < this.length; ++j) {
+	      if(this[i] === this[j])
+	        this.splice(j--, 1);
+	    }
+	  }
+
+	  return this;
+	};
+
+	/**
+	 * Shuffle this Array
+	 *
+	 * @returns {Array} this
+	 */
+	Array.prototype.shuffle = function() {
+	  for (var i = this.length - 1; i > 0; i--) {
+	    var j = Math.floor(Math.rand() * (i + 1));
+	    var temp = this[i];
+	    this[i] = this[j];
+	    this[j] = temp;
+	  }
+
+	  return this;
+	};
+
+	/**
+	 * @namespace Date
+	 */
+
+	const DATE_LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
+	const DATE_LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
+
+	/**
+	 * Second in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	Date.SECOND = 1000;
+
+	/**
+	 * Minute in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	Date.MINUTE = 60 * Date.SECOND;
+
+	/**
+	 * Hour in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	Date.HOUR = 60 * Date.MINUTE;
+
+	/**
+	 * Day in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	Date.DAY = 24 * Date.HOUR;
+
+	/**
+	 * Week in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	Date.WEEK = 7  * Date.DAY;
+
+	/**
+	 * Today in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	Date.TODAY = Date.HOUR * Math.floor( Date.now() / Date.HOUR );
+
+	/**
+	 * Yesterday in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	Date.YESTERDAY = Date.TODAY - Date.DAY;
+
+	/**
+	 * Tomorrow in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	Date.TOMORROW = Date.TODAY + Date.DAY;
+
+	/**
+	 * Day after tomorrow in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	Date.DAYAFTERTOMORROW = Date.TOMORROW + Date.DAY;
+
+	/**
+	 * Return timestamp of now + days
+	 *
+	 * @param days {number} Number of days difference
+	 * @returns {number} Timestamp
+	 */
+	Date.daysFromNow = function(days) {
+	  return Date.now() + Date.DAY * days;
+	};
+
+	/**
+	 * Get local date format
+	 *
+	 * @param [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
+	 * @returns {string} Local date format
+	 */
+	Date.getLocalDateFormat = function(fullFormat) {
+	  var countryCode, format;
+
+	  if(typeof fullFormat == 'undefined') {
+	    fullFormat = true;
+	  }
+
+	  try {
+	    countryCode = getCountry() || 'US';
+	  } catch(e) {
+	    countryCode = 'US';
+	  }
+
+	  if(DATE_LOCAL_FORMAT_YMD.indexOf(countryCode) >= 0) {
+	    format = 'y-m-d';
+	  } else if(DATE_LOCAL_FORMAT_MDY.indexOf(countryCode) >= 0) {
+	    format = 'm/d/y';
+	  } else {
+	    format = 'd.m.y';
+	  }
+
+	  if(fullFormat == true) {
+	    format = format.replace('d', 'dd');
+	    format = format.replace('m', 'mm');
+	    format = format.replace('y', 'yyyy');
+	  }
+
+	  return format;
+	};
+
+	/**
+	 * Get timezone name
+	 *
+	 * @returns {string}
+	 */
+	Date.getTimezoneName = function() {
+	  return new this().toString().match(/\(([^)]+)\)$/)[1];
+	};
+
+	/**
+	 * Returns object with time parts
+	 *
+	 * @example
+	 * // returns { h: 0, m: 1, s: 1, ms: 500 }
+	 * Date.getHms(61500)
+	 * @param time {number} Time to be used
+	 * @returns {Object} Time in stopwatch format
+	 */
+	Date.getHms = function(time) {
+	  var obj = {
+	    h: 0,
+	    m: 0,
+	    s: 0,
+	    ms: 0
+	  };
+
+	  obj.ms = Math.max(0, time % 1000);
+	  time -= obj.ms;
+
+	  time /= 1000;
+	  obj.s = Math.max(0, time % 60);
+	  time -= obj.s;
+
+	  time /= 60;
+	  obj.m = Math.max(0, time % 60);
+	  time -= obj.m;
+
+	  time /= 60;
+	  obj.h = Math.max(0, time);
+
+	  return obj;
+	};
+
+	/**
+	 * Returns given time (in milliseconds) in HMS format
+	 *
+	 * @example
+	 * // returns '1m 5s'
+	 * Date.toHmsFormat(61500)
+	 * @param time {number} Time to be converted
+	 * @param [accuracy=seconds] {string} Accuracy
+	 * @returns {string} Time in HMS format
+	 */
+	Date.toHmsFormat = function(time, accuracy) {
+	  if(typeof accuracy == 'undefined') {
+	    accuracy = 'seconds';
+	  }
+
+	  var obj = Date.getHms(time);
+	  var ret = [];
+
+	  switch(accuracy) {
+	    case 'hours':
+	      ret.push(obj.h + 'h');
+	      break;
+
+	    case 'minutes':
+	      if(obj.h > 0) {
+	        ret.push(obj.h + 'h');
+	      }
+
+	      ret.push(obj.m + 'm');
+	      break;
+
+	    case 'seconds':
+	      if(obj.h > 0) {
+	        ret.push(obj.h + 'h');
+	        ret.push(obj.m + 'm');
+	      } else if(obj.m > 0) {
+	        ret.push(obj.m + 'm');
+	      }
+
+	      ret.push(obj.s + 's');
+	      break
+
+	    default:
+	      throw new TypeError('Unknown accuracy');
+	      break;
+	  }
+
+	  return ret.join(' ');
+	};
+
+	/**
+	 * Returns given time (in milliseconds) in stopwatch format - [HH:]MM:SS.XXX
+	 *
+	 * @example
+	 * // returns '01:01.5'
+	 * Date.toStopwatchFormat(61500)
+	 * @param time {number} Time to be converted
+	 * @returns {string} Time in stopwatch format
+	 */
+	Date.toStopwatchFormat = function(time) {
+	  var obj = Date.getHms(time);
+	  var ret = obj.m.pad(2) + ':' + obj.s.pad(2) + '.' + Math.floor(obj.ms / 100);
+
+	  if(obj.h > 0) {
+	    ret = obj.h.pad(2) + ':' + ret;
+	  }
+
+	  return ret;
+	};
+
+	/**
+	 * Returns given time (in milliseconds) in timer format - [HH:]MM:SS
+	 *
+	 * @example
+	 * // returns '01:01'
+	 * Date.toStopwatchFormat(61500)
+	 * @param time {number} Time to be converted
+	 * @returns {string} Time in timer format
+	 */
+	Date.toTimerFormat = function(time) {
+	  var obj = Date.getHms(time);
+	  var ret = obj.m.pad(2) + ':' + obj.s.pad(2);
+
+	  if(obj.h > 0) {
+	    ret = obj.h.pad(2) + ':' + ret;
+	  }
+
+	  return ret;
+	};
+
+	/**
+	 * Return number of days passed between this Date and given in argument
+	 *
+	 * @param [toDate=now] {(Date|string|number)} Proper date
+	 * @returns {number} Number of days passed
+	 */
+	Date.prototype.daysPassed = function(toDate) {
+	  if(typeof toDate == 'undefined') {
+	    toDate = new Date();
+	  } else if(typeof toDate == 'number' || typeof toDate == 'string') {
+	    toDate = new Date(toDate);
+	  }
+
+	  if(!(toDate instanceof Date)) {
+	    throw new TypeError('toDate is not instance of Date');
+	  }
+
+	  return Math.floor(Math.abs((this.getTime() - toDate.getTime()) / Date.DAY));
+	};
+
+	/**
+	 * Returns this Date in custom date format
+	 *
+	 * @param format {string} String representing date format
+	 * @returns {string} Date string
+	 */
+	Date.prototype.toCustomDate = function(format) {
+	  format = format.replace('d', this.getDate().pad(2));
+	  format = format.replace('m', (this.getMonth() + 1).pad(2));
+	  format = format.replace('y', this.getFullYear());
+
+	  return format;
+	};
+
+	/**
+	 * Returns this Date in UI time string
+	 *
+	 * @param [showSeconds=true] {boolean} Flag if seconds also should be returned
+	 * @returns {string} Time string
+	 */
+	Date.prototype.toUiTime = function(showSeconds) {
+	  if(typeof showSeconds == 'undefined') {
+	    showSeconds = true;
+	  }
+
+	  if(showSeconds) {
+	    showSeconds = ':' + this.getSeconds().pad(2);
+	  } else {
+	    showSeconds = '';
+	  }
+
+	  return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + showSeconds;
+	};
+
+	/**
+	 * Returns this Date in UI date string
+	 *
+	 * @see Date#getLocalDateFormat
+	 * @returns {string} Date string
+	 */
+	Date.prototype.toUiDate = function() {
+	  return this.toCustomDate(Date.getLocalDateFormat(false));
+	};
+
+	/**
+	 * Returns this Date in UI datetime string
+	 *
+	 * @param [showSeconds=true] {boolean} Flag if seconds also should be returned
+	 * @returns {string} Time string
+	 */
+	Date.prototype.toUiDateTime = function(showSeconds) {
+	  return this.toUiDate() + ' ' + this.toUiTime(showSeconds);
+	};
+
+	/**
+	 * Returns this Date in form inputs time string
+	 *
+	 * @returns {string} Time string
+	 */
+	Date.prototype.toInputTimeFormat = function() {
+	  return this.toUiTime(false);
+	};
+
+	/**
+	 * Returns this Date in forms input date string
+	 *
+	 * @returns {string} Date string
+	 */
+	Date.prototype.toInputDateFormat = function() {
+	  return this.toCustomDate('y-m-d');
+	};
+
+	/**
+	 * Add time to this Date
+	 *
+	 * @param time {number} Time to add
+	 * @returns {number} New timestamp of this Date
+	 */
+	Date.prototype.addTime = function(time) {
+	  return this.setTime(this.getTime() + time );
+	};
+
+	function Mash() {
+	  var n = 0xefc8249d;
+
+	  var mash = function(data) {
+	    data = data.toString();
+	    for (var i = 0; i < data.length; i++) {
+	      n += data.charCodeAt(i);
+	      var h = 0.02519603282416938 * n;
+	      n = h >>> 0;
+	      h -= n;
+	      h *= n;
+	      n = h >>> 0;
+	      h -= n;
+	      n += h * 0x100000000; // 2^32
+	    }
+	    return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
+	  };
+
+	  return mash;
+	}
+
+	function MRG32k3a() {
+	  return (function(args) {
+	    var m1 = 4294967087;
+	    var m2 = 4294944443;
+	    var s10 = 12345,
+	      s11 = 12345,
+	      s12 = 123,
+	      s20 = 12345,
+	      s21 = 12345,
+	      s22 = 123;
+
+	    if (args.length === 0) {
+	      args = [+new Date()];
+	    }
+	    var mash = Mash();
+	    for (var i = 0; i < args.length; i++) {
+	      s10 += mash(args[i]) * 0x100000000; // 2 ^ 32
+	      s11 += mash(args[i]) * 0x100000000;
+	      s12 += mash(args[i]) * 0x100000000;
+	      s20 += mash(args[i]) * 0x100000000;
+	      s21 += mash(args[i]) * 0x100000000;
+	      s22 += mash(args[i]) * 0x100000000;
+	    }
+	    s10 %= m1;
+	    s11 %= m1;
+	    s12 %= m1;
+	    s20 %= m2;
+	    s21 %= m2;
+	    s22 %= m2;
+	    mash = null;
+
+	    var uint32 = function() {
+	      var m1 = 4294967087;
+	      var m2 = 4294944443;
+	      var a12 = 1403580;
+	      var a13n = 810728;
+	      var a21 = 527612;
+	      var a23n = 1370589;
+
+	      var k, p1, p2;
+
+	      p1 = a12 * s11 - a13n * s10;
+	      k = p1 / m1 | 0;
+	      p1 -= k * m1;
+	      if (p1 < 0) p1 += m1;
+	      s10 = s11;
+	      s11 = s12;
+	      s12 = p1;
+
+	      p2 = a21 * s22 - a23n * s20;
+	      k = p2 / m2 | 0;
+	      p2 -= k * m2;
+	      if (p2 < 0) p2 += m2;
+	      s20 = s21;
+	      s21 = s22;
+	      s22 = p2;
+
+	      if (p1 <= p2) return p1 - p2 + m1;
+	      else return p1 - p2;
+	    };
+
+	    var random = function() {
+	      return uint32() * 2.3283064365386963e-10; // 2^-32
+	    };
+	    random.uint32 = uint32;
+	    random.fract53 = function() {
+	      return random() +
+	        (uint32() & 0x1fffff) * 1.1102230246251565e-16; // 2^-53
+	    };
+	    random.args = args;
+
+	    return random;
+	  } (Array.prototype.slice.call(arguments)));
+	}
+
+	var MRG32k3a$1 = /*#__PURE__*/Object.freeze({
+		default: MRG32k3a
+	});
+
+	var MRG32k3a$2 = ( MRG32k3a$1 && MRG32k3a ) || MRG32k3a$1;
+
+	/**
+	 * @namespace Math
+	 */
+
+
+	const _MRG32k3a = new MRG32k3a$2();
+
+	/**
+	 * Better alternative to Math.random based on MRG32k2a algorithm
+	 *
+	 * @see {@link http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf|PDF paper about it}
+	 * @returns {number} Random float number between 0 and 1
+	 */
+	Math.rand = function() {
+	  return _MRG32k3a();
+	};
+
+	/**
+	 * Round given number to given scale
+	 *
+	 * @param num {number} Number to round
+	 * @param scale {number} Scale
+	 * @returns {number} Rounded number
+	 */
 	Math.roundTo = function(num, scale) {
 	  if(!("" + num).includes("e")) {
 	    return +(Math.round(num + "e+" + scale)  + "e-" + scale);
@@ -871,27 +1310,43 @@
 	  }
 	};
 
+	/**
+	 * Calculate median of given array of numbers
+	 *
+	 * @param values {number[]} Array of numbers
+	 * @returns {number} Median
+	 */
 	Math.median = function(values) {
 	  if(values.length === 0) {
 	    return 0;
 	  }
 
-	  values.sort(function(a,b) {
-	    return a - b;
-	  });
+	  values.sort((a,b) => a - b);
 
 	  var half = Math.floor(values.length / 2);
 	  return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2;
 	};
 
+	/**
+	 * Sum given array of numbers
+	 *
+	 * @param values {number[]} Array of numbers
+	 * @returns {number} Sum
+	 */
 	Math.sum = function(values) {
 	  if(values.length === 0) {
 	    return 0;
 	  }
 
-	  return values.reduce(function(a, b) { return a + b; });
+	  return values.reduce((a, b) => a + b);
 	};
 
+	/**
+	 * Calculate average of given array of numbers
+	 *
+	 * @param values {number[]} Array of numbers
+	 * @returns {number} Average
+	 */
 	Math.avg = function(values) {
 	  if(values.length === 0) {
 	    return 0;
@@ -900,243 +1355,150 @@
 	  return Math.sum(values) / values.length;
 	};
 
+	/**
+	 * @namespace RegExp
+	 */
+
+	/**
+	 * Escape given string so it can be safely used in RegExp
+	 *
+	 * @param str {string} String to be escaped
+	 * @returns {string} Escaped string
+	 */
 	RegExp.escapeString = function(str) {
 	  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 	};
 
-	Promise.isPromise = function(value) {
-	  return typeof value === 'object' && (value instanceof Promise || typeof value.then === 'function');
+	/**
+	 * @namespace JSON
+	 */
+
+	/**
+	 * Returns verdict if given string is valid JSON or not
+	 *
+	 * @returns {boolean} Verdict
+	 */
+	JSON.isJSONString = function(str) {
+	  try {
+	    JSON.parse(str);
+	  } catch(e) {
+	    return false;
+	  }
+	  return true;
 	};
 
-	var FileSize = {};
-	commonjsGlobal.FileSize = FileSize;
+	/**
+	 * @namespace Promise
+	 */
 
+	/**
+	 * Returns verdict if given subject is Promise or not
+	 *
+	 * @param subject {*} Subject of examination
+	 * @returns {boolean} Verdict
+	 */
+	Promise.isPromise = function(subject) {
+	  return typeof subject === 'object' && (subject instanceof Promise || typeof subject.then === 'function');
+	};
+
+	/**
+	 * Creates a new FileSize
+	 *
+	 * @param bytes {number} Number of bytes
+	 * @constructor
+	 */
+	function FileSize(bytes) {
+
+	  /**
+	   * Number of bytes
+	   * @type {number}
+	   */
+	  this.bytes = bytes;
+
+
+	  /**
+	   * Returns this.bytes as human-readable file size string
+	   *
+	   * @returns {string} Human-readable file size string
+	   */
+	  this.toReadableString = function() {
+	    return FileSize.getReadableString(this.bytes);
+	  };
+
+	}
+	/**
+	 * List of available size units
+	 *
+	 * @constant
+	 * @type {string[]}
+	 */
+	FileSize.UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB'];
+
+	/**
+	 * 1B in bytes
+	 *
+	 * @constant
+	 * @type {number}
+	 */
 	FileSize.B  = 1;
+
+	/**
+	 * 1KB in bytes
+	 *
+	 * @constant
+	 * @type {number}
+	 */
 	FileSize.KB = 1024 * FileSize.B;
+
+	/**
+	 * 1MB in bytes
+	 *
+	 * @constant
+	 * @type {number}
+	 */
 	FileSize.MB = 1024 * FileSize.KB;
+
+	/**
+	 * 1GB in bytes
+	 *
+	 * @constant
+	 * @type {number}
+	 */
 	FileSize.GB = 1024 * FileSize.MB;
+
+	/**
+	 * 1TB in bytes
+	 *
+	 * @constant
+	 * @type {number}
+	 */
 	FileSize.TB = 1024 * FileSize.GB;
 
-	commonjsGlobal.isWebpSupported = false;
+	/**
+	 * 1EB in bytes
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+	FileSize.EB = 1024 * FileSize.TB;
 
-	if(Image != null) {
-	  var img = new Image();
+	/**
+	 * Returns human-readable file size string from given number of bytes
+	 *
+	 * @param bytes {number} Number of bytes
+	 * @returns {string} Human-readable file size string
+	 */
+	FileSize.getReadableString = function(bytes) {
+	  var i;
 
-	  img.onload = function() {
-	    commonjsGlobal.isWebpSupported = img.width > 0 && img.height > 0;
-	  };
+	  for (i = 0; i < FileSize.UNITS.length; i++) {
+	    if(bytes < 1000) break;
+	    bytes /= 1024;
+	  }
 
-	  img.src = 'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==';
-	}
+	  return parseFloat(bytes).toFixed(1) + FileSize.UNITS[i];
+	};
 
-	if(HTMLCanvasElement != null) {
-	  HTMLCanvasElement.prototype.defaultDataType = function() {
-	    if(global.isWebpSupported) {
-	      return 'image/webp';
-	    }
-	    return 'image/jpeg';
-
-	  };
-
-	  HTMLCanvasElement.prototype.toBase64 = function(type) {
-	    if(typeof type == 'undefined') {
-	      type = this.defaultDataType();
-	    }
-
-	    return this.toDataURL(type);
-	  };
-	  HTMLCanvasElement.prototype.toAlphaBase64 = function() {
-	    var type = 'image/png';
-	    if(global.isWebpSupported && false) { // disabled due to https://code.google.com/p/chromium/issues/detail?id=170565 :(
-	      type = 'image/webp';
-	    }
-	    return this.toBase64(type);
-	  };
-
-	  HTMLCanvasElement.prototype.toBlobType = function(callback, type) {
-	    var tmp, binary, arr, i;
-
-	    if(typeof type == 'undefined') {
-	      type = this.defaultDataType();
-	    }
-
-	    // First check if toBlob is supported
-	    if(typeof this.toBlob == 'function') {
-	      // Yep
-	      this.toBlob(callback, type, 0.9);
-
-	    } else {
-	      // Nope
-
-	      // So maybe MS?
-	      if(typeof this.msToBlob == 'function') {
-	        // Yeah!
-	        // This will be PNG file
-	        callback(this.msToBlob());
-
-	      } else {
-	        // OMG...
-	        tmp = this.toBase64(type);
-	        binary = atob(tmp.split(',')[1]);
-	        arr = [];
-	        tmp = binary.length;
-	        for(i = 0; i < tmp; i++) {
-	          arr.push(binary.charCodeAt(i));
-	        }
-
-	        callback(new Blob([new Uint8Array(arr)], {type: type}));
-	      }
-	    }
-	  };
-
-	  // Canvas downscale high quality - By GameAlchemist (MIT Licensed)
-	  // prototype implementation by Marek `marverix` Sierociński
-	  HTMLCanvasElement.prototype.downsize = function(scale) {
-	    var cv, sqScale,
-	      sw, sh, sx, sy, sIndex,
-	      tw, th, tx, tX, ty, tY,
-	      w, nw, wx, nwx, wy, nwy,
-	      crossX, crossY,
-	      yIndex, tIndex,
-	      sBuffer, tBuffer, pxIndex,
-	      sR, sG, sB, sA,
-	      resCV, resCtx, imgRes, tByteBuffer;
-
-	    cv = this;
-	    if (!(scale < 1) || !(scale > 0)) {throw 'scale must be a positive number <1 ';}
-	    sqScale = scale * scale; // square scale = area of source pixel within target
-	    sw = cv.width; // source image width
-	    sh = cv.height; // source image height
-	    tw = Math.floor(sw * scale); // target image width
-	    th = Math.floor(sh * scale); // target image height
-	    // EDIT (credits to @Enric ) : was ceil before, and creating artifacts :
-	    //                           var tw = Math.ceil(sw * scale); // target image width
-	    //                           var th = Math.ceil(sh * scale); // target image height
-	    sx = 0, sy = 0, sIndex = 0; // source x,y, index within source array
-	    tx = 0, ty = 0, yIndex = 0, tIndex = 0; // target x,y, x,y index within target array
-	    tX = 0, tY = 0; // rounded tx, ty
-	    w = 0, nw = 0, wx = 0, nwx = 0, wy = 0, nwy = 0; // weight / next weight x / y
-	    // weight is weight of current source point within target.
-	    // next weight is weight of current source point within next target's point.
-	    crossX = false; // does scaled px cross its current px right border ?
-	    crossY = false; // does scaled px cross its current px bottom border ?
-	    sBuffer = cv.getContext('2d').getImageData(0, 0, sw, sh).data; // source buffer 8 bit rgba
-	    tBuffer = new Float32Array(4 * sw * sh); // target buffer Float32 rgb
-	    sR = sG = sB = sA = 0; // source's current point r,g,b
-
-	    for (sy = 0; sy < sh; sy++) {
-	      ty = sy * scale; // y src position within target
-	      tY = 0 | ty;     // rounded : target pixel's y
-	      yIndex = 4 * tY * tw;  // line index within target array
-	      crossY = tY != (0 | ty + scale);
-	      if (crossY) { // if pixel is crossing botton target pixel
-	        wy = tY + 1 - ty; // weight of point within target pixel
-	        nwy = ty + scale - tY - 1; // ... within y+1 target pixel
-	      }
-	      for (sx = 0; sx < sw; sx++, sIndex += 4) {
-	        tx = sx * scale; // x src position within target
-	        tX = 0 | tx;    // rounded : target pixel's x
-	        tIndex = yIndex + tX * 4; // target pixel index within target array
-	        crossX = tX != (0 | tx + scale);
-	        if (crossX) { // if pixel is crossing target pixel's right
-	          wx = tX + 1 - tx; // weight of point within target pixel
-	          nwx = tx + scale - tX - 1; // ... within x+1 target pixel
-	        }
-	        sR = sBuffer[sIndex ];   // retrieving r,g,b for curr src px.
-	        sG = sBuffer[sIndex + 1];
-	        sB = sBuffer[sIndex + 2];
-	        sA = sBuffer[sIndex + 3];
-
-	        /*
-	         if(!sA) continue;
-	         if (sA != 0xFF) {
-	         sR = (sR * sA) >> 8;
-	         sG = (sG * sA) >> 8;
-	         sB = (sB * sA) >> 8;
-	         }
-	         */
-
-	        if (!crossX && !crossY) { // pixel does not cross
-	          // just add components weighted by squared scale.
-	          tBuffer[tIndex ] += sR * sqScale;
-	          tBuffer[tIndex + 1] += sG * sqScale;
-	          tBuffer[tIndex + 2] += sB * sqScale;
-	          tBuffer[tIndex + 3] += sA * sqScale;
-	        } else if (crossX && !crossY) { // cross on X only
-	          w = wx * scale;
-	          // add weighted component for current px
-	          tBuffer[tIndex ] += sR * w;
-	          tBuffer[tIndex + 1] += sG * w;
-	          tBuffer[tIndex + 2] += sB * w;
-	          tBuffer[tIndex + 3] += sA * w;
-	          // add weighted component for next (tX+1) px
-	          nw = nwx * scale;
-	          tBuffer[tIndex + 4] += sR * nw;
-	          tBuffer[tIndex + 5] += sG * nw;
-	          tBuffer[tIndex + 6] += sB * nw;
-	          tBuffer[tIndex + 7] += sA * nw;
-	        } else if (crossY && !crossX) { // cross on Y only
-	          w = wy * scale;
-	          // add weighted component for current px
-	          tBuffer[tIndex ] += sR * w;
-	          tBuffer[tIndex + 1] += sG * w;
-	          tBuffer[tIndex + 2] += sB * w;
-	          tBuffer[tIndex + 3] += sA * w;
-	          // add weighted component for next (tY+1) px
-	          nw = nwy * scale;
-	          tBuffer[tIndex + 4 * tw ] += sR * nw;
-	          tBuffer[tIndex + 4 * tw + 1] += sG * nw;
-	          tBuffer[tIndex + 4 * tw + 2] += sB * nw;
-	          tBuffer[tIndex + 4 * tw + 3] += sA * nw;
-	        } else { // crosses both x and y : four target points involved
-	          // add weighted component for current px
-	          w = wx * wy;
-	          tBuffer[tIndex ] += sR * w;
-	          tBuffer[tIndex + 1] += sG * w;
-	          tBuffer[tIndex + 2] += sB * w;
-	          tBuffer[tIndex + 3] += sA * w;
-	          // for tX + 1; tY px
-	          nw = nwx * wy;
-	          tBuffer[tIndex + 4] += sR * nw;
-	          tBuffer[tIndex + 5] += sG * nw;
-	          tBuffer[tIndex + 6] += sB * nw;
-	          tBuffer[tIndex + 7] += sA * nw;
-	          // for tX ; tY + 1 px
-	          nw = wx * nwy;
-	          tBuffer[tIndex + 4 * tw ] += sR * nw;
-	          tBuffer[tIndex + 4 * tw + 1] += sG * nw;
-	          tBuffer[tIndex + 4 * tw + 2] += sB * nw;
-	          tBuffer[tIndex + 4 * tw + 3] += sA * nw;
-	          // for tX + 1 ; tY +1 px
-	          nw = nwx * nwy;
-	          tBuffer[tIndex + 4 * tw + 4] += sR * nw;
-	          tBuffer[tIndex + 4 * tw + 5] += sG * nw;
-	          tBuffer[tIndex + 4 * tw + 6] += sB * nw;
-	          tBuffer[tIndex + 4 * tw + 7] += sA * nw;
-	        }
-	      } // end for sx
-	    } // end for sy
-
-	    // create result canvas
-	    resCV = document.createElement('canvas');
-	    resCV.width = tw;
-	    resCV.height = th;
-	    resCtx = resCV.getContext('2d');
-	    imgRes = resCtx.getImageData(0, 0, tw, th);
-	    tByteBuffer = imgRes.data;
-	    // convert float32 array into a UInt8Clamped Array
-	    pxIndex = 0; //
-	    for (sIndex = 0, tIndex = 0; pxIndex < tw * th; sIndex += 4, tIndex += 4, pxIndex++) {
-	      tByteBuffer[tIndex] = Math.ceil(tBuffer[sIndex]);
-	      tByteBuffer[tIndex + 1] = Math.ceil(tBuffer[sIndex + 1]);
-	      tByteBuffer[tIndex + 2] = Math.ceil(tBuffer[sIndex + 2]);
-	      tByteBuffer[tIndex + 3] = Math.ceil(tBuffer[sIndex + 3]);
-	    }
-	    // writing result to canvas.
-	    resCtx.putImageData(imgRes, 0, 0);
-
-	    return resCV;
-	  };
-	}
+	commonjsGlobal.FileSize = FileSize;
 
 })));

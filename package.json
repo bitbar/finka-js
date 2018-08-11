@@ -1,11 +1,12 @@
 {
   "name": "finka-js",
-  "version": "0.1.1",
+  "version": "0.9.0",
   "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.min.js",
   "scripts": {
     "build": "npx rollup -c",
-    "test": "npx mocha"
+    "test": "npx mocha",
+    "docs": "npx jsdoc -c jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,8 @@
   },
   "homepage": "https://github.com/bitbar/finka-js#readme",
   "devDependencies": {
+    "jsdoc": "^3.5.5",
+    "jsdoc-rtd": "^1.0.15",
     "mocha": "^5.1.1",
     "rollup": "^0.58.2",
     "rollup-plugin-commonjs": "^9.1.3",
