@@ -1,4 +1,4 @@
-/* Finka.js v0.9.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v0.10.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -586,6 +586,16 @@
 	/**
 	 * @namespace Object
 	 */
+
+	/**
+	 * Returns verdict if given subject is Object or not
+	 *
+	 * @param subject {*} Subject of examination
+	 * @returns {boolean} Verdict
+	 */
+	Object.isObject = function(subject) {
+	  return subject !== null && typeof subject === 'object';
+	};
 
 	/**
 	 * Copy key and values from src Object to dst  Object

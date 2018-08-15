@@ -3,6 +3,16 @@
  */
 
 /**
+ * Returns verdict if given subject is Object or not
+ *
+ * @param subject {*} Subject of examination
+ * @returns {boolean} Verdict
+ */
+Object.isObject = function(subject) {
+  return subject !== null && typeof subject === 'object';
+};
+
+/**
  * Copy key and values from src Object to dst  Object
  *
  * @param src {Object} Source
