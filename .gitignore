@@ -1,6 +1,7 @@
-# Common
+# npm
 node_modules/
 package-lock.json
+*.tgz
 
 # IDE
 .vscode/
