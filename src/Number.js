@@ -5,7 +5,7 @@
 /**
  * Check if given number is integer
  *
- * @param n {number} Number to check
+ * @param {number} n Number to check
  * @returns {boolean} Verdict
  */
 Number.isInt = function(n) {
@@ -15,7 +15,7 @@ Number.isInt = function(n) {
 /**
  * Check if given number is float
  *
- * @param n {number} Number to check
+ * @param {number} n Number to check
  * @returns {boolean} Verdict
  */
 Number.isFloat = function(n){
@@ -25,7 +25,7 @@ Number.isFloat = function(n){
 /**
  * Returns string padded with leading zeros to length equal given length
  *
- * @param length {number} Length to which should be number padded
+ * @param {number} length Length to which should be number padded
  * @returns {string} Padded string
  */
 Number.prototype.pad = function(length) {

@@ -106,7 +106,7 @@
 /**
  * Returns verdict if given subject is Object or not
  *
- * @param subject {*} Subject of examination
+ * @param {*} subject Subject of examination
  * @returns {boolean} Verdict
  */
 Object.isObject = function(subject) {
@@ -116,17 +116,19 @@ Object.isObject = function(subject) {
 /**
  * Copy key and values from src Object to dst  Object
  *
- * @param src {Object} Source
- * @param dst {Object} Destination
- * @param [what] {(Array|null)} What should be copied? By default those are all keys and values from source
+ * @param {Object} src Source
+ * @param {Object} dst Destination
+ * @param {(Array|null)} [what] What should be copied? By default those are all keys and values from source
+ * @returns {void}
  */
 Object.copy = function(src, dst, what) {
+  var i;
   if(what == null || what.length == 0) {
-    for(var i in src) {
+    for(i in src) {
       dst[i] = src[i];
     }
   } else {
-    for(var i = 0; i &lt; what.length; i++) {
+    for(i = 0; i &lt; what.length; i++) {
       dst[what[i]] = src[what[i]];
     }
   }
@@ -135,8 +137,8 @@ Object.copy = function(src, dst, what) {
 /**
  * Returns verdict if subject match query
  *
- * @param subject {Object} Subject of examination
- * @param query {Object|*} Query - if object then will compare each key of query with subject,
+ * @param {Object} subject Subject of examination
+ * @param {Object|*} query Query - if object then will compare each key of query with subject,
  * otherwise will just use standard comparator
  * @returns {boolean} Verdict
  */
@@ -160,12 +162,12 @@ Object.isLike = function(subject, query) {
 /**
  * Count number of items in given subject
  *
- * @param subject {Object} Subject of examination
+ * @param {Object} subject Subject of examination
  * @returns {number} Number of items
  */
 Object.count = function(subject) {
   var items = 0;
-  for(let i in subject) {
+  for(var i in subject) {
     if(subject.hasOwnProperty(i)) {
       items += 1;
     }

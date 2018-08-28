@@ -1,6 +1,6 @@
 {
   "name": "finka",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.js",
   "scripts": {
@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/bitbar/finka-js#readme",
   "devDependencies": {
+    "eslint": "^5.4.0",
     "jsdoc": "^3.5.5",
     "jsdoc-rtd": "^1.0.15",
     "mocha": "^5.1.1",

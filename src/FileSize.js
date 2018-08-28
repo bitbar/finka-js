@@ -1,7 +1,7 @@
 /**
  * Creates a new FileSize
  *
- * @param bytes {number} Number of bytes
+ * @param {number} bytes Number of bytes
  * @constructor
  */
 function FileSize(bytes) {
@@ -22,7 +22,7 @@ function FileSize(bytes) {
     return FileSize.getReadableString(this.bytes);
   };
 
-};
+}
 
 /**
  * List of available size units
@@ -38,7 +38,7 @@ FileSize.UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB'];
  * @constant
  * @type {number}
  */
-FileSize.B  = 1;
+FileSize.B = 1;
 
 /**
  * 1KB in bytes
@@ -83,7 +83,7 @@ FileSize.EB = 1024 * FileSize.TB;
 /**
  * Returns human-readable file size string from given number of bytes
  *
- * @param bytes {number} Number of bytes
+ * @param {number} bytes Number of bytes
  * @returns {string} Human-readable file size string
  */
 FileSize.getReadableString = function(bytes) {

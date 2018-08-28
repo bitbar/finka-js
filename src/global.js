@@ -45,7 +45,7 @@ global.getCountry = function() {
     country = navigator.language;
 
     if(country.length < 3 && navigator.languages) {
-      for(let i = 0; i < navigator.languages.length; i++) {
+      for(var i = 0; i < navigator.languages.length; i++) {
         if(navigator.languages[i].length > 2) {
           country = navigator.languages[i];
           break;
@@ -54,7 +54,7 @@ global.getCountry = function() {
     }
   }
 
-  var country = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
+  country = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
   if(country != null) {
     country = country[1];
   }
@@ -66,7 +66,7 @@ global.getCountry = function() {
  * Check if given argument is numeric
  *
  * @global
- * @param n {*} Subject of examination
+ * @param {*} n Subject of examination
  * @returns {boolean} Verdict
  */
 global.isNumeric = function(n) {
@@ -77,7 +77,7 @@ global.isNumeric = function(n) {
  * Parse value to proper type
  *
  * @global
- * @param value {*} Value to be parsed
+ * @param {*} value Value to be parsed
  * @returns {*} Parsed value
  */
 global.parseValue = function(value) {

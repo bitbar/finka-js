@@ -1,4 +1,4 @@
-/* Finka.js v1.0.1 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v1.1.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -244,7 +244,7 @@
 	    country = navigator.language;
 
 	    if(country.length < 3 && navigator.languages) {
-	      for(let i = 0; i < navigator.languages.length; i++) {
+	      for(var i = 0; i < navigator.languages.length; i++) {
 	        if(navigator.languages[i].length > 2) {
 	          country = navigator.languages[i];
 	          break;
@@ -253,7 +253,7 @@
 	    }
 	  }
 
-	  var country = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
+	  country = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
 	  if(country != null) {
 	    country = country[1];
 	  }
@@ -265,7 +265,7 @@
 	 * Check if given argument is numeric
 	 *
 	 * @global
-	 * @param n {*} Subject of examination
+	 * @param {*} n Subject of examination
 	 * @returns {boolean} Verdict
 	 */
 	commonjsGlobal.isNumeric = function(n) {
@@ -276,7 +276,7 @@
 	 * Parse value to proper type
 	 *
 	 * @global
-	 * @param value {*} Value to be parsed
+	 * @param {*} value Value to be parsed
 	 * @returns {*} Parsed value
 	 */
 	commonjsGlobal.parseValue = function(value) {
@@ -319,6 +319,8 @@
 	/**
 	 * Returns result of logic XOR operation between a and b arguments
 	 *
+	 * @param {boolean} a A
+	 * @param {boolean} b B
 	 * @returns {boolean} Result
 	 */
 	Boolean.xor = function(a, b) {
@@ -332,7 +334,7 @@
 	/**
 	 * Check if given number is integer
 	 *
-	 * @param n {number} Number to check
+	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
 	Number.isInt = function(n) {
@@ -342,7 +344,7 @@
 	/**
 	 * Check if given number is float
 	 *
-	 * @param n {number} Number to check
+	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
 	Number.isFloat = function(n){
@@ -352,7 +354,7 @@
 	/**
 	 * Returns string padded with leading zeros to length equal given length
 	 *
-	 * @param length {number} Length to which should be number padded
+	 * @param {number} length Length to which should be number padded
 	 * @returns {string} Padded string
 	 */
 	Number.prototype.pad = function(length) {
@@ -376,8 +378,8 @@
 	 * Calculate edit distance between string a and b
 	 *
 	 * @see {@link https://en.wikipedia.org/wiki/Edit_distance|Article on Wikipedia}
-	 * @param a {string} A
-	 * @param b {string} B
+	 * @param {string} a A
+	 * @param {string} b B
 	 * @returns {number} Distance
 	 */
 	String.editDistance = function(a, b) {
@@ -417,8 +419,8 @@
 	 * Get similarity ratio based on edit distance
 	 *
 	 * @see {@link String.editDistance}
-	 * @param a {string} A
-	 * @param b {string} B
+	 * @param {string} a A
+	 * @param {string} b B
 	 * @returns {number} Ratio
 	 */
 	String.getSimilarity = function(a, b) {
@@ -429,7 +431,7 @@
 	/**
 	 * Returns string with capitalised first letter
 	 *
-	 * @param [lower=false] {boolean} Flag if should lower all letters first
+	 * @param {boolean} [lower=false] Flag if should lower all letters first
 	 * @returns {string} New string
 	 */
 	String.prototype.capitaliseFirstLetter = function(lower) {
@@ -466,7 +468,7 @@
 	  value = value.lowerFirstLetter();
 
 	  // clean camel case
-	  value = value.replace(/[A-Z][a-z]/g, function(m)  { return ' ' + m.toLowerCase(); });
+	  value = value.replace(/[A-Z][a-z]/g, function(m) { return ' ' + m.toLowerCase(); });
 	  value = value.replace(/([a-z])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
 
 	  return value;
@@ -555,7 +557,7 @@
 	/**
 	 * Check if string is like given query (you can use regexp notation)
 	 *
-	 * @param query {string} Query
+	 * @param {string} query Query
 	 * @returns {boolean} Verdict
 	 */
 	String.prototype.isLike = function(query) {
@@ -566,20 +568,18 @@
 	  /**
 	   * Polyfill for ECMAScript 2015 for String.prototype.includes
 	   *
-	   * @param search {string} Search for
-	   * @param [start=0] {number} Searching start position
+	   * @param {string} search Search for
+	   * @param {number} [start=0] Searching start position
 	   * @returns {boolean} Verdict
 	   */
 	  String.prototype.includes = function(search, start) {
-	    if (typeof start !== 'number') {
-	      start = 0;
-	    }
+	    var _start = typeof start !== 'number' ? 0 : start;
 
-	    if (start + search.length > this.length) {
+	    if (_start + search.length > this.length) {
 	      return false;
-	    } else {
-	      return this.indexOf(search, start) !== -1;
 	    }
+	    
+	    return this.indexOf(search, _start) !== -1;
 	  };
 	}
 
@@ -590,7 +590,7 @@
 	/**
 	 * Returns verdict if given subject is Object or not
 	 *
-	 * @param subject {*} Subject of examination
+	 * @param {*} subject Subject of examination
 	 * @returns {boolean} Verdict
 	 */
 	Object.isObject = function(subject) {
@@ -600,17 +600,19 @@
 	/**
 	 * Copy key and values from src Object to dst  Object
 	 *
-	 * @param src {Object} Source
-	 * @param dst {Object} Destination
-	 * @param [what] {(Array|null)} What should be copied? By default those are all keys and values from source
+	 * @param {Object} src Source
+	 * @param {Object} dst Destination
+	 * @param {(Array|null)} [what] What should be copied? By default those are all keys and values from source
+	 * @returns {void}
 	 */
 	Object.copy = function(src, dst, what) {
+	  var i;
 	  if(what == null || what.length == 0) {
-	    for(var i in src) {
+	    for(i in src) {
 	      dst[i] = src[i];
 	    }
 	  } else {
-	    for(var i = 0; i < what.length; i++) {
+	    for(i = 0; i < what.length; i++) {
 	      dst[what[i]] = src[what[i]];
 	    }
 	  }
@@ -619,8 +621,8 @@
 	/**
 	 * Returns verdict if subject match query
 	 *
-	 * @param subject {Object} Subject of examination
-	 * @param query {Object|*} Query - if object then will compare each key of query with subject,
+	 * @param {Object} subject Subject of examination
+	 * @param {Object|*} query Query - if object then will compare each key of query with subject,
 	 * otherwise will just use standard comparator
 	 * @returns {boolean} Verdict
 	 */
@@ -644,12 +646,12 @@
 	/**
 	 * Count number of items in given subject
 	 *
-	 * @param subject {Object} Subject of examination
+	 * @param {Object} subject Subject of examination
 	 * @returns {number} Number of items
 	 */
 	Object.count = function(subject) {
 	  var items = 0;
-	  for(let i in subject) {
+	  for(var i in subject) {
 	    if(subject.hasOwnProperty(i)) {
 	      items += 1;
 	    }
@@ -664,8 +666,8 @@
 	/**
 	 * Sort array of objects
 	 *
-	 * @param arr {Object[]} Array of objects that should be sorted
-	 * @param propertyName {string} Name of property by which sorting will be done
+	 * @param {Object[]} arr Array of objects that should be sorted
+	 * @param {string} propertyName Name of property by which sorting will be done
 	 * @param [descending=false] {boolean} Flag to sort in descending order
 	 */
 	Array.sortArrayOfObjects = function(arr, propertyName, descending) {
@@ -711,7 +713,7 @@
 	/**
 	 * Wrap in Array if @param is not an Array already
 	 *
-	 * @param something {(*|Array)} Something that should be an Array
+	 * @param {(*|Array)} something Something that should be an Array
 	 * @returns {Array}
 	 */
 	Array.wrap = function(something) {
@@ -731,7 +733,7 @@
 	/**
 	 * Absorb (push) every item of given array to this Array
 	 *
-	 * @param arr {Array} Array to be absorbed
+	 * @param {Array} arr Array to be absorbed
 	 * @returns {Array} this
 	 */
 	Array.prototype.absorb = function(arr) {
@@ -742,7 +744,7 @@
 	/**
 	 * Returns the difference between this Array and given in argument
 	 *
-	 * @param arr {Array} Array to compare
+	 * @param {Array} arr Array to compare
 	 * @returns {Array} Array with elements that are different
 	 */
 	Array.prototype.diff = function(arr) {
@@ -761,11 +763,11 @@
 	/**
 	 * Look for index of item matching to query
 	 *
-	 * @param query {Object} Query
+	 * @param {Object} query Query
 	 * @returns {number} Index of matching index; -1 if not found
 	 */
 	Array.prototype.lookFor = function(query) {
-	  for(let i = 0; i < this.length; i++) {
+	  for(var i = 0; i < this.length; i++) {
 	    if(Object.isLike(this[i], query)) {
 	      return i;
 	    }
@@ -778,15 +780,15 @@
 	 * Returns the new array based on current one by filtering according to query
 	 *
 	 * @see Object#isLike
-	 * @param query {Object} Query
+	 * @param {Object} query Query
 	 * @returns {Array} New Array with matching elements
 	 */
 	Array.prototype.filterLike = function(query) {
 	  if(query == null) {
 	    return [];
-	  } else {
-	    return this.filter(function(item) { return Object.isLike(item, query); });
 	  }
+	  
+	  return this.filter(function(item) { return Object.isLike(item, query); });
 	};
 
 	/**
@@ -797,8 +799,9 @@
 	Array.prototype.unique = function() {
 	  for(var i = 0; i < this.length; ++i) {
 	    for(var j = i + 1; j < this.length; ++j) {
-	      if(this[i] === this[j])
+	      if(this[i] === this[j]) {
 	        this.splice(j--, 1);
+	      }
 	    }
 	  }
 
@@ -825,8 +828,8 @@
 	 * @namespace Date
 	 */
 
-	const DATE_LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
-	const DATE_LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
+	var DATE_LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
+	var DATE_LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
 
 	/**
 	 * Second in milliseconds
@@ -866,7 +869,7 @@
 	 * @constant
 	 * @type {number}
 	 */
-	Date.WEEK = 7  * Date.DAY;
+	Date.WEEK = 7 * Date.DAY;
 
 	/**
 	 * Today in milliseconds
@@ -903,7 +906,7 @@
 	/**
 	 * Return timestamp of now + days
 	 *
-	 * @param days {number} Number of days difference
+	 * @param {number} days Number of days difference
 	 * @returns {number} Timestamp
 	 */
 	Date.daysFromNow = function(days) {
@@ -913,7 +916,7 @@
 	/**
 	 * Get local date format
 	 *
-	 * @param [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
+	 * @param {boolean} [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
 	 * @returns {string} Local date format
 	 */
 	Date.getLocalDateFormat = function(fullFormat) {
@@ -949,7 +952,7 @@
 	/**
 	 * Get timezone name
 	 *
-	 * @returns {string}
+	 * @returns {string} Timezone
 	 */
 	Date.getTimezoneName = function() {
 	  return new this().toString().match(/\(([^)]+)\)$/)[1];
@@ -961,7 +964,7 @@
 	 * @example
 	 * // returns { h: 0, m: 1, s: 1, ms: 500 }
 	 * Date.getHms(61500)
-	 * @param time {number} Time to be used
+	 * @param {number} time Time to be used
 	 * @returns {Object} Time in stopwatch format
 	 */
 	Date.getHms = function(time) {
@@ -995,8 +998,8 @@
 	 * @example
 	 * // returns '1m 5s'
 	 * Date.toHmsFormat(61500)
-	 * @param time {number} Time to be converted
-	 * @param [accuracy=seconds] {string} Accuracy
+	 * @param {number} time Time to be converted
+	 * @param {string} [accuracy=seconds] Accuracy
 	 * @returns {string} Time in HMS format
 	 */
 	Date.toHmsFormat = function(time, accuracy) {
@@ -1029,11 +1032,10 @@
 	      }
 
 	      ret.push(obj.s + 's');
-	      break
+	      break;
 
 	    default:
 	      throw new TypeError('Unknown accuracy');
-	      break;
 	  }
 
 	  return ret.join(' ');
@@ -1045,7 +1047,7 @@
 	 * @example
 	 * // returns '01:01.5'
 	 * Date.toStopwatchFormat(61500)
-	 * @param time {number} Time to be converted
+	 * @param {number} time Time to be converted
 	 * @returns {string} Time in stopwatch format
 	 */
 	Date.toStopwatchFormat = function(time) {
@@ -1065,7 +1067,7 @@
 	 * @example
 	 * // returns '01:01'
 	 * Date.toStopwatchFormat(61500)
-	 * @param time {number} Time to be converted
+	 * @param {number} time Time to be converted
 	 * @returns {string} Time in timer format
 	 */
 	Date.toTimerFormat = function(time) {
@@ -1082,7 +1084,7 @@
 	/**
 	 * Return number of days passed between this Date and given in argument
 	 *
-	 * @param [toDate=now] {(Date|string|number)} Proper date
+	 * @param {(Date|string|number)} [toDate=now] Proper date
 	 * @returns {number} Number of days passed
 	 */
 	Date.prototype.daysPassed = function(toDate) {
@@ -1102,7 +1104,7 @@
 	/**
 	 * Returns this Date in custom date format
 	 *
-	 * @param format {string} String representing date format
+	 * @param {string} format String representing date format
 	 * @returns {string} Date string
 	 */
 	Date.prototype.toCustomDate = function(format) {
@@ -1116,7 +1118,7 @@
 	/**
 	 * Returns this Date in UI time string
 	 *
-	 * @param [showSeconds=true] {boolean} Flag if seconds also should be returned
+	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
 	 * @returns {string} Time string
 	 */
 	Date.prototype.toUiTime = function(showSeconds) {
@@ -1146,7 +1148,7 @@
 	/**
 	 * Returns this Date in UI datetime string
 	 *
-	 * @param [showSeconds=true] {boolean} Flag if seconds also should be returned
+	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
 	 * @returns {string} Time string
 	 */
 	Date.prototype.toUiDateTime = function(showSeconds) {
@@ -1174,7 +1176,7 @@
 	/**
 	 * Add time to this Date
 	 *
-	 * @param time {number} Time to add
+	 * @param {number} time Time to add
 	 * @returns {number} New timestamp of this Date
 	 */
 	Date.prototype.addTime = function(time) {
@@ -1288,7 +1290,7 @@
 	 */
 
 
-	const _MRG32k3a = new MRG32k3a$2();
+	var _MRG32k3a = new MRG32k3a$2();
 
 	/**
 	 * Better alternative to Math.random based on MRG32k2a algorithm
@@ -1303,27 +1305,26 @@
 	/**
 	 * Round given number to given scale
 	 *
-	 * @param num {number} Number to round
-	 * @param scale {number} Scale
+	 * @param {number} num Number to round
+	 * @param {number} scale Scale
 	 * @returns {number} Rounded number
 	 */
 	Math.roundTo = function(num, scale) {
-	  if(!("" + num).includes("e")) {
-	    return +(Math.round(num + "e+" + scale)  + "e-" + scale);
-	  } else {
-	    var arr = ("" + num).split("e");
-	    var sig = "";
-	    if(+arr[1] + scale > 0) {
-	      sig = "+";
-	    }
-	    return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
+	  if(!('' + num).includes('e')) {
+	    return +(Math.round(num + 'e+' + scale) + 'e-' + scale);
 	  }
+	  var arr = ('' + num).split('e');
+	  var sig = '';
+	  if(+arr[1] + scale > 0) {
+	    sig = '+';
+	  }
+	  return +(Math.round(+arr[0] + 'e' + sig + (+arr[1] + scale)) + 'e-' + scale);
 	};
 
 	/**
 	 * Calculate median of given array of numbers
 	 *
-	 * @param values {number[]} Array of numbers
+	 * @param {number[]} values Array of numbers
 	 * @returns {number} Median
 	 */
 	Math.median = function(values) {
@@ -1340,7 +1341,7 @@
 	/**
 	 * Sum given array of numbers
 	 *
-	 * @param values {number[]} Array of numbers
+	 * @param {number[]} values Array of numbers
 	 * @returns {number} Sum
 	 */
 	Math.sum = function(values) {
@@ -1354,7 +1355,7 @@
 	/**
 	 * Calculate average of given array of numbers
 	 *
-	 * @param values {number[]} Array of numbers
+	 * @param {number[]} values Array of numbers
 	 * @returns {number} Average
 	 */
 	Math.avg = function(values) {
@@ -1372,7 +1373,7 @@
 	/**
 	 * Escape given string so it can be safely used in RegExp
 	 *
-	 * @param str {string} String to be escaped
+	 * @param {string} str String to be escaped
 	 * @returns {string} Escaped string
 	 */
 	RegExp.escapeString = function(str) {
@@ -1386,6 +1387,7 @@
 	/**
 	 * Returns verdict if given string is valid JSON or not
 	 *
+	 * @param {string} str JSON string to be checked
 	 * @returns {boolean} Verdict
 	 */
 	JSON.isJSONString = function(str) {
@@ -1404,7 +1406,7 @@
 	/**
 	 * Returns verdict if given subject is Promise or not
 	 *
-	 * @param subject {*} Subject of examination
+	 * @param {*} subject Subject of examination
 	 * @returns {boolean} Verdict
 	 */
 	Promise.isPromise = function(subject) {
@@ -1414,7 +1416,7 @@
 	/**
 	 * Creates a new FileSize
 	 *
-	 * @param bytes {number} Number of bytes
+	 * @param {number} bytes Number of bytes
 	 * @constructor
 	 */
 	function FileSize(bytes) {
@@ -1436,6 +1438,7 @@
 	  };
 
 	}
+
 	/**
 	 * List of available size units
 	 *
@@ -1450,7 +1453,7 @@
 	 * @constant
 	 * @type {number}
 	 */
-	FileSize.B  = 1;
+	FileSize.B = 1;
 
 	/**
 	 * 1KB in bytes
@@ -1495,7 +1498,7 @@
 	/**
 	 * Returns human-readable file size string from given number of bytes
 	 *
-	 * @param bytes {number} Number of bytes
+	 * @param {number} bytes Number of bytes
 	 * @returns {string} Human-readable file size string
 	 */
 	FileSize.getReadableString = function(bytes) {

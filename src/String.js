@@ -6,8 +6,8 @@
  * Calculate edit distance between string a and b
  *
  * @see {@link https://en.wikipedia.org/wiki/Edit_distance|Article on Wikipedia}
- * @param a {string} A
- * @param b {string} B
+ * @param {string} a A
+ * @param {string} b B
  * @returns {number} Distance
  */
 String.editDistance = function(a, b) {
@@ -47,8 +47,8 @@ String.editDistance = function(a, b) {
  * Get similarity ratio based on edit distance
  *
  * @see {@link String.editDistance}
- * @param a {string} A
- * @param b {string} B
+ * @param {string} a A
+ * @param {string} b B
  * @returns {number} Ratio
  */
 String.getSimilarity = function(a, b) {
@@ -59,7 +59,7 @@ String.getSimilarity = function(a, b) {
 /**
  * Returns string with capitalised first letter
  *
- * @param [lower=false] {boolean} Flag if should lower all letters first
+ * @param {boolean} [lower=false] Flag if should lower all letters first
  * @returns {string} New string
  */
 String.prototype.capitaliseFirstLetter = function(lower) {
@@ -96,7 +96,7 @@ String.prototype.noCase = function() {
   value = value.lowerFirstLetter();
 
   // clean camel case
-  value = value.replace(/[A-Z][a-z]/g, function(m)  { return ' ' + m.toLowerCase(); });
+  value = value.replace(/[A-Z][a-z]/g, function(m) { return ' ' + m.toLowerCase(); });
   value = value.replace(/([a-z])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
 
   return value;
@@ -185,7 +185,7 @@ String.prototype.reverse = function() {
 /**
  * Check if string is like given query (you can use regexp notation)
  *
- * @param query {string} Query
+ * @param {string} query Query
  * @returns {boolean} Verdict
  */
 String.prototype.isLike = function(query) {
@@ -196,19 +196,17 @@ if(typeof String.prototype.includes != 'function') {
   /**
    * Polyfill for ECMAScript 2015 for String.prototype.includes
    *
-   * @param search {string} Search for
-   * @param [start=0] {number} Searching start position
+   * @param {string} search Search for
+   * @param {number} [start=0] Searching start position
    * @returns {boolean} Verdict
    */
   String.prototype.includes = function(search, start) {
-    if (typeof start !== 'number') {
-      start = 0;
-    }
+    var _start = typeof start !== 'number' ? 0 : start;
 
-    if (start + search.length > this.length) {
+    if (_start + search.length > this.length) {
       return false;
-    } else {
-      return this.indexOf(search, start) !== -1;
     }
+    
+    return this.indexOf(search, _start) !== -1;
   };
 }

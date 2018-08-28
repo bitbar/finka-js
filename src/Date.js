@@ -2,8 +2,8 @@
  * @namespace Date
  */
 
-const DATE_LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
-const DATE_LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
+var DATE_LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
+var DATE_LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
 
 /**
  * Second in milliseconds
@@ -43,7 +43,7 @@ Date.DAY = 24 * Date.HOUR;
  * @constant
  * @type {number}
  */
-Date.WEEK = 7  * Date.DAY;
+Date.WEEK = 7 * Date.DAY;
 
 /**
  * Today in milliseconds
@@ -80,7 +80,7 @@ Date.DAYAFTERTOMORROW = Date.TOMORROW + Date.DAY;
 /**
  * Return timestamp of now + days
  *
- * @param days {number} Number of days difference
+ * @param {number} days Number of days difference
  * @returns {number} Timestamp
  */
 Date.daysFromNow = function(days) {
@@ -90,7 +90,7 @@ Date.daysFromNow = function(days) {
 /**
  * Get local date format
  *
- * @param [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
+ * @param {boolean} [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
  * @returns {string} Local date format
  */
 Date.getLocalDateFormat = function(fullFormat) {
@@ -126,7 +126,7 @@ Date.getLocalDateFormat = function(fullFormat) {
 /**
  * Get timezone name
  *
- * @returns {string}
+ * @returns {string} Timezone
  */
 Date.getTimezoneName = function() {
   return new this().toString().match(/\(([^)]+)\)$/)[1];
@@ -138,7 +138,7 @@ Date.getTimezoneName = function() {
  * @example
  * // returns { h: 0, m: 1, s: 1, ms: 500 }
  * Date.getHms(61500)
- * @param time {number} Time to be used
+ * @param {number} time Time to be used
  * @returns {Object} Time in stopwatch format
  */
 Date.getHms = function(time) {
@@ -172,8 +172,8 @@ Date.getHms = function(time) {
  * @example
  * // returns '1m 5s'
  * Date.toHmsFormat(61500)
- * @param time {number} Time to be converted
- * @param [accuracy=seconds] {string} Accuracy
+ * @param {number} time Time to be converted
+ * @param {string} [accuracy=seconds] Accuracy
  * @returns {string} Time in HMS format
  */
 Date.toHmsFormat = function(time, accuracy) {
@@ -206,11 +206,10 @@ Date.toHmsFormat = function(time, accuracy) {
       }
 
       ret.push(obj.s + 's');
-      break
+      break;
 
     default:
       throw new TypeError('Unknown accuracy');
-      break;
   }
 
   return ret.join(' ');
@@ -222,7 +221,7 @@ Date.toHmsFormat = function(time, accuracy) {
  * @example
  * // returns '01:01.5'
  * Date.toStopwatchFormat(61500)
- * @param time {number} Time to be converted
+ * @param {number} time Time to be converted
  * @returns {string} Time in stopwatch format
  */
 Date.toStopwatchFormat = function(time) {
@@ -242,7 +241,7 @@ Date.toStopwatchFormat = function(time) {
  * @example
  * // returns '01:01'
  * Date.toStopwatchFormat(61500)
- * @param time {number} Time to be converted
+ * @param {number} time Time to be converted
  * @returns {string} Time in timer format
  */
 Date.toTimerFormat = function(time) {
@@ -259,7 +258,7 @@ Date.toTimerFormat = function(time) {
 /**
  * Return number of days passed between this Date and given in argument
  *
- * @param [toDate=now] {(Date|string|number)} Proper date
+ * @param {(Date|string|number)} [toDate=now] Proper date
  * @returns {number} Number of days passed
  */
 Date.prototype.daysPassed = function(toDate) {
@@ -279,7 +278,7 @@ Date.prototype.daysPassed = function(toDate) {
 /**
  * Returns this Date in custom date format
  *
- * @param format {string} String representing date format
+ * @param {string} format String representing date format
  * @returns {string} Date string
  */
 Date.prototype.toCustomDate = function(format) {
@@ -293,7 +292,7 @@ Date.prototype.toCustomDate = function(format) {
 /**
  * Returns this Date in UI time string
  *
- * @param [showSeconds=true] {boolean} Flag if seconds also should be returned
+ * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
  * @returns {string} Time string
  */
 Date.prototype.toUiTime = function(showSeconds) {
@@ -323,7 +322,7 @@ Date.prototype.toUiDate = function() {
 /**
  * Returns this Date in UI datetime string
  *
- * @param [showSeconds=true] {boolean} Flag if seconds also should be returned
+ * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
  * @returns {string} Time string
  */
 Date.prototype.toUiDateTime = function(showSeconds) {
@@ -351,7 +350,7 @@ Date.prototype.toInputDateFormat = function() {
 /**
  * Add time to this Date
  *
- * @param time {number} Time to add
+ * @param {number} time Time to add
  * @returns {number} New timestamp of this Date
  */
 Date.prototype.addTime = function(time) {

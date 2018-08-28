@@ -2,8 +2,8 @@
  * @namespace Math
  */
 
-const MRG32k3a = require('./MRG32k3a');
-const _MRG32k3a = new MRG32k3a();
+var MRG32k3a = require('./MRG32k3a');
+var _MRG32k3a = new MRG32k3a();
 
 /**
  * Better alternative to Math.random based on MRG32k2a algorithm
@@ -18,27 +18,26 @@ Math.rand = function() {
 /**
  * Round given number to given scale
  *
- * @param num {number} Number to round
- * @param scale {number} Scale
+ * @param {number} num Number to round
+ * @param {number} scale Scale
  * @returns {number} Rounded number
  */
 Math.roundTo = function(num, scale) {
-  if(!("" + num).includes("e")) {
-    return +(Math.round(num + "e+" + scale)  + "e-" + scale);
-  } else {
-    var arr = ("" + num).split("e");
-    var sig = ""
-    if(+arr[1] + scale > 0) {
-      sig = "+";
-    }
-    return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
+  if(!('' + num).includes('e')) {
+    return +(Math.round(num + 'e+' + scale) + 'e-' + scale);
   }
+  var arr = ('' + num).split('e');
+  var sig = '';
+  if(+arr[1] + scale > 0) {
+    sig = '+';
+  }
+  return +(Math.round(+arr[0] + 'e' + sig + (+arr[1] + scale)) + 'e-' + scale);
 };
 
 /**
  * Calculate median of given array of numbers
  *
- * @param values {number[]} Array of numbers
+ * @param {number[]} values Array of numbers
  * @returns {number} Median
  */
 Math.median = function(values) {
@@ -55,7 +54,7 @@ Math.median = function(values) {
 /**
  * Sum given array of numbers
  *
- * @param values {number[]} Array of numbers
+ * @param {number[]} values Array of numbers
  * @returns {number} Sum
  */
 Math.sum = function(values) {
@@ -69,7 +68,7 @@ Math.sum = function(values) {
 /**
  * Calculate average of given array of numbers
  *
- * @param values {number[]} Array of numbers
+ * @param {number[]} values Array of numbers
  * @returns {number} Average
  */
 Math.avg = function(values) {

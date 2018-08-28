@@ -5,6 +5,7 @@
 /**
  * Returns verdict if given string is valid JSON or not
  *
+ * @param {string} str JSON string to be checked
  * @returns {boolean} Verdict
  */
 JSON.isJSONString = function(str) {

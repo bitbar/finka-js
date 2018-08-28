@@ -1,0 +1,94 @@
+{
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": [
+            "error",
+            2,
+            { "SwitchCase": 1 }
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": "warn",
+        "no-extra-parens": [
+            "error",
+            "all"
+        ],
+        "no-prototype-builtins": "warn",
+        "no-unsafe-negation": "error",
+        "no-undef": "warn",
+        "valid-jsdoc": "warn",
+        "array-callback-return": "error",
+        "block-scoped-var": "error",
+        "class-methods-use-this": "error",
+        "complexity": [
+            "warn",
+            10
+        ],
+        "curly": [
+            "error",
+            "multi-line"
+        ],
+        "dot-location": [
+            "error",
+            "property"
+        ],
+        "dot-notation": [
+            "error",
+            { "allowKeywords": false }
+        ],
+        "no-alert": "error",
+        "no-caller": "error",
+        "no-div-regex": "error",
+        "no-else-return": "error",
+        "no-empty-function": "error",
+        "no-eval": "warn",
+        "no-extend-native": "off",
+        "no-extra-bind": "error",
+        "no-floating-decimal": "error",
+        "no-global-assign": "warn",
+        "no-implicit-globals": "error",
+        "no-implied-eval": "error",
+        "no-invalid-this": "error",
+        "no-iterator": "error",
+        "no-labels": "error",
+        "no-lone-blocks": "error",
+        "no-loop-func": "error",
+        "no-multi-spaces": "error",
+        "no-new-func": "error",
+        "no-new-wrappers": "error",
+        "no-new": "warn",
+        "no-param-reassign": "off",
+        "no-proto": "error",
+        "no-script-url": "error",
+        "no-self-assign": [
+          "error",
+          {"props": true}
+        ],
+        "no-self-compare": "error",
+        "no-sequences": "warn",
+        "no-throw-literal": "error",
+        "no-unmodified-loop-condition": "error",
+        "no-useless-concat": "error",
+        "no-useless-escape": "error",
+        "no-useless-return": "error",
+        "wrap-iife": [
+          "error",
+          "any"
+        ],
+        "yoda": "error"
+    }
+}

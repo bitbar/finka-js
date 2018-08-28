@@ -106,8 +106,8 @@
 /**
  * Sort array of objects
  *
- * @param arr {Object[]} Array of objects that should be sorted
- * @param propertyName {string} Name of property by which sorting will be done
+ * @param {Object[]} arr Array of objects that should be sorted
+ * @param {string} propertyName Name of property by which sorting will be done
  * @param [descending=false] {boolean} Flag to sort in descending order
  */
 Array.sortArrayOfObjects = function(arr, propertyName, descending) {
@@ -153,7 +153,7 @@ Array.deepCloneArrayOfObjects = function(arr) {
 /**
  * Wrap in Array if @param is not an Array already
  *
- * @param something {(*|Array)} Something that should be an Array
+ * @param {(*|Array)} something Something that should be an Array
  * @returns {Array}
  */
 Array.wrap = function(something) {
@@ -173,7 +173,7 @@ Array.prototype.empty = function() {
 /**
  * Absorb (push) every item of given array to this Array
  *
- * @param arr {Array} Array to be absorbed
+ * @param {Array} arr Array to be absorbed
  * @returns {Array} this
  */
 Array.prototype.absorb = function(arr) {
@@ -184,11 +184,11 @@ Array.prototype.absorb = function(arr) {
 /**
  * Returns the difference between this Array and given in argument
  *
- * @param arr {Array} Array to compare
+ * @param {Array} arr Array to compare
  * @returns {Array} Array with elements that are different
  */
 Array.prototype.diff = function(arr) {
-  return this.filter((i) => arr.indexOf(i) &lt; 0);
+  return this.filter(function(i) { return arr.indexOf(i) &lt; 0; });
 };
 
 /**
@@ -203,11 +203,11 @@ Array.prototype.clone = function() {
 /**
  * Look for index of item matching to query
  *
- * @param query {Object} Query
+ * @param {Object} query Query
  * @returns {number} Index of matching index; -1 if not found
  */
 Array.prototype.lookFor = function(query) {
-  for(let i = 0; i &lt; this.length; i++) {
+  for(var i = 0; i &lt; this.length; i++) {
     if(Object.isLike(this[i], query)) {
       return i;
     }
@@ -220,15 +220,15 @@ Array.prototype.lookFor = function(query) {
  * Returns the new array based on current one by filtering according to query
  *
  * @see Object#isLike
- * @param query {Object} Query
+ * @param {Object} query Query
  * @returns {Array} New Array with matching elements
  */
 Array.prototype.filterLike = function(query) {
   if(query == null) {
     return [];
-  } else {
-    return this.filter((item) => Object.isLike(item, query));
   }
+  
+  return this.filter(function(item) { return Object.isLike(item, query); });
 };
 
 /**
@@ -239,8 +239,9 @@ Array.prototype.filterLike = function(query) {
 Array.prototype.unique = function() {
   for(var i = 0; i &lt; this.length; ++i) {
     for(var j = i + 1; j &lt; this.length; ++j) {
-      if(this[i] === this[j])
+      if(this[i] === this[j]) {
         this.splice(j--, 1);
+      }
     }
   }
 
