@@ -69,7 +69,7 @@ String.prototype.capitaliseFirstLetter = function(lower) {
     value = value.toLowerCase();
   }
 
-  return value.replace(/[a-z]/i, (m) => m.toUpperCase());
+  return value.replace(/[a-z]/i, function(m) { return m.toUpperCase(); });
 };
 
 /**
@@ -78,7 +78,7 @@ String.prototype.capitaliseFirstLetter = function(lower) {
  * @returns {string} New string
  */
 String.prototype.lowerFirstLetter = function() {
-  return this.valueOf().replace(/[a-z]/i, (m) => m.toLowerCase());
+  return this.valueOf().replace(/[a-z]/i, function(m) { return m.toLowerCase(); });
 };
 
 /**
@@ -96,8 +96,8 @@ String.prototype.noCase = function() {
   value = value.lowerFirstLetter();
 
   // clean camel case
-  value = value.replace(/[A-Z][a-z]/g, (m) => ' ' + m.toLowerCase());
-  value = value.replace(/([a-z])([A-Z])/g, (m, m1, m2) => m1 + ' ' + m2);
+  value = value.replace(/[A-Z][a-z]/g, function(m)  { return ' ' + m.toLowerCase(); });
+  value = value.replace(/([a-z])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
 
   return value;
 };
@@ -114,7 +114,7 @@ String.prototype.toCamelCase = function() {
   value = value.noCase();
 
   // replace
-  value = value.replace(/ [a-z]/gi, (m) => m[1].toUpperCase());
+  value = value.replace(/ [a-z]/gi, function(m) { return m[1].toUpperCase(); });
 
   return value;
 };

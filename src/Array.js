@@ -87,7 +87,7 @@ Array.prototype.absorb = function(arr) {
  * @returns {Array} Array with elements that are different
  */
 Array.prototype.diff = function(arr) {
-  return this.filter((i) => arr.indexOf(i) < 0);
+  return this.filter(function(i) { return arr.indexOf(i) < 0; });
 };
 
 /**
@@ -126,7 +126,7 @@ Array.prototype.filterLike = function(query) {
   if(query == null) {
     return [];
   } else {
-    return this.filter((item) => Object.isLike(item, query));
+    return this.filter(function(item) { return Object.isLike(item, query); });
   }
 };
 

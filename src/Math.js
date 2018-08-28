@@ -46,7 +46,7 @@ Math.median = function(values) {
     return 0;
   }
 
-  values.sort((a,b) => a - b);
+  values.sort(function(a, b) { return a - b; });
 
   var half = Math.floor(values.length / 2);
   return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2;
@@ -63,7 +63,7 @@ Math.sum = function(values) {
     return 0;
   }
 
-  return values.reduce((a, b) => a + b);
+  return values.reduce(function(a, b) { return a + b; });
 };
 
 /**

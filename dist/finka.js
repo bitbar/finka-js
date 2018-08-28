@@ -1,4 +1,4 @@
-/* Finka.js v1.0.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v1.0.1 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -439,7 +439,7 @@
 	    value = value.toLowerCase();
 	  }
 
-	  return value.replace(/[a-z]/i, (m) => m.toUpperCase());
+	  return value.replace(/[a-z]/i, function(m) { return m.toUpperCase(); });
 	};
 
 	/**
@@ -448,7 +448,7 @@
 	 * @returns {string} New string
 	 */
 	String.prototype.lowerFirstLetter = function() {
-	  return this.valueOf().replace(/[a-z]/i, (m) => m.toLowerCase());
+	  return this.valueOf().replace(/[a-z]/i, function(m) { return m.toLowerCase(); });
 	};
 
 	/**
@@ -466,8 +466,8 @@
 	  value = value.lowerFirstLetter();
 
 	  // clean camel case
-	  value = value.replace(/[A-Z][a-z]/g, (m) => ' ' + m.toLowerCase());
-	  value = value.replace(/([a-z])([A-Z])/g, (m, m1, m2) => m1 + ' ' + m2);
+	  value = value.replace(/[A-Z][a-z]/g, function(m)  { return ' ' + m.toLowerCase(); });
+	  value = value.replace(/([a-z])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
 
 	  return value;
 	};
@@ -484,7 +484,7 @@
 	  value = value.noCase();
 
 	  // replace
-	  value = value.replace(/ [a-z]/gi, (m) => m[1].toUpperCase());
+	  value = value.replace(/ [a-z]/gi, function(m) { return m[1].toUpperCase(); });
 
 	  return value;
 	};
@@ -746,7 +746,7 @@
 	 * @returns {Array} Array with elements that are different
 	 */
 	Array.prototype.diff = function(arr) {
-	  return this.filter((i) => arr.indexOf(i) < 0);
+	  return this.filter(function(i) { return arr.indexOf(i) < 0; });
 	};
 
 	/**
@@ -785,7 +785,7 @@
 	  if(query == null) {
 	    return [];
 	  } else {
-	    return this.filter((item) => Object.isLike(item, query));
+	    return this.filter(function(item) { return Object.isLike(item, query); });
 	  }
 	};
 
@@ -1331,7 +1331,7 @@
 	    return 0;
 	  }
 
-	  values.sort((a,b) => a - b);
+	  values.sort(function(a, b) { return a - b; });
 
 	  var half = Math.floor(values.length / 2);
 	  return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2;
@@ -1348,7 +1348,7 @@
 	    return 0;
 	  }
 
-	  return values.reduce((a, b) => a + b);
+	  return values.reduce(function(a, b) { return a + b; });
 	};
 
 	/**
