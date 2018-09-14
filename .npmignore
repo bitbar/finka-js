@@ -9,6 +9,7 @@ rollup.config.js
 jsdoc.json
 bower.json
 *.tgz
+.eslint*
 
 # IDE
 .vscode/

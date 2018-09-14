@@ -9,5 +9,5 @@
  * @returns {string} Escaped string
  */
 RegExp.escapeString = function(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+  return str.replace(/[-[\]/\\{}()*+?.^$|]/g, '\\$&');
 };

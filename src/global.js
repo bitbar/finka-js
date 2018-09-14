@@ -15,7 +15,7 @@ global.isNodeJs = typeof global.module != 'undefined' && typeof global.module.ex
 global.getLanguage = function() {
   var lang;
 
-  if(isNodeJs) {
+  if(global.isNodeJs) {
     lang = process.env.LANGUAGE || process.env.LANG;
   } else {
     lang = navigator.language || navigator.languages && navigator.languages[0];
@@ -39,7 +39,7 @@ global.getCountry = function() {
 
   var country;
 
-  if(isNodeJs) {
+  if(global.isNodeJs) {
     country = process.env.LANG;
   } else {
     country = navigator.language;
@@ -87,7 +87,7 @@ global.parseValue = function(value) {
   }
 
   // check if it's number
-  if (isNumeric(value)) {
+  if (global.isNumeric(value)) {
     return parseFloat(value);
   }
 

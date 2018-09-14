@@ -101,7 +101,7 @@ Date.getLocalDateFormat = function(fullFormat) {
   }
 
   try {
-    countryCode = getCountry() || 'US';
+    countryCode = global.getCountry() || 'US';
   } catch(e) {
     countryCode = 'US';
   }
@@ -185,31 +185,31 @@ Date.toHmsFormat = function(time, accuracy) {
   var ret = [];
 
   switch(accuracy) {
-    case 'hours':
+  case 'hours':
+    ret.push(obj.h + 'h');
+    break;
+
+  case 'minutes':
+    if(obj.h > 0) {
       ret.push(obj.h + 'h');
-      break;
+    }
 
-    case 'minutes':
-      if(obj.h > 0) {
-        ret.push(obj.h + 'h');
-      }
+    ret.push(obj.m + 'm');
+    break;
 
+  case 'seconds':
+    if(obj.h > 0) {
+      ret.push(obj.h + 'h');
       ret.push(obj.m + 'm');
-      break;
+    } else if(obj.m > 0) {
+      ret.push(obj.m + 'm');
+    }
 
-    case 'seconds':
-      if(obj.h > 0) {
-        ret.push(obj.h + 'h');
-        ret.push(obj.m + 'm');
-      } else if(obj.m > 0) {
-        ret.push(obj.m + 'm');
-      }
+    ret.push(obj.s + 's');
+    break;
 
-      ret.push(obj.s + 's');
-      break;
-
-    default:
-      throw new TypeError('Unknown accuracy');
+  default:
+    throw new TypeError('Unknown accuracy');
   }
 
   return ret.join(' ');

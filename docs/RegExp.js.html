@@ -110,7 +110,7 @@
  * @returns {string} Escaped string
  */
 RegExp.escapeString = function(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&amp;");
+  return str.replace(/[-[\]/\\{}()*+?.^$|]/g, '\\$&amp;');
 };
 </code></pre>
 </article>
