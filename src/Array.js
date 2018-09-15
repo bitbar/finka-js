@@ -127,7 +127,9 @@ Array.prototype.filterLike = function(query) {
     return [];
   }
   
-  return this.filter(function(item) { return Object.isLike(item, query); });
+  return this.filter(function(item) {
+    return Object.isLike(item, query);
+  });
 };
 
 /**

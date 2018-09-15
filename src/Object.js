@@ -73,3 +73,82 @@ Object.count = function(subject) {
   }
   return items;
 };
+
+if(typeof Object.assign != 'function') {
+
+  /**
+   * Polyfill for ECMAScript 2015 for Object.assign
+   * https://www.ecma-international.org/ecma-262/6.0/#sec-object.assign
+   */
+  Object.assign = function() {
+    var args = Array.prototype.slice.call(arguments, 0);
+    var to = Object(args[0]);
+
+    if(args.length !== 1) {
+      var sources = args.slice(1);
+      var nextSource, keys, from, nextKey, propValue;
+
+      for(var i = 0; i < sources.length; i++) {
+        nextSource = sources[i];
+        from = Object(nextSource);
+
+        if(typeof nextSource === 'undefined' || nextSource === null) {
+          keys = [];
+        } else {  
+          keys = Object.keys(from);
+        }
+
+        for(var j = 0; j < keys.length; j++) {
+          nextKey = keys[j];
+          propValue = from[nextKey];
+          if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
+            to[nextKey] = propValue;
+          }
+        }
+      }
+    }
+
+    return to;
+  };
+
+}
+
+/**
+ * This is similar to Object.assign, but extends also deep nested Objects
+ * 
+ * @returns {object} Object
+ */
+Object.deepAssign = function() {
+  var args = Array.prototype.slice.call(arguments, 0);
+  var to = Object(args[0]);
+
+  if(args.length !== 1) {
+    var sources = args.slice(1);
+    var nextSource, keys, from, nextKey, propValue;
+
+    for(var i = 0; i < sources.length; i++) {
+      nextSource = sources[i];
+      from = Object(nextSource);
+
+      if(typeof nextSource === 'undefined' || nextSource === null) {
+        keys = [];
+      } else {  
+        keys = Object.keys(from);
+      }
+
+      for(var j = 0; j < keys.length; j++) {
+        nextKey = keys[j];
+        propValue = from[nextKey];
+        if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
+          if(typeof to[nextKey] === 'object' && typeof propValue === 'object') {
+            to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
+          } else {
+            to[nextKey] = propValue;
+          }
+        }
+      }
+    }
+  }
+
+  return to;
+};

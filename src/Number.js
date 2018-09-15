@@ -3,13 +3,37 @@
  */
 
 /**
- * Check if given number is integer
+ * Check if given number is number
  *
  * @param {number} n Number to check
  * @returns {boolean} Verdict
  */
-Number.isInt = function(n) {
-  return Number(n) === n && n % 1 === 0;
+Number.isNumber = function(n) {
+  return n === Number(n);
+};
+
+if(typeof Number.prototype.isInteger != 'function') {
+
+  /**
+   * Polyfill for ECMAScript 2015 for Number.prototype.isInteger
+   *
+   * @param {number} n Number to check
+   * @returns {boolean} Verdict
+   */
+  Number.isInteger = function(n) {
+    return Number.isNumber(n) && n % 1 === 0;
+  };
+
+}
+
+/**
+ * Check if given number is natural (this function assumes that 0 is also natural)
+ *
+ * @param {number} n Number to check
+ * @returns {boolean} Verdict
+ */
+Number.isNatural = function(n) {
+  return Number.isInteger(n) && n >= 0;
 };
 
 /**
@@ -19,7 +43,7 @@ Number.isInt = function(n) {
  * @returns {boolean} Verdict
  */
 Number.isFloat = function(n){
-  return n === Number(n) && n % 1 !== 0;
+  return Number.isNumber(n) && n % 1 !== 0;
 };
 
 /**

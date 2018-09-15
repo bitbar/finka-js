@@ -1,4 +1,4 @@
-/* Finka.js v1.1.2 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v1.2.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -330,13 +330,37 @@
 	 */
 
 	/**
-	 * Check if given number is integer
+	 * Check if given number is number
 	 *
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
-	Number.isInt = function(n) {
-	  return Number(n) === n && n % 1 === 0;
+	Number.isNumber = function(n) {
+	  return n === Number(n);
+	};
+
+	if(typeof Number.prototype.isInteger != 'function') {
+
+	  /**
+	   * Polyfill for ECMAScript 2015 for Number.prototype.isInteger
+	   *
+	   * @param {number} n Number to check
+	   * @returns {boolean} Verdict
+	   */
+	  Number.isInteger = function(n) {
+	    return Number.isNumber(n) && n % 1 === 0;
+	  };
+
+	}
+
+	/**
+	 * Check if given number is natural (this function assumes that 0 is also natural)
+	 *
+	 * @param {number} n Number to check
+	 * @returns {boolean} Verdict
+	 */
+	Number.isNatural = function(n) {
+	  return Number.isInteger(n) && n >= 0;
 	};
 
 	/**
@@ -346,7 +370,7 @@
 	 * @returns {boolean} Verdict
 	 */
 	Number.isFloat = function(n){
-	  return n === Number(n) && n % 1 !== 0;
+	  return Number.isNumber(n) && n % 1 !== 0;
 	};
 
 	/**
@@ -657,6 +681,85 @@
 	  return items;
 	};
 
+	if(typeof Object.assign != 'function') {
+
+	  /**
+	   * Polyfill for ECMAScript 2015 for Object.assign
+	   * https://www.ecma-international.org/ecma-262/6.0/#sec-object.assign
+	   */
+	  Object.assign = function() {
+	    var args = Array.prototype.slice.call(arguments, 0);
+	    var to = Object(args[0]);
+
+	    if(args.length !== 1) {
+	      var sources = args.slice(1);
+	      var nextSource, keys, from, nextKey, propValue;
+
+	      for(var i = 0; i < sources.length; i++) {
+	        nextSource = sources[i];
+	        from = Object(nextSource);
+
+	        if(typeof nextSource === 'undefined' || nextSource === null) {
+	          keys = [];
+	        } else {  
+	          keys = Object.keys(from);
+	        }
+
+	        for(var j = 0; j < keys.length; j++) {
+	          nextKey = keys[j];
+	          propValue = from[nextKey];
+	          if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
+	            to[nextKey] = propValue;
+	          }
+	        }
+	      }
+	    }
+
+	    return to;
+	  };
+
+	}
+
+	/**
+	 * This is similar to Object.assign, but extends also deep nested Objects
+	 * 
+	 * @returns {object} Object
+	 */
+	Object.deepAssign = function() {
+	  var args = Array.prototype.slice.call(arguments, 0);
+	  var to = Object(args[0]);
+
+	  if(args.length !== 1) {
+	    var sources = args.slice(1);
+	    var nextSource, keys, from, nextKey, propValue;
+
+	    for(var i = 0; i < sources.length; i++) {
+	      nextSource = sources[i];
+	      from = Object(nextSource);
+
+	      if(typeof nextSource === 'undefined' || nextSource === null) {
+	        keys = [];
+	      } else {  
+	        keys = Object.keys(from);
+	      }
+
+	      for(var j = 0; j < keys.length; j++) {
+	        nextKey = keys[j];
+	        propValue = from[nextKey];
+	        if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
+	          if(typeof to[nextKey] === 'object' && typeof propValue === 'object') {
+	            to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
+	          } else {
+	            to[nextKey] = propValue;
+	          }
+	        }
+	      }
+	    }
+	  }
+
+	  return to;
+	};
+
 	/**
 	 * @namespace Array
 	 */
@@ -786,7 +889,9 @@
 	    return [];
 	  }
 	  
-	  return this.filter(function(item) { return Object.isLike(item, query); });
+	  return this.filter(function(item) {
+	    return Object.isLike(item, query);
+	  });
 	};
 
 	/**

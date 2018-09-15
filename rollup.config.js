@@ -13,58 +13,54 @@ var config = {
     file: 'dist/finka',
     format: 'umd',
     name: 'finka-js',
-    banner: '/* Finka.js v' + $package.version + ' | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */'
+    banner: `/* Finka.js v${$package.version} ` +
+            '| (c) Bitbar Technologies and contributors ' +
+            '| https://github.com/bitbar/finka-js/blob/master/LICENSE.md ' +
+            '*/'
   },
 
   extensions: ['.js']
 };
 
+var input = config.input;
+
+var output = function(min) {
+  return {
+    file: config.output.file + (min ? '.min' : '') + '.js',
+    format: config.output.format,
+    name:  config.output.name,
+    banner: config.output.banner
+  };
+};
+
+var plugins = [
+  nodeResolve({
+    extensions: config.extensions
+  }),
+  commonjs({
+    extensions: config.extensions
+  })
+];
+
 // Export
 export default [
   // Uncompressed config
   {
-    input: config.input,
-  
-    output: {
-      file: config.output.file + '.js',
-      format: config.output.format,
-      name:  config.output.name,
-      banner: config.output.banner
-    },
-  
-    plugins: [
-      nodeResolve({
-        extensions: config.extensions
-      }),
-      commonjs({
-        extensions: config.extensions
-      })
-    ]
+    input: input,
+    output: output(),
+    plugins: plugins
   },
 
   // Compressed config
   {
-    input: config.input,
-  
-    output: {
-      file: config.output.file + '.min.js',
-      format: config.output.format,
-      name:  config.output.name,
-      banner: config.output.banner
-    },
-  
-    plugins: [
-      nodeResolve({
-        extensions: config.extensions
-      }),
-      commonjs({
-        extensions: config.extensions
-      }),
+    input: input,
+    output: output(true),
+    plugins: plugins.concat([
       uglify({
         output: {
           comments: /license/i
         }
       })
-    ]
+    ])
   }
 ];

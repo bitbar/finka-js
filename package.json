@@ -1,12 +1,13 @@
 {
   "name": "finka",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.js",
   "scripts": {
     "build": "npx rollup -c",
     "test": "npx mocha",
-    "docs": "npx jsdoc -c jsdoc.json"
+    "docs": "npx jsdoc -c jsdoc.json",
+    "lint": "npx eslint ."
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,8 @@
     "js",
     "javascript",
     "finka",
-    "finka-js"
+    "finka-js",
+    "prototype"
   ],
   "author": "Marek Sierociński (https://github.com/marverix)",
   "contributors": [
@@ -37,6 +39,7 @@
   },
   "homepage": "https://github.com/bitbar/finka-js#readme",
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^5.5.0",
     "jsdoc": "^3.5.5",
     "jsdoc-rtd": "^1.0.15",
