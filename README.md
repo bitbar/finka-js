@@ -14,6 +14,16 @@ It's extending default JS classes like `Array` or `String` with new handy method
 that probably sooner or later you are going to search for on Stack Overflow ;) 
 
 
+## What means _Finka_?
+
+_Finka_ is Polish word and means a knife usually used by scouts. It's also abbreviation to _nóż fiński_ so _Finnish knife_.
+According to _Wikipedia_ it's originally really Finnish knife called [Puukko](https://en.wikipedia.org/wiki/Puukko).
+
+[Bitbar](https://bitbar.com/) is Finnish company responsible for [Bitbar Cloud](https://bitbar.com/testing/),
+which hosts hundreds of Android and iOS devices, enabling users to create and test high quality mobile apps and games.
+Main R&D team is in Wrocław, Poland.
+
+
 ## Getting Started
 
 ### Prerequisites
@@ -30,7 +40,7 @@ This package is using [UMD](https://github.com/umdjs/umd/blob/master/templates/r
 #### Option A: With `npm`
     
 ```sh
-npm install finka-js
+npm install finka
 ```
 
 #### Option B: Download
@@ -54,6 +64,18 @@ And simply add HTML tag:
 
 
 ## Contribution
+
+### Checking code quality
+
+```sh
+npm run lint
+```
+
+### Running tests
+
+```sh
+npm run test
+```
 
 ### Building
 
