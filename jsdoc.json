@@ -6,7 +6,9 @@
     "template": "node_modules/jsdoc-rtd",
     "encoding": "utf8",
     "destination": "docs",
-    "recurse": true
+    "recurse": true,
+    "readme": "README.md",
+    "package": "package.json"
   },
   "templates": {
     "default": {

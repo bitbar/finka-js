@@ -32,6 +32,8 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
+                v1.2.0
+            
             </span>
         </div>
 
@@ -61,11 +63,11 @@
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Number.html">Number</a>
-                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInt">isInt</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Object.html">Object</a>
-                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Promise.html">Promise</a>
@@ -165,6 +167,99 @@
         <h3 class="subsection-title"><i class="fa fa-lightbulb-o"></i>Methods</h3>
 
         <dl>
+                
+
+<dt>
+
+    
+
+    <h4 class="name" id=".assign">
+        <span class="type-signature"><span class="icon green">static</span> </span>assign<span class="signature">()</span>
+                   <span class="type-signature"></span>
+        
+        <span class="source">
+            <a href="Object.js.html#line83"><i class="source fa fa-file-code-o"></i></a>
+        </span>
+    </h4>
+
+    
+
+    
+
+    
+
+</dt>
+
+<dd>
+    
+    <div class="description">
+        Polyfill for ECMAScript 2015 for Object.assign
+https://www.ecma-international.org/ecma-262/6.0/#sec-object.assign
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
                 
 
 <dt>
@@ -516,6 +611,119 @@
 
 
 - Number of items
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+
+    
+
+    <h4 class="name" id=".deepAssign">
+        <span class="type-signature"><span class="icon green">static</span> </span>deepAssign<span class="signature">()</span>
+                   <span class="type-signature"> &rarr; {object}</span>
+        
+        <span class="source">
+            <a href="Object.js.html#line121"><i class="source fa fa-file-code-o"></i></a>
+        </span>
+    </h4>
+
+    
+
+    
+
+    
+
+</dt>
+
+<dd>
+    
+    <div class="description">
+        This is similar to Object.assign, but extends also deep nested Objects
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">object</span>
+
+
+
+
+
+- Object
 
 
 
