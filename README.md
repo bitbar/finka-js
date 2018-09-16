@@ -7,6 +7,7 @@
 # Finka.js
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
+[![Build Status](https://travis-ci.com/bitbar/finka-js.svg?branch=master)](https://travis-ci.com/bitbar/finka-js)
 
 Handy tool in nowadays JavaScript jungle.
 
@@ -35,13 +36,24 @@ This package is using [UMD](https://github.com/umdjs/umd/blob/master/templates/r
     * without AMD
     * with AMD
 
-### Installation
+### Usage
 
 #### Option A: With `npm`
     
+Install:
+
 ```sh
 npm install finka
 ```
+
+And then in you main JS file:
+
+```js
+require('finka');
+```
+
+That's all!
+
 
 #### Option B: Download
 
@@ -56,6 +68,8 @@ And simply add HTML tag:
 ```html
 <script type="text/javascript" src="finka.min.js"></script>
 ```
+
+Done!
 
 
 ### Documentation
