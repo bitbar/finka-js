@@ -1,4 +1,4 @@
-/* Finka.js v1.2.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v1.2.1 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -973,38 +973,26 @@
 	 * @type {number}
 	 */
 	Date.WEEK = 7 * Date.DAY;
-
-	/**
-	 * Today in milliseconds
-	 *
-	 * @constant
-	 * @type {number}
-	 */
-	Date.TODAY = Date.HOUR * Math.floor( Date.now() / Date.HOUR );
-
-	/**
-	 * Yesterday in milliseconds
-	 *
-	 * @constant
-	 * @type {number}
-	 */
-	Date.YESTERDAY = Date.TODAY - Date.DAY;
-
-	/**
-	 * Tomorrow in milliseconds
-	 *
-	 * @constant
-	 * @type {number}
-	 */
-	Date.TOMORROW = Date.TODAY + Date.DAY;
-
-	/**
-	 * Day after tomorrow in milliseconds
-	 *
-	 * @constant
-	 * @type {number}
-	 */
-	Date.DAYAFTERTOMORROW = Date.TOMORROW + Date.DAY;
+	Object.defineProperty(Date, 'TODAY', {
+	  get: function() {
+	    return Date.DAY * Math.floor( Date.now() / Date.DAY );
+	  }
+	});
+	Object.defineProperty(Date, 'YESTERDAY', {
+	  get: function() {
+	    return Date.TODAY - Date.DAY;
+	  }
+	});
+	Object.defineProperty(Date, 'TOMORROW', {
+	  get: function() {
+	    return Date.TODAY + Date.DAY;
+	  }
+	});
+	Object.defineProperty(Date, 'DAYAFTERTOMORROW', {
+	  get: function() {
+	    return Date.TOMORROW + Date.DAY;
+	  }
+	});
 
 	/**
 	 * Return timestamp of now + days

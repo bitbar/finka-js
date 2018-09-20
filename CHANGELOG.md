@@ -1,3 +1,15 @@
+#### 1.2.1 (2018-09-20)
+
+* `Date`
+
+  * fixed `TODAY` constant
+  * `TODAY`, `YESTERDAY`, `TOMORROW` and `DAYAFTERTOMORROW` are now getters - you use them as normal variables, but
+    are calculated on the fly
+  * added tests for all methods
+
+* added [Coveralls](https://coveralls.io/github/bitbar/finka-js?branch=master) support
+
+
 #### 1.2.0 (2018-09-15)
 
 * `Number`

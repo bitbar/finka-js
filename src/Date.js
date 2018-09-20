@@ -51,7 +51,12 @@ Date.WEEK = 7 * Date.DAY;
  * @constant
  * @type {number}
  */
-Date.TODAY = Date.HOUR * Math.floor( Date.now() / Date.HOUR );
+Date.TODAY;
+Object.defineProperty(Date, 'TODAY', {
+  get: function() {
+    return Date.DAY * Math.floor( Date.now() / Date.DAY );
+  }
+});
 
 /**
  * Yesterday in milliseconds
@@ -59,7 +64,12 @@ Date.TODAY = Date.HOUR * Math.floor( Date.now() / Date.HOUR );
  * @constant
  * @type {number}
  */
-Date.YESTERDAY = Date.TODAY - Date.DAY;
+Date.YESTERDAY;
+Object.defineProperty(Date, 'YESTERDAY', {
+  get: function() {
+    return Date.TODAY - Date.DAY;
+  }
+});
 
 /**
  * Tomorrow in milliseconds
@@ -67,7 +77,12 @@ Date.YESTERDAY = Date.TODAY - Date.DAY;
  * @constant
  * @type {number}
  */
-Date.TOMORROW = Date.TODAY + Date.DAY;
+Date.TOMORROW;
+Object.defineProperty(Date, 'TOMORROW', {
+  get: function() {
+    return Date.TODAY + Date.DAY;
+  }
+});
 
 /**
  * Day after tomorrow in milliseconds
@@ -75,7 +90,12 @@ Date.TOMORROW = Date.TODAY + Date.DAY;
  * @constant
  * @type {number}
  */
-Date.DAYAFTERTOMORROW = Date.TOMORROW + Date.DAY;
+Date.DAYAFTERTOMORROW;
+Object.defineProperty(Date, 'DAYAFTERTOMORROW', {
+  get: function() {
+    return Date.TOMORROW + Date.DAY;
+  }
+});
 
 /**
  * Return timestamp of now + days
