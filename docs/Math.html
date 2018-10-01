@@ -32,7 +32,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.2.1
+                v1.2.2
             
             </span>
         </div>
@@ -59,7 +59,7 @@
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Math.html">Math</a>
-                <div class="nav-item-sub hidden" id="Math_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Math.html#.avg">avg</a></a></li><li class="sub-nav-item"><a href="Math.html#.median">median</a></a></li><li class="sub-nav-item"><a href="Math.html#.rand">rand</a></a></li><li class="sub-nav-item"><a href="Math.html#.roundTo">roundTo</a></a></li><li class="sub-nav-item"><a href="Math.html#.sum">sum</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Math_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Math.html#.avg">avg</a></a></li><li class="sub-nav-item"><a href="Math.html#.log10">log10</a></a></li><li class="sub-nav-item"><a href="Math.html#.median">median</a></a></li><li class="sub-nav-item"><a href="Math.html#.rand">rand</a></a></li><li class="sub-nav-item"><a href="Math.html#.roundTo">roundTo</a></a></li><li class="sub-nav-item"><a href="Math.html#.sum">sum</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Number.html">Number</a>
@@ -178,7 +178,7 @@
                    <span class="type-signature"> &rarr; {number}</span>
         
         <span class="source">
-            <a href="Math.js.html#line74"><i class="source fa fa-file-code-o"></i></a>
+            <a href="Math.js.html#line81"><i class="source fa fa-file-code-o"></i></a>
         </span>
     </h4>
 
@@ -336,12 +336,176 @@
 
     
 
+    <h4 class="name" id=".log10">
+        <span class="type-signature"><span class="icon green">static</span> </span>log10<span class="signature">(x)</span>
+                   <span class="type-signature"> &rarr; {number}</span>
+        
+        <span class="source">
+            <a href="Math.js.html#line27"><i class="source fa fa-file-code-o"></i></a>
+        </span>
+    </h4>
+
+    
+
+    
+
+    
+
+</dt>
+
+<dd>
+    
+    <div class="description">
+        Polyfill for ECMAScript 2015 for Math.log10
+https://www.ecma-international.org/ecma-262/6.0/#sec-math.log10
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">X</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">number</span>
+
+
+
+
+
+- Result
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+
+    
+
     <h4 class="name" id=".median">
         <span class="type-signature"><span class="icon green">static</span> </span>median<span class="signature">(values)</span>
                    <span class="type-signature"> &rarr; {number}</span>
         
         <span class="source">
-            <a href="Math.js.html#line43"><i class="source fa fa-file-code-o"></i></a>
+            <a href="Math.js.html#line50"><i class="source fa fa-file-code-o"></i></a>
         </span>
     </h4>
 
@@ -620,11 +784,11 @@
     
 
     <h4 class="name" id=".roundTo">
-        <span class="type-signature"><span class="icon green">static</span> </span>roundTo<span class="signature">(num, scale)</span>
-                   <span class="type-signature"> &rarr; {number}</span>
+        <span class="type-signature"><span class="icon green">static</span> </span>roundTo<span class="signature">(num, precision)</span>
+                   <span class="type-signature"></span>
         
         <span class="source">
-            <a href="Math.js.html#line25"><i class="source fa fa-file-code-o"></i></a>
+            <a href="Math.js.html#line39"><i class="source fa fa-file-code-o"></i></a>
         </span>
     </h4>
 
@@ -639,7 +803,7 @@
 <dd>
     
     <div class="description">
-        Round given number to given scale
+        Round given number to given precision
     </div>
     
 
@@ -691,14 +855,14 @@
 
             
 
-            <td class="description last">Number to round</td>
+            <td class="description last">Number to be rounded</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>scale</code></td>
+                <td class="name"><code>precision</code></td>
             
 
             <td class="type">
@@ -714,7 +878,7 @@
 
             
 
-            <td class="description last">Scale</td>
+            <td class="description last">Precision</td>
         </tr>
 
     
@@ -734,27 +898,6 @@
 
     
 
-    
-    <div class="container-returns">
-        <h5>Returns:</h5>
-        
-                
-
-
-
-<span class="param-type">number</span>
-
-
-
-
-
-- Rounded number
-
-
-
-
-            
-    </div>
     
 
     
@@ -810,7 +953,7 @@
                    <span class="type-signature"> &rarr; {number}</span>
         
         <span class="source">
-            <a href="Math.js.html#line60"><i class="source fa fa-file-code-o"></i></a>
+            <a href="Math.js.html#line67"><i class="source fa fa-file-code-o"></i></a>
         </span>
     </h4>
 

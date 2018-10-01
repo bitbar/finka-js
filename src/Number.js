@@ -12,10 +12,10 @@ Number.isNumber = function(n) {
   return n === Number(n);
 };
 
-if(typeof Number.prototype.isInteger != 'function') {
+if(typeof Number.isInteger != 'function') {
 
   /**
-   * Polyfill for ECMAScript 2015 for Number.prototype.isInteger
+   * Polyfill for ECMAScript 2015 for Number.isInteger
    *
    * @param {number} n Number to check
    * @returns {boolean} Verdict

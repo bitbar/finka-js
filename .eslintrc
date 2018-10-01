@@ -13,7 +13,8 @@
         "sourceType": "module"
     },
     "globals": {
-        "Promise": true
+        "Promise": true,
+        "FileSize": true
     },
     "rules": {
         "indent": [

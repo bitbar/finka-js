@@ -1,3 +1,21 @@
+#### 1.2.2 (2018-09-21)
+
+* `FileSize`
+
+  * fixed `getReadableString` static method
+  * added tests
+
+* `JSON`
+
+  * added tests
+
+* `Math`
+
+  * added `log10` which is Polyfill to
+    [ES2015 method](https://www.ecma-international.org/ecma-262/6.0/#sec-math.log10)
+  * added tests
+
+
 #### 1.2.1 (2018-09-20)
 
 * `Date`
@@ -5,7 +23,7 @@
   * fixed `TODAY` constant
   * `TODAY`, `YESTERDAY`, `TOMORROW` and `DAYAFTERTOMORROW` are now getters - you use them as normal variables, but
     are calculated on the fly
-  * added tests for all methods
+  * added tests
 
 * added [Coveralls](https://coveralls.io/github/bitbar/finka-js?branch=master) support
 
@@ -27,6 +45,6 @@
 
 * `Array`
 
-  * added tests for all methods
+  * added tests
 
 * added this CHANGELOG file

@@ -1,11 +1,11 @@
 {
   "name": "finka",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.js",
   "scripts": {
     "build": "npx rollup -c",
-    "test": "npx mocha",
+    "test": "npx mocha --file test/_init.js --recursive test",
     "coveralls": "npx istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | npx coveralls && rm -rf ./coverage",
     "docs": "npx jsdoc -c jsdoc.json",
     "lint": "npx eslint ."

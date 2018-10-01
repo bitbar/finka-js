@@ -1,4 +1,4 @@
-/* Finka.js v1.2.1 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v1.2.2 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -339,10 +339,10 @@
 	  return n === Number(n);
 	};
 
-	if(typeof Number.prototype.isInteger != 'function') {
+	if(typeof Number.isInteger != 'function') {
 
 	  /**
-	   * Polyfill for ECMAScript 2015 for Number.prototype.isInteger
+	   * Polyfill for ECMAScript 2015 for Number.isInteger
 	   *
 	   * @param {number} n Number to check
 	   * @returns {boolean} Verdict
@@ -483,6 +483,11 @@
 	String.prototype.noCase = function() {
 	  var value = this.valueOf();
 
+	  // detect capitalized snake case
+	  if(/^[A-Z0-9_]+$/.test(value)) {
+	    return value.replace(/_/g, ' ').toLowerCase();
+	  }
+
 	  // clean kebab and snake case
 	  value = value.replace(/[-_]/g, ' ');
 
@@ -490,8 +495,9 @@
 	  value = value.lowerFirstLetter();
 
 	  // clean camel case
+	  value = value.replace(/([A-Za-z])([0-9])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
 	  value = value.replace(/[A-Z][a-z]/g, function(m) { return ' ' + m.toLowerCase(); });
-	  value = value.replace(/([a-z])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
+	  value = value.replace(/([a-z0-9])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
 
 	  return value;
 	};
@@ -1393,23 +1399,30 @@
 	  return _MRG32k3a();
 	};
 
+	if(typeof Math.log10 != 'function') {
+
+	  /**
+	   * Polyfill for ECMAScript 2015 for Math.log10
+	   * https://www.ecma-international.org/ecma-262/6.0/#sec-math.log10
+	   *
+	   * @param {number} x X
+	   * @returns {number} Result
+	   */
+	  Math.log10 = function(x) {
+	    return Math.log(x) * Math.LOG10E;
+	  };
+
+	}
+
 	/**
-	 * Round given number to given scale
-	 *
-	 * @param {number} num Number to round
-	 * @param {number} scale Scale
-	 * @returns {number} Rounded number
+	 * Round given number to given precision
+	 * 
+	 * @param {number} num Number to be rounded
+	 * @param {number} precision Precision
 	 */
-	Math.roundTo = function(num, scale) {
-	  if(!('' + num).includes('e')) {
-	    return +(Math.round(num + 'e+' + scale) + 'e-' + scale);
-	  }
-	  var arr = ('' + num).split('e');
-	  var sig = '';
-	  if(+arr[1] + scale > 0) {
-	    sig = '+';
-	  }
-	  return +(Math.round(+arr[0] + 'e' + sig + (+arr[1] + scale)) + 'e-' + scale);
+	Math.roundTo = function(num, precision) {
+	  var magnitude = Math.pow(10, precision);
+	  return Math.round(num * magnitude) / magnitude;
 	};
 
 	/**
@@ -1598,13 +1611,14 @@
 	 */
 	FileSize.getReadableString = function(bytes) {
 	  var i;
+	  var val = bytes;
 
 	  for (i = 0; i < FileSize.UNITS.length; i++) {
-	    if(bytes < 1000) break;
-	    bytes /= 1024;
+	    if(val < 1000) break;
+	    val /= 1024;
 	  }
 
-	  return parseFloat(bytes).toFixed(1) + FileSize.UNITS[i];
+	  return (i == 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
 	};
 
 	commonjsGlobal.FileSize = FileSize;

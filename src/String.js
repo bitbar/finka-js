@@ -89,6 +89,11 @@ String.prototype.lowerFirstLetter = function() {
 String.prototype.noCase = function() {
   var value = this.valueOf();
 
+  // detect capitalized snake case
+  if(/^[A-Z0-9_]+$/.test(value)) {
+    return value.replace(/_/g, ' ').toLowerCase();
+  }
+
   // clean kebab and snake case
   value = value.replace(/[-_]/g, ' ');
 
@@ -96,8 +101,9 @@ String.prototype.noCase = function() {
   value = value.lowerFirstLetter();
 
   // clean camel case
+  value = value.replace(/([A-Za-z])([0-9])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
   value = value.replace(/[A-Z][a-z]/g, function(m) { return ' ' + m.toLowerCase(); });
-  value = value.replace(/([a-z])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
+  value = value.replace(/([a-z0-9])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
 
   return value;
 };

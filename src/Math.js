@@ -15,23 +15,30 @@ Math.rand = function() {
   return _MRG32k3a();
 };
 
+if(typeof Math.log10 != 'function') {
+
+  /**
+   * Polyfill for ECMAScript 2015 for Math.log10
+   * https://www.ecma-international.org/ecma-262/6.0/#sec-math.log10
+   *
+   * @param {number} x X
+   * @returns {number} Result
+   */
+  Math.log10 = function(x) {
+    return Math.log(x) * Math.LOG10E;
+  };
+
+}
+
 /**
- * Round given number to given scale
- *
- * @param {number} num Number to round
- * @param {number} scale Scale
- * @returns {number} Rounded number
+ * Round given number to given precision
+ * 
+ * @param {number} num Number to be rounded
+ * @param {number} precision Precision
  */
-Math.roundTo = function(num, scale) {
-  if(!('' + num).includes('e')) {
-    return +(Math.round(num + 'e+' + scale) + 'e-' + scale);
-  }
-  var arr = ('' + num).split('e');
-  var sig = '';
-  if(+arr[1] + scale > 0) {
-    sig = '+';
-  }
-  return +(Math.round(+arr[0] + 'e' + sig + (+arr[1] + scale)) + 'e-' + scale);
+Math.roundTo = function(num, precision) {
+  var magnitude = Math.pow(10, precision);
+  return Math.round(num * magnitude) / magnitude;
 };
 
 /**

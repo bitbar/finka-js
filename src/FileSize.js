@@ -88,13 +88,14 @@ FileSize.EB = 1024 * FileSize.TB;
  */
 FileSize.getReadableString = function(bytes) {
   var i;
+  var val = bytes;
 
   for (i = 0; i < FileSize.UNITS.length; i++) {
-    if(bytes < 1000) break;
-    bytes /= 1024;
+    if(val < 1000) break;
+    val /= 1024;
   }
 
-  return parseFloat(bytes).toFixed(1) + FileSize.UNITS[i];
+  return (i == 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
 };
 
 global.FileSize = FileSize;

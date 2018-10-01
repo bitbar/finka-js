@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.2.1
+                v1.2.2
             
             </span>
         </div>
@@ -60,7 +60,7 @@
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Math.html">Math</a>
-                <div class="nav-item-sub hidden" id="Math_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Math.html#.avg">avg</a></a></li><li class="sub-nav-item"><a href="Math.html#.median">median</a></a></li><li class="sub-nav-item"><a href="Math.html#.rand">rand</a></a></li><li class="sub-nav-item"><a href="Math.html#.roundTo">roundTo</a></a></li><li class="sub-nav-item"><a href="Math.html#.sum">sum</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Math_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Math.html#.avg">avg</a></a></li><li class="sub-nav-item"><a href="Math.html#.log10">log10</a></a></li><li class="sub-nav-item"><a href="Math.html#.median">median</a></a></li><li class="sub-nav-item"><a href="Math.html#.rand">rand</a></a></li><li class="sub-nav-item"><a href="Math.html#.roundTo">roundTo</a></a></li><li class="sub-nav-item"><a href="Math.html#.sum">sum</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Number.html">Number</a>
@@ -192,6 +192,11 @@ String.prototype.lowerFirstLetter = function() {
 String.prototype.noCase = function() {
   var value = this.valueOf();
 
+  // detect capitalized snake case
+  if(/^[A-Z0-9_]+$/.test(value)) {
+    return value.replace(/_/g, ' ').toLowerCase();
+  }
+
   // clean kebab and snake case
   value = value.replace(/[-_]/g, ' ');
 
@@ -199,8 +204,9 @@ String.prototype.noCase = function() {
   value = value.lowerFirstLetter();
 
   // clean camel case
+  value = value.replace(/([A-Za-z])([0-9])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
   value = value.replace(/[A-Z][a-z]/g, function(m) { return ' ' + m.toLowerCase(); });
-  value = value.replace(/([a-z])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
+  value = value.replace(/([a-z0-9])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
 
   return value;
 };
