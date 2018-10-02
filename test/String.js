@@ -32,10 +32,35 @@ describe('String', function () {
   });
 
   describe('.editDistance', function () {
+
+    it('Is associative', function() {
+      var word1 = 'kitte';
+      var word2 = 'kitten';
+      expect(String.editDistance(word1, word2)).to.be.equal(1);
+      expect(String.editDistance(word2, word1)).to.be.equal(1);
+    });
+
+    it('Returns proper edit distance when two words are equal', function() {
+      var word = 'kitten';
+      expect(String.editDistance(word, word)).to.be.equal(0);
+    });
+
+    it('Returns proper edit distance when words differs in one letter', function() {
+      var word1 = 'kitte';
+      var word2 = 'kitten';
+      expect(String.editDistance(word1, word2)).to.be.equal(1);
+    });
+
     it('Returns proper edit distance between two words', function() {
       var word1 = 'kitten';
       var word2 = 'sitting';
       expect(String.editDistance(word1, word2)).to.be.equal(3);
+    });
+
+    it('Takes into account camelCase', function() {
+      var word1 = 'Kitten';
+      var word2 = 'kitten';
+      expect(String.editDistance(word1, word2)).to.be.equal(1);
     });
   })
 });
