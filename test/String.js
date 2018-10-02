@@ -30,4 +30,58 @@ describe('String', function () {
       expect(test.noCase()).to.be.equal('my super test 111 he');
     });
   });
+
+  describe('.editDistance', function () {
+
+    it('Is associative', function() {
+      var word1 = 'kitte';
+      var word2 = 'kitten';
+      expect(String.editDistance(word1, word2)).to.be.equal(1);
+      expect(String.editDistance(word2, word1)).to.be.equal(1);
+    });
+
+    it('Returns proper edit distance when two words are equal', function() {
+      var word = 'kitten';
+      expect(String.editDistance(word, word)).to.be.equal(0);
+    });
+
+    it('Returns proper edit distance when words differs in one letter', function() {
+      var word1 = 'kitte';
+      var word2 = 'kitten';
+      expect(String.editDistance(word1, word2)).to.be.equal(1);
+    });
+
+    it('Returns proper edit distance between two words', function() {
+      var word1 = 'kitten';
+      var word2 = 'sitting';
+      expect(String.editDistance(word1, word2)).to.be.equal(3);
+    });
+
+    it('Takes into account camelCase', function() {
+      var word1 = 'Kitten';
+      var word2 = 'kitten';
+      expect(String.editDistance(word1, word2)).to.be.equal(1);
+    });
+  });
+
+  describe('.capitaliseFirstLetter', function () {
+
+    it('Return string with only first letter capitalized', function() {
+      var word = 'que Tal?';
+      var result = 'Que Tal?';
+      expect(word.capitaliseFirstLetter()).to.be.equal(result);
+    });
+
+    it('Return string with very first letter capitalized', function() {
+      var word = '?works!';
+      var result = '?Works!';
+      expect(word.capitaliseFirstLetter()).to.be.equal(result);
+    });
+
+    it('Return string with all letters capitalized', function() {
+      var word = '?wORKS!';
+      var result = '?Works!';
+      expect(word.capitaliseFirstLetter(true)).to.be.equal(result);
+    });
+  });
 });
