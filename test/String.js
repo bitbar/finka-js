@@ -63,4 +63,25 @@ describe('String', function () {
       expect(String.editDistance(word1, word2)).to.be.equal(1);
     });
   });
+
+  describe('.capitaliseFirstLetter', function () {
+
+    it('Return string with only first letter capitalized', function() {
+      var word = 'que Tal?';
+      var result = 'Que Tal?';
+      expect(word.capitaliseFirstLetter()).to.be.equal(result);
+    });
+
+    it('Return string with very first letter capitalized', function() {
+      var word = '?works!';
+      var result = '?Works!';
+      expect(word.capitaliseFirstLetter()).to.be.equal(result);
+    });
+
+    it('Return string with all letters capitalized', function() {
+      var word = '?wORKS!';
+      var result = '?Works!';
+      expect(word.capitaliseFirstLetter(true)).to.be.equal(result);
+    });
+  });
 });
