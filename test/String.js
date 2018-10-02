@@ -62,5 +62,5 @@ describe('String', function () {
       var word2 = 'kitten';
       expect(String.editDistance(word1, word2)).to.be.equal(1);
     });
-  })
+  });
 });
