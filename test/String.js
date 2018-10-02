@@ -30,4 +30,12 @@ describe('String', function () {
       expect(test.noCase()).to.be.equal('my super test 111 he');
     });
   });
+
+  describe('.editDistance', function () {
+    it('Returns proper edit distance between two words', function() {
+      var word1 = 'kitten';
+      var word2 = 'sitting';
+      expect(String.editDistance(word1, word2)).to.be.equal(3);
+    });
+  })
 });
