@@ -3,6 +3,17 @@ const chai = require('chai');
 const expect = chai.expect;
 
 describe('Math', function () {
+  describe('#avg', function() {
+    var numbers = [1, 2, 3, 4, 5, 6, 7];
+
+    it('Average should equal 4', function() {
+      expect(Math.avg(numbers)).to.equal(4);
+    });
+    it('Average should not equal 5', function() {
+      expect(Math.avg(numbers)).not.to.equal(5);
+    });
+  });
+
 
   describe('#rand', function () {
     var test = [];
@@ -60,6 +71,18 @@ describe('Math', function () {
         expect(Math.roundTo(num, test[0])).to.be.deep.equal(test[1]);
       });
     }
+  });
+
+  describe('#sum', function() {
+    var numbers = [1, 2, 3, 4, 5, 6, 7];
+
+    it('Sum should equal 28', function() {
+      expect(Math.sum(numbers)).to.equal(28);
+    });
+
+    it('Sum should not equal 5', function() {
+      expect(Math.sum(numbers)).not.to.equal(5);
+    });
   });
 
 });
