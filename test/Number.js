@@ -3,7 +3,7 @@ const chai = require('chai');
 const expect = chai.expect;
 
 describe('Number', function() {
-  describe('static isNumber', function() {
+  describe('#isNumber', function() {
     it('string is not a number', function() {
       expect(Number.isNumber('a')).to.be.false;
     });
