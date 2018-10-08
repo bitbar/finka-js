@@ -1,4 +1,4 @@
-/* Finka.js v1.2.2 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v1.2.3 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -541,6 +541,29 @@
 
 	  // replace
 	  value = value.trim().toLowerCase().replace(/\s/g, '-');
+
+	  return value;
+	};
+
+	/**
+	 * Returns string in snake_case
+	 *
+	 * @returns {string} String in snake_case
+	 */
+	String.prototype.toSnakeCase = function(bool) {
+
+	  //optional parameter to upperCase
+	  var toUpperCase = bool || false;
+
+	  var value = this.valueOf();
+
+	  // normalize
+	  value = value.noCase();
+
+	  // replace
+	  value = value.trim().toLowerCase().replace(/\s/g, '_');
+
+	  if(toUpperCase) return value.toUpperCase();
 
 	  return value;
 	};

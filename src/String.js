@@ -156,7 +156,11 @@ String.prototype.toKebabCase = function() {
  *
  * @returns {string} String in snake_case
  */
-String.prototype.toSnakeCase = function() {
+String.prototype.toSnakeCase = function(bool) {
+
+  //optional parameter to upperCase
+  var toUpperCase = bool || false;
+
   var value = this.valueOf();
 
   // normalize
@@ -165,22 +169,7 @@ String.prototype.toSnakeCase = function() {
   // replace
   value = value.trim().toLowerCase().replace(/\s/g, '_');
 
-  return value;
-};
-
-/**
- * Returns string in CAPITALIZED_SNAKE_CASE
- *
- * @returns {string} String in CAPITALIZED_SNAKE_CASE
- */
-String.prototype.toCapitalizedSnakeCase = function() {
-  var value = this.valueOf();
-
-  // normalize
-  value = value.noCase();
-
-  // replace
-  value = value.trim().toUpperCase().replace(/\s/g, '_');
+  if(toUpperCase) return value.toUpperCase();
 
   return value;
 };

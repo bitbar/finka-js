@@ -84,4 +84,45 @@ describe('String', function () {
       expect(word.capitaliseFirstLetter(true)).to.be.equal(result);
     });
   });
+
+  describe('.toSnakeCase', function () {
+
+    it('CamelCase to snake_case', function() {
+      var test = 'itShouldWorks';
+      expect(test.toSnakeCase()).to.be.equal('it_should_works');
+    });
+
+    it('PascalCase to snake_case', function() {
+      var test = 'ItShouldWorks';
+      expect(test.toSnakeCase()).to.be.equal('it_should_works');
+    });
+
+    it('kebab-case to snake_case', function() {
+      var test = 'it-should-works';
+      expect(test.toSnakeCase()).to.be.equal('it_should_works');
+    });
+
+    it('CAPITALIZED_SNAKE_CASE to snake_case', function() {
+      var test = 'IT_SHOULD_WORKS';
+      expect(test.toSnakeCase()).to.be.equal('it_should_works');
+    });
+    it('CamelCase to CAPITALIZED_SNAKE_CASE', function() {
+      var test = 'itShouldWorks';
+      expect(test.toSnakeCase(true)).to.be.equal('IT_SHOULD_WORKS');
+    });
+    it('PascalCase to CAPITALIZED_SNAKE_CASE', function() {
+      var test = 'ItShouldWorks';
+      expect(test.toSnakeCase(true)).to.be.equal('IT_SHOULD_WORKS');
+    });
+
+    it('kebab-case to CAPITALIZED_SNAKE_CASE', function() {
+      var test = 'it-should-works';
+      expect(test.toSnakeCase(true)).to.be.equal('IT_SHOULD_WORKS');
+    });
+
+    it('snake_case to CAPITALIZED_SNAKE_CASE', function() {
+      var test = 'it_should_works';
+      expect(test.toSnakeCase(true)).to.be.equal('IT_SHOULD_WORKS');
+    });
+  });
 });
