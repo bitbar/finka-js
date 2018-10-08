@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx rollup -c",
     "test": "npx mocha --file test/_init.js --recursive test",
-    "coveralls": "npx istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | npx coveralls && rm -rf ./coverage",
+    "coveralls": "npx istanbul cover _mocha --report lcovonly -- --file test/_init.js --recursive test && cat ./coverage/lcov.info | npx coveralls && rm -rf ./coverage",
     "docs": "npx jsdoc -c jsdoc.json",
     "lint": "npx eslint ."
   },
