@@ -50,7 +50,9 @@ describe('Date', function () {
 
   describe('#daysFromNow', function () {
     it('Returns proper timestamp', function() {
-      expect(Date.daysFromNow(1)).to.be.equal(Date.now() + day);
+      var expected = Date.now() + day;
+      var test = Date.daysFromNow(1);
+      expect(test).to.be.within(expected, expected + 1);
     });
   });
 

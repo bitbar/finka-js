@@ -1,6 +1,6 @@
 {
   "name": "finka",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.js",
   "scripts": {
