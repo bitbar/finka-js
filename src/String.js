@@ -152,6 +152,40 @@ String.prototype.toKebabCase = function() {
 };
 
 /**
+ * Returns string in snake_case
+ *
+ * @returns {string} String in snake_case
+ */
+String.prototype.toSnakeCase = function() {
+  var value = this.valueOf();
+
+  // normalize
+  value = value.noCase();
+
+  // replace
+  value = value.trim().toLowerCase().replace(/\s/g, '_');
+
+  return value;
+};
+
+/**
+ * Returns string in CAPITALIZED_SNAKE_CASE
+ *
+ * @returns {string} String in CAPITALIZED_SNAKE_CASE
+ */
+String.prototype.toCapitalizedSnakeCase = function() {
+  var value = this.valueOf();
+
+  // normalize
+  value = value.noCase();
+
+  // replace
+  value = value.trim().toUpperCase().replace(/\s/g, '_');
+
+  return value;
+};
+
+/**
  * Returns checksum crc32
  *
  * @author schnaader
