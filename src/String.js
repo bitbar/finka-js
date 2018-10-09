@@ -158,6 +158,28 @@ String.prototype.toKebabCase = function() {
 };
 
 /**
+ * Returns string in snake_case
+ * @param {boolean} [convertToUpperCase=false] Set this flag to convert to UpperCase
+ * @returns {string} String in snake_case
+ */
+String.prototype.toSnakeCase = function(convertToUpperCase) {
+
+  var toUpperCase = convertToUpperCase || false;
+
+  var value = this.valueOf();
+
+  // normalize
+  value = value.noCase();
+
+  // replace
+  value = value.trim().toLowerCase().replace(/\s/g, '_');
+
+  if(toUpperCase) return value.toUpperCase();
+
+  return value;
+};
+
+/**
  * Returns checksum crc32
  *
  * @author schnaader

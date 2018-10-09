@@ -4,6 +4,8 @@
 
   * fixed `getSimilarity` static method
   * fixed `toCamelCase` method
+  * added `toSnakeCase` method
+  * added test to this method
 
 * `Date`
 
