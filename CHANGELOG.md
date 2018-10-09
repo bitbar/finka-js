@@ -1,9 +1,15 @@
-#### 1.2.3 (2018-10-08)
+#### 1.2.3 (2018-10-07)
 
 * `String`
 
+  * fixed `getSimilarity` static method
+  * fixed `toCamelCase` method
   * added `toSnakeCase` method
   * added test to this method
+
+* `Date`
+
+  * fixed `daysFromNow` test
 
 
 #### 1.2.2 (2018-09-21)

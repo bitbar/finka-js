@@ -447,7 +447,7 @@
 	 */
 	String.getSimilarity = function(a, b) {
 	  var l = Math.max(a.length, b.length);
-	  return (l - String.editDistance(a, b) / 2) / l;
+	  return (l - String.editDistance(a, b)) / l;
 	};
 
 	/**
@@ -491,6 +491,9 @@
 	  // clean kebab and snake case
 	  value = value.replace(/[-_]/g, ' ');
 
+	  // clean special characters
+	  value = value.replace(/[^a-z0-9 ]/gi, '');
+
 	  // clean pascal case
 	  value = value.lowerFirstLetter();
 
@@ -498,6 +501,9 @@
 	  value = value.replace(/([A-Za-z])([0-9])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
 	  value = value.replace(/[A-Z][a-z]/g, function(m) { return ' ' + m.toLowerCase(); });
 	  value = value.replace(/([a-z0-9])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
+
+	  // minimize white spaces
+	  value = value.trim().replace(/\s{2,}/g, ' ');
 
 	  return value;
 	};
@@ -512,9 +518,9 @@
 
 	  // normalize
 	  value = value.noCase();
-
+	  
 	  // replace
-	  value = value.replace(/ [a-z]/gi, function(m) { return m[1].toUpperCase(); });
+	  value = value.replace(/ [a-z0-9]/gi, function(m) { return m[1].toUpperCase(); });
 
 	  return value;
 	};
