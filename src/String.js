@@ -153,13 +153,12 @@ String.prototype.toKebabCase = function() {
 
 /**
  * Returns string in snake_case
- *
+ * @param {boolean} [convertToUpperCase=false] Set this flag to convert to UpperCase
  * @returns {string} String in snake_case
  */
-String.prototype.toSnakeCase = function(bool) {
+String.prototype.toSnakeCase = function(convertToUpperCase) {
 
-  //optional parameter to upperCase
-  var toUpperCase = bool || false;
+  var toUpperCase = convertToUpperCase || false;
 
   var value = this.valueOf();
 
