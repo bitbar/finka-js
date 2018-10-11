@@ -74,6 +74,25 @@ Object.count = function(subject) {
   return items;
 };
 
+if(typeof Object.values != 'function') {
+
+  /**
+   * Polyfill for ECMAScript 2017 for Object.assign
+   * https://www.ecma-international.org/ecma-262/8.0/#sec-object.values
+   */
+  Object.values = function(o) {
+    var obj = Object(o);
+    var values = [];
+
+    for(var k in obj) {
+      values.push(obj[k]);
+    }
+
+    return values;
+  };
+
+}
+
 if(typeof Object.assign != 'function') {
 
   /**
@@ -141,7 +160,13 @@ Object.deepAssign = function() {
         propValue = from[nextKey];
         if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
           if(typeof to[nextKey] === 'object' && typeof propValue === 'object') {
+            var areArrays = Array.isArray(to[nextKey]) && Array.isArray(propValue);
+            
             to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
+
+            if(areArrays) {
+              to[nextKey] = Object.values(to[nextKey]);
+            }
           } else {
             to[nextKey] = propValue;
           }

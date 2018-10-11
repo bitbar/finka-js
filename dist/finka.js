@@ -1,4 +1,4 @@
-/* Finka.js v1.2.3 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v1.3.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -339,6 +339,16 @@
 	  return n === Number(n);
 	};
 
+	/**
+	 * Check if given number is negative zero (-0)
+	 * 
+	 * @param {number} n Number to check 
+	 * @returns {boolean} Verdict
+	 */
+	Number.isNegativeZero = function(n) {
+	  return 1 / n === -Infinity;
+	};
+
 	if(typeof Number.isInteger != 'function') {
 
 	  /**
@@ -350,7 +360,6 @@
 	  Number.isInteger = function(n) {
 	    return Number.isNumber(n) && n % 1 === 0;
 	  };
-
 	}
 
 	/**
@@ -360,7 +369,7 @@
 	 * @returns {boolean} Verdict
 	 */
 	Number.isNatural = function(n) {
-	  return Number.isInteger(n) && n >= 0;
+	  return Number.isInteger(n) && n >= 0 && !Number.isNegativeZero(n);
 	};
 
 	/**
@@ -376,16 +385,21 @@
 	/**
 	 * Returns string padded with leading zeros to length equal given length
 	 *
-	 * @param {number} length Length to which should be number padded
+	 * @param {number} padding Length to which should be number padded
 	 * @returns {string} Padded string
 	 */
-	Number.prototype.pad = function(length) {
-	  var value, i, toAdd;
+	Number.prototype.pad = function(padding) {
+	  var value = this.toString();
+	  var pointIndex = value.indexOf('.');
+	  var toAdd = padding;
 
-	  value = this.toString();
-	  toAdd = length - value.length;
+	  if(pointIndex > -1) {
+	    toAdd -= pointIndex;
+	  } else {
+	    toAdd -= value.length;
+	  } 
 
-	  for(i = 0; i < toAdd; i++) {
+	  for(var i = 0; i < toAdd; i++) {
 	    value = '0' + value;
 	  }
 
@@ -409,7 +423,7 @@
 
 	  if(a.length === 0) { return b.length; }
 	  if(b.length === 0) { return a.length; }
-	  if(a == b) { return 0; }
+	  if(a === b) { return 0; }
 
 	  // increment along the first column of each row
 	  for(i = 0; i <= b.length; i++) {
@@ -424,7 +438,7 @@
 	  // Fill in the rest of the matrix
 	  for(i = 1; i <= b.length; i++){
 	    for(j = 1; j <= a.length; j++){
-	      if(b.charAt(i-1) == a.charAt(j-1)){
+	      if(b.charAt(i-1) === a.charAt(j-1)){
 	        matrix[i][j] = matrix[i-1][j-1];
 	      } else {
 	        matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
@@ -546,20 +560,19 @@
 	  value = value.noCase();
 
 	  // replace
-	  value = value.trim().toLowerCase().replace(/\s/g, '-');
+	  value = value.replace(/\s/g, '-');
 
 	  return value;
 	};
 
 	/**
 	 * Returns string in snake_case
-	 *
+	 * @param {boolean} [convertToUpperCase=false] Set this flag to convert to UpperCase
 	 * @returns {string} String in snake_case
 	 */
-	String.prototype.toSnakeCase = function(bool) {
+	String.prototype.toSnakeCase = function(convertToUpperCase) {
 
-	  //optional parameter to upperCase
-	  var toUpperCase = bool || false;
+	  var toUpperCase = convertToUpperCase || false;
 
 	  var value = this.valueOf();
 
@@ -567,7 +580,7 @@
 	  value = value.noCase();
 
 	  // replace
-	  value = value.trim().toLowerCase().replace(/\s/g, '_');
+	  value = value.replace(/\s/g, '_');
 
 	  if(toUpperCase) return value.toUpperCase();
 
@@ -577,7 +590,9 @@
 	/**
 	 * Returns checksum crc32
 	 *
+	 * @author joelpt
 	 * @author schnaader
+	 * @see {@link https://stackoverflow.com/a/3276730|Stack Overflow Answer}
 	 * @returns {number} Checksum
 	 */
 	String.prototype.toChecksum = function() {
@@ -716,6 +731,25 @@
 	  return items;
 	};
 
+	if(typeof Object.values != 'function') {
+
+	  /**
+	   * Polyfill for ECMAScript 2017 for Object.assign
+	   * https://www.ecma-international.org/ecma-262/8.0/#sec-object.values
+	   */
+	  Object.values = function(o) {
+	    var obj = Object(o);
+	    var values = [];
+
+	    for(var k in obj) {
+	      values.push(obj[k]);
+	    }
+
+	    return values;
+	  };
+
+	}
+
 	if(typeof Object.assign != 'function') {
 
 	  /**
@@ -783,7 +817,13 @@
 	        propValue = from[nextKey];
 	        if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
 	          if(typeof to[nextKey] === 'object' && typeof propValue === 'object') {
+	            var areArrays = Array.isArray(to[nextKey]) && Array.isArray(propValue);
+	            
 	            to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
+
+	            if(areArrays) {
+	              to[nextKey] = Object.values(to[nextKey]);
+	            }
 	          } else {
 	            to[nextKey] = propValue;
 	          }
@@ -807,28 +847,24 @@
 	 * @param [descending=false] {boolean} Flag to sort in descending order
 	 */
 	Array.sortArrayOfObjects = function(arr, propertyName, descending) {
+	  var order = descending ? -1 : 1;
 	  var _a, _b;
-
-	  if(descending == null) {
-	    descending = false;
-	  }
-	  descending = descending ? -1 : 1;
 
 	  arr.sort(function(a, b) {
 	    _a = a[propertyName];
 	    _b = b[propertyName];
 
-	    if(typeof _a == 'string') {
+	    if(typeof _a === 'string') {
 	      _a = _a.toLowerCase();
 	    }
-	    if(typeof _b == 'string') {
+	    if(typeof _b === 'string') {
 	      _b = _b.toLowerCase();
 	    }
 
 	    if(_a > _b) {
-	      return descending * 1;
+	      return order * 1;
 	    } else if(_a < _b) {
-	      return descending * -1;
+	      return order * -1;
 	    }
 	    return 0;
 	  });
@@ -920,7 +956,7 @@
 	 * @returns {Array} New Array with matching elements
 	 */
 	Array.prototype.filterLike = function(query) {
-	  if(query == null) {
+	  if(typeof query === 'undefined') {
 	    return [];
 	  }
 	  
@@ -1048,7 +1084,7 @@
 	Date.getLocalDateFormat = function(fullFormat) {
 	  var countryCode, format;
 
-	  if(typeof fullFormat == 'undefined') {
+	  if(typeof fullFormat === 'undefined') {
 	    fullFormat = true;
 	  }
 
@@ -1066,7 +1102,7 @@
 	    format = 'd.m.y';
 	  }
 
-	  if(fullFormat == true) {
+	  if(fullFormat) {
 	    format = format.replace('d', 'dd');
 	    format = format.replace('m', 'mm');
 	    format = format.replace('y', 'yyyy');
@@ -1129,7 +1165,7 @@
 	 * @returns {string} Time in HMS format
 	 */
 	Date.toHmsFormat = function(time, accuracy) {
-	  if(typeof accuracy == 'undefined') {
+	  if(typeof accuracy === 'undefined') {
 	    accuracy = 'seconds';
 	  }
 
@@ -1214,9 +1250,10 @@
 	 * @returns {number} Number of days passed
 	 */
 	Date.prototype.daysPassed = function(toDate) {
-	  if(typeof toDate == 'undefined') {
+	  var toDateType = typeof toDate;
+	  if(toDateType === 'undefined') {
 	    toDate = new Date();
-	  } else if(typeof toDate == 'number' || typeof toDate == 'string') {
+	  } else if(toDateType === 'number' || toDateType === 'string') {
 	    toDate = new Date(toDate);
 	  }
 
@@ -1248,7 +1285,7 @@
 	 * @returns {string} Time string
 	 */
 	Date.prototype.toUiTime = function(showSeconds) {
-	  if(typeof showSeconds == 'undefined') {
+	  if(typeof showSeconds === 'undefined') {
 	    showSeconds = true;
 	  }
 
@@ -1545,7 +1582,7 @@
 	   * @returns {boolean} Verdict
 	   */
 	  Promise.isPromise = function(subject) {
-	    return typeof subject === 'object' && (subject instanceof Promise || typeof subject.then === 'function');
+	    return Object.isObject(subject) && (subject instanceof Promise || typeof subject.then === 'function');
 	  };
 
 	}
@@ -1647,7 +1684,7 @@
 	    val /= 1024;
 	  }
 
-	  return (i == 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
+	  return (i === 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
 	};
 
 	commonjsGlobal.FileSize = FileSize;

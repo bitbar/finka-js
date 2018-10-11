@@ -1,3 +1,33 @@
+#### 1.3.0 (2018-10-11)
+
+* `Math`
+
+  * added missing tests
+
+* `Number`
+
+  * added missing tests
+  * added static method `isNegativeZero`
+
+* `Object`
+
+  * added tests
+  * added `values` which is Polyfill to
+    [ES2017 method](https://www.ecma-international.org/ecma-262/8.0/#sec-object.values)
+
+* `Promise`
+
+  * added tests
+
+* `RegExp`
+
+  * added tests
+
+* `String`
+
+  * added missing tests
+
+
 #### 1.2.3 (2018-10-07)
 
 * `String`

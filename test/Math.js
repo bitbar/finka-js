@@ -3,18 +3,6 @@ const chai = require('chai');
 const expect = chai.expect;
 
 describe('Math', function () {
-  describe('#avg', function() {
-    var numbers = [1, 2, 3, 4, 5, 6, 7];
-
-    it('Average should equal 4', function() {
-      expect(Math.avg(numbers)).to.equal(4);
-    });
-    it('Average should not equal 5', function() {
-      expect(Math.avg(numbers)).not.to.equal(5);
-    });
-  });
-
-
   describe('#rand', function () {
     var test = [];
     for(let i = 0; i < 1000; i++) {
@@ -73,15 +61,28 @@ describe('Math', function () {
     }
   });
 
-  describe('#sum', function() {
-    var numbers = [1, 2, 3, 4, 5, 6, 7];
+  describe('#median', function() {
+    it('Returns properly calculated median for odd number of numbers', function() {
+      var numbers = [1, 2, 3, 4, 5, 6, 7];
+      expect(Math.avg(numbers)).to.equal(4);
+    });
+    it('Returns properly calculated median for even number of numbers', function() {
+      var numbers = [1, 2, 3, 4, 5, 6];
+      expect(Math.avg(numbers)).to.equal(3.5);
+    });
+  });
 
-    it('Sum should equal 28', function() {
+  describe('#sum', function() {
+    it('Returns properly calculated sum of numbers', function() {
+      var numbers = [1, 2, 3, 4, 5, 6, 7];
       expect(Math.sum(numbers)).to.equal(28);
     });
+  });
 
-    it('Sum should not equal 5', function() {
-      expect(Math.sum(numbers)).not.to.equal(5);
+  describe('#avg', function() {
+    it('Returns properly calculated avarage of numbers', function() {
+      var numbers = [1, 2, 3, 4, 5, 6, 7];
+      expect(Math.avg(numbers)).to.equal(4);
     });
   });
 

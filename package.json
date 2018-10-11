@@ -1,6 +1,6 @@
 {
   "name": "finka",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.js",
   "scripts": {
@@ -43,6 +43,7 @@
     "chai": "^4.1.2",
     "coveralls": "^3.0.2",
     "eslint": "^5.5.0",
+    "husky": "^1.1.2",
     "istanbul": "^0.4.5",
     "jsdoc": "^3.5.5",
     "jsdoc-rtd": "^1.0.15",

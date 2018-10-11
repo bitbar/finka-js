@@ -15,7 +15,7 @@ String.editDistance = function(a, b) {
 
   if(a.length === 0) { return b.length; }
   if(b.length === 0) { return a.length; }
-  if(a == b) { return 0; }
+  if(a === b) { return 0; }
 
   // increment along the first column of each row
   for(i = 0; i <= b.length; i++) {
@@ -30,7 +30,7 @@ String.editDistance = function(a, b) {
   // Fill in the rest of the matrix
   for(i = 1; i <= b.length; i++){
     for(j = 1; j <= a.length; j++){
-      if(b.charAt(i-1) == a.charAt(j-1)){
+      if(b.charAt(i-1) === a.charAt(j-1)){
         matrix[i][j] = matrix[i-1][j-1];
       } else {
         matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
@@ -152,7 +152,7 @@ String.prototype.toKebabCase = function() {
   value = value.noCase();
 
   // replace
-  value = value.trim().toLowerCase().replace(/\s/g, '-');
+  value = value.replace(/\s/g, '-');
 
   return value;
 };
@@ -172,7 +172,7 @@ String.prototype.toSnakeCase = function(convertToUpperCase) {
   value = value.noCase();
 
   // replace
-  value = value.trim().toLowerCase().replace(/\s/g, '_');
+  value = value.replace(/\s/g, '_');
 
   if(toUpperCase) return value.toUpperCase();
 
@@ -182,7 +182,9 @@ String.prototype.toSnakeCase = function(convertToUpperCase) {
 /**
  * Returns checksum crc32
  *
+ * @author joelpt
  * @author schnaader
+ * @see {@link https://stackoverflow.com/a/3276730|Stack Overflow Answer}
  * @returns {number} Checksum
  */
 String.prototype.toChecksum = function() {

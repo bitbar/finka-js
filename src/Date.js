@@ -116,7 +116,7 @@ Date.daysFromNow = function(days) {
 Date.getLocalDateFormat = function(fullFormat) {
   var countryCode, format;
 
-  if(typeof fullFormat == 'undefined') {
+  if(typeof fullFormat === 'undefined') {
     fullFormat = true;
   }
 
@@ -134,7 +134,7 @@ Date.getLocalDateFormat = function(fullFormat) {
     format = 'd.m.y';
   }
 
-  if(fullFormat == true) {
+  if(fullFormat) {
     format = format.replace('d', 'dd');
     format = format.replace('m', 'mm');
     format = format.replace('y', 'yyyy');
@@ -197,7 +197,7 @@ Date.getHms = function(time) {
  * @returns {string} Time in HMS format
  */
 Date.toHmsFormat = function(time, accuracy) {
-  if(typeof accuracy == 'undefined') {
+  if(typeof accuracy === 'undefined') {
     accuracy = 'seconds';
   }
 
@@ -282,9 +282,10 @@ Date.toTimerFormat = function(time) {
  * @returns {number} Number of days passed
  */
 Date.prototype.daysPassed = function(toDate) {
-  if(typeof toDate == 'undefined') {
+  var toDateType = typeof toDate;
+  if(toDateType === 'undefined') {
     toDate = new Date();
-  } else if(typeof toDate == 'number' || typeof toDate == 'string') {
+  } else if(toDateType === 'number' || toDateType === 'string') {
     toDate = new Date(toDate);
   }
 
@@ -316,7 +317,7 @@ Date.prototype.toCustomDate = function(format) {
  * @returns {string} Time string
  */
 Date.prototype.toUiTime = function(showSeconds) {
-  if(typeof showSeconds == 'undefined') {
+  if(typeof showSeconds === 'undefined') {
     showSeconds = true;
   }
 

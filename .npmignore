@@ -3,6 +3,7 @@ _static/
 docs/
 test/
 src/
+coverage/
 
 # Files
 rollup.config.js
@@ -11,6 +12,7 @@ bower.json
 *.tgz
 .eslint*
 .travis*
+.huskyrc.json
 
 # IDE
 .vscode/

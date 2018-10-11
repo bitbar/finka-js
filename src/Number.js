@@ -12,6 +12,16 @@ Number.isNumber = function(n) {
   return n === Number(n);
 };
 
+/**
+ * Check if given number is negative zero (-0)
+ * 
+ * @param {number} n Number to check 
+ * @returns {boolean} Verdict
+ */
+Number.isNegativeZero = function(n) {
+  return 1 / n === -Infinity;
+};
+
 if(typeof Number.isInteger != 'function') {
 
   /**
@@ -23,7 +33,6 @@ if(typeof Number.isInteger != 'function') {
   Number.isInteger = function(n) {
     return Number.isNumber(n) && n % 1 === 0;
   };
-
 }
 
 /**
@@ -33,7 +42,7 @@ if(typeof Number.isInteger != 'function') {
  * @returns {boolean} Verdict
  */
 Number.isNatural = function(n) {
-  return Number.isInteger(n) && n >= 0;
+  return Number.isInteger(n) && n >= 0 && !Number.isNegativeZero(n);
 };
 
 /**
@@ -49,16 +58,21 @@ Number.isFloat = function(n){
 /**
  * Returns string padded with leading zeros to length equal given length
  *
- * @param {number} length Length to which should be number padded
+ * @param {number} padding Length to which should be number padded
  * @returns {string} Padded string
  */
-Number.prototype.pad = function(length) {
-  var value, i, toAdd;
+Number.prototype.pad = function(padding) {
+  var value = this.toString();
+  var pointIndex = value.indexOf('.');
+  var toAdd = padding;
 
-  value = this.toString();
-  toAdd = length - value.length;
+  if(pointIndex > -1) {
+    toAdd -= pointIndex;
+  } else {
+    toAdd -= value.length;
+  } 
 
-  for(i = 0; i < toAdd; i++) {
+  for(var i = 0; i < toAdd; i++) {
     value = '0' + value;
   }
 

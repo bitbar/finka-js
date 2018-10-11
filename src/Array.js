@@ -10,28 +10,24 @@
  * @param [descending=false] {boolean} Flag to sort in descending order
  */
 Array.sortArrayOfObjects = function(arr, propertyName, descending) {
+  var order = descending ? -1 : 1;
   var _a, _b;
-
-  if(descending == null) {
-    descending = false;
-  }
-  descending = descending ? -1 : 1;
 
   arr.sort(function(a, b) {
     _a = a[propertyName];
     _b = b[propertyName];
 
-    if(typeof _a == 'string') {
+    if(typeof _a === 'string') {
       _a = _a.toLowerCase();
     }
-    if(typeof _b == 'string') {
+    if(typeof _b === 'string') {
       _b = _b.toLowerCase();
     }
 
     if(_a > _b) {
-      return descending * 1;
+      return order * 1;
     } else if(_a < _b) {
-      return descending * -1;
+      return order * -1;
     }
     return 0;
   });
@@ -123,7 +119,7 @@ Array.prototype.lookFor = function(query) {
  * @returns {Array} New Array with matching elements
  */
 Array.prototype.filterLike = function(query) {
-  if(query == null) {
+  if(typeof query === 'undefined') {
     return [];
   }
   

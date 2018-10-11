@@ -95,7 +95,7 @@ FileSize.getReadableString = function(bytes) {
     val /= 1024;
   }
 
-  return (i == 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
+  return (i === 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
 };
 
 global.FileSize = FileSize;

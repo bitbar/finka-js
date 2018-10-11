@@ -11,7 +11,7 @@ if(typeof Promise !== 'undefined') {
    * @returns {boolean} Verdict
    */
   Promise.isPromise = function(subject) {
-    return typeof subject === 'object' && (subject instanceof Promise || typeof subject.then === 'function');
+    return Object.isObject(subject) && (subject instanceof Promise || typeof subject.then === 'function');
   };
 
 }
