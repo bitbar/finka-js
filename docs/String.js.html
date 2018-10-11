@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.2.3
+                v1.3.0
             
             </span>
         </div>
@@ -64,11 +64,11 @@
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Number.html">Number</a>
-                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNegativeZero">isNegativeZero</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Object.html">Object</a>
-                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li><li class="sub-nav-item"><a href="Object.html#.values">values</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Promise.html">Promise</a>
@@ -118,7 +118,7 @@ String.editDistance = function(a, b) {
 
   if(a.length === 0) { return b.length; }
   if(b.length === 0) { return a.length; }
-  if(a == b) { return 0; }
+  if(a === b) { return 0; }
 
   // increment along the first column of each row
   for(i = 0; i &lt;= b.length; i++) {
@@ -133,7 +133,7 @@ String.editDistance = function(a, b) {
   // Fill in the rest of the matrix
   for(i = 1; i &lt;= b.length; i++){
     for(j = 1; j &lt;= a.length; j++){
-      if(b.charAt(i-1) == a.charAt(j-1)){
+      if(b.charAt(i-1) === a.charAt(j-1)){
         matrix[i][j] = matrix[i-1][j-1];
       } else {
         matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
@@ -255,7 +255,7 @@ String.prototype.toKebabCase = function() {
   value = value.noCase();
 
   // replace
-  value = value.trim().toLowerCase().replace(/\s/g, '-');
+  value = value.replace(/\s/g, '-');
 
   return value;
 };
@@ -267,7 +267,6 @@ String.prototype.toKebabCase = function() {
  */
 String.prototype.toSnakeCase = function(convertToUpperCase) {
 
-  //optional parameter to upperCase
   var toUpperCase = convertToUpperCase || false;
 
   var value = this.valueOf();
@@ -276,7 +275,7 @@ String.prototype.toSnakeCase = function(convertToUpperCase) {
   value = value.noCase();
 
   // replace
-  value = value.trim().toLowerCase().replace(/\s/g, '_');
+  value = value.replace(/\s/g, '_');
 
   if(toUpperCase) return value.toUpperCase();
 
@@ -286,7 +285,9 @@ String.prototype.toSnakeCase = function(convertToUpperCase) {
 /**
  * Returns checksum crc32
  *
+ * @author joelpt
  * @author schnaader
+ * @see {@link https://stackoverflow.com/a/3276730|Stack Overflow Answer}
  * @returns {number} Checksum
  */
 String.prototype.toChecksum = function() {

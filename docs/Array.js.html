@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.2.3
+                v1.3.0
             
             </span>
         </div>
@@ -64,11 +64,11 @@
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Number.html">Number</a>
-                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNegativeZero">isNegativeZero</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Object.html">Object</a>
-                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li><li class="sub-nav-item"><a href="Object.html#.values">values</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Promise.html">Promise</a>
@@ -113,28 +113,24 @@
  * @param [descending=false] {boolean} Flag to sort in descending order
  */
 Array.sortArrayOfObjects = function(arr, propertyName, descending) {
+  var order = descending ? -1 : 1;
   var _a, _b;
-
-  if(descending == null) {
-    descending = false;
-  }
-  descending = descending ? -1 : 1;
 
   arr.sort(function(a, b) {
     _a = a[propertyName];
     _b = b[propertyName];
 
-    if(typeof _a == 'string') {
+    if(typeof _a === 'string') {
       _a = _a.toLowerCase();
     }
-    if(typeof _b == 'string') {
+    if(typeof _b === 'string') {
       _b = _b.toLowerCase();
     }
 
     if(_a > _b) {
-      return descending * 1;
+      return order * 1;
     } else if(_a &lt; _b) {
-      return descending * -1;
+      return order * -1;
     }
     return 0;
   });
@@ -226,7 +222,7 @@ Array.prototype.lookFor = function(query) {
  * @returns {Array} New Array with matching elements
  */
 Array.prototype.filterLike = function(query) {
-  if(query == null) {
+  if(typeof query === 'undefined') {
     return [];
   }
   

@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.2.3
+                v1.3.0
             
             </span>
         </div>
@@ -64,11 +64,11 @@
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Number.html">Number</a>
-                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNegativeZero">isNegativeZero</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Object.html">Object</a>
-                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li><li class="sub-nav-item"><a href="Object.html#.values">values</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Promise.html">Promise</a>
@@ -115,6 +115,16 @@ Number.isNumber = function(n) {
   return n === Number(n);
 };
 
+/**
+ * Check if given number is negative zero (-0)
+ * 
+ * @param {number} n Number to check 
+ * @returns {boolean} Verdict
+ */
+Number.isNegativeZero = function(n) {
+  return 1 / n === -Infinity;
+};
+
 if(typeof Number.isInteger != 'function') {
 
   /**
@@ -126,7 +136,6 @@ if(typeof Number.isInteger != 'function') {
   Number.isInteger = function(n) {
     return Number.isNumber(n) &amp;&amp; n % 1 === 0;
   };
-
 }
 
 /**
@@ -136,7 +145,7 @@ if(typeof Number.isInteger != 'function') {
  * @returns {boolean} Verdict
  */
 Number.isNatural = function(n) {
-  return Number.isInteger(n) &amp;&amp; n >= 0;
+  return Number.isInteger(n) &amp;&amp; n >= 0 &amp;&amp; !Number.isNegativeZero(n);
 };
 
 /**
@@ -152,16 +161,21 @@ Number.isFloat = function(n){
 /**
  * Returns string padded with leading zeros to length equal given length
  *
- * @param {number} length Length to which should be number padded
+ * @param {number} padding Length to which should be number padded
  * @returns {string} Padded string
  */
-Number.prototype.pad = function(length) {
-  var value, i, toAdd;
+Number.prototype.pad = function(padding) {
+  var value = this.toString();
+  var pointIndex = value.indexOf('.');
+  var toAdd = padding;
 
-  value = this.toString();
-  toAdd = length - value.length;
+  if(pointIndex > -1) {
+    toAdd -= pointIndex;
+  } else {
+    toAdd -= value.length;
+  } 
 
-  for(i = 0; i &lt; toAdd; i++) {
+  for(var i = 0; i &lt; toAdd; i++) {
     value = '0' + value;
   }
 

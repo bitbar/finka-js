@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.2.3
+                v1.3.0
             
             </span>
         </div>
@@ -64,11 +64,11 @@
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Number.html">Number</a>
-                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNegativeZero">isNegativeZero</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Object.html">Object</a>
-                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li><li class="sub-nav-item"><a href="Object.html#.values">values</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Promise.html">Promise</a>
@@ -177,6 +177,25 @@ Object.count = function(subject) {
   return items;
 };
 
+if(typeof Object.values != 'function') {
+
+  /**
+   * Polyfill for ECMAScript 2017 for Object.assign
+   * https://www.ecma-international.org/ecma-262/8.0/#sec-object.values
+   */
+  Object.values = function(o) {
+    var obj = Object(o);
+    var values = [];
+
+    for(var k in obj) {
+      values.push(obj[k]);
+    }
+
+    return values;
+  };
+
+}
+
 if(typeof Object.assign != 'function') {
 
   /**
@@ -244,7 +263,13 @@ Object.deepAssign = function() {
         propValue = from[nextKey];
         if(typeof propValue !== 'undefined' &amp;&amp; from.propertyIsEnumerable(nextKey)) {
           if(typeof to[nextKey] === 'object' &amp;&amp; typeof propValue === 'object') {
+            var areArrays = Array.isArray(to[nextKey]) &amp;&amp; Array.isArray(propValue);
+            
             to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
+
+            if(areArrays) {
+              to[nextKey] = Object.values(to[nextKey]);
+            }
           } else {
             to[nextKey] = propValue;
           }
