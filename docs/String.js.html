@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.3.0
+                v1.3.1
             
             </span>
         </div>
@@ -331,7 +331,7 @@ String.prototype.isLike = function(query) {
   return new RegExp('^' + query + '$').test(this.valueOf());
 };
 
-if(typeof String.prototype.includes != 'function') {
+if(typeof String.prototype.includes !== 'function') {
   /**
    * Polyfill for ECMAScript 2015 for String.prototype.includes
    *

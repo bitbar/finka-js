@@ -7,49 +7,83 @@ describe('Array', function () {
   describe('#sortArrayOfObjects', function () {
     var test = [{
       a: 1,
-      b: 0
-    }, {
-      a: 4,
-      b: 2
-    }, {
-      a: 3,
-      b: 1
+      b: 'c'
     }, {
       a: 2,
-      b: -1
+      b: 'a'
+    }, {
+      a: 3,
+      b: 'b'
+    }, {
+      a: 2,
+      b: 'a'
     }];
 
-    it('Sort ascending', function() {
+    it('Sort ascending numbers', function() {
       Array.sortArrayOfObjects(test, 'a');
       expect(test).to.deep.equal([{
         a: 1,
-        b: 0
+        b: 'c'
       }, {
         a: 2,
-        b: -1
+        b: 'a'
+      }, {
+        a: 2,
+        b: 'a'
       }, {
         a: 3,
-        b: 1
-      }, {
-        a: 4,
-        b: 2
+        b: 'b'
       }]);
     });
 
-    it('Sort descending', function() {
-      Array.sortArrayOfObjects(test, 'b', true);
+    it('Sort descending numbers', function() {
+      Array.sortArrayOfObjects(test, 'a', true);
       expect(test).to.deep.equal([{
-        a: 4,
-        b: 2
-      }, {
         a: 3,
-        b: 1
-      }, {
-        a: 1,
-        b: 0
+        b: 'b'
       }, {
         a: 2,
-        b: -1
+        b: 'a'
+      }, {
+        a: 2,
+        b: 'a'
+      }, {
+        a: 1,
+        b: 'c'
+      }]);
+    });
+
+    it('Sort ascending strings', function() {
+      Array.sortArrayOfObjects(test, 'b');
+      expect(test).to.deep.equal([{
+        a: 2,
+        b: 'a'
+      }, {
+        a: 2,
+        b: 'a'
+      }, {
+        a: 3,
+        b: 'b'
+      }, {
+        a: 1,
+        b: 'c'
+      }]);
+    });
+
+    it('Sort descending strings', function() {
+      Array.sortArrayOfObjects(test, 'b', true);
+      expect(test).to.deep.equal([{
+        a: 1,
+        b: 'c'
+      }, {
+        a: 3,
+        b: 'b'
+      }, {
+        a: 2,
+        b: 'a'
+      }, {
+        a: 2,
+        b: 'a'
       }]);
     });
   });
@@ -179,6 +213,11 @@ describe('Array', function () {
     it('Should create empty Array', function() {
       var query = { b: 0 };
       var result = test.filterLike(query);
+      expect(result).to.be.an.instanceof(Array).that.is.empty;
+    });
+
+    it('Returns empty Array when query is undefined', function() {
+      var result = test.filterLike();
       expect(result).to.be.an.instanceof(Array).that.is.empty;
     });
   });

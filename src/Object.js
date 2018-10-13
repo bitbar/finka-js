@@ -74,7 +74,7 @@ Object.count = function(subject) {
   return items;
 };
 
-if(typeof Object.values != 'function') {
+if(typeof Object.values !== 'function') {
 
   /**
    * Polyfill for ECMAScript 2017 for Object.assign
@@ -93,7 +93,7 @@ if(typeof Object.values != 'function') {
 
 }
 
-if(typeof Object.assign != 'function') {
+if(typeof Object.assign !== 'function') {
 
   /**
    * Polyfill for ECMAScript 2015 for Object.assign

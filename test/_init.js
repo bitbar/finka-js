@@ -5,5 +5,9 @@ Object.assign = undefined;
 Number.isInteger = undefined;
 Math.log10 = undefined;
 
+// set process env
+process.env.LANGUAGE = 'en_US';
+process.env.LANG = 'US';
+
 // require 
 require('../dist/finka');

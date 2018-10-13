@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.3.0
+                v1.3.1
             
             </span>
         </div>
@@ -107,7 +107,7 @@
  * @global
  * @type {boolean}
  */
-global.isNodeJs = typeof global.module != 'undefined' &amp;&amp; typeof global.module.exports != 'undefined';
+global.isNodeJs = global.process &amp;&amp; global.process.release &amp;&amp; global.process.release.name === 'node';
 
 /**
  * Get ISO 639-1 language string
@@ -136,7 +136,7 @@ global.getLanguage = function() {
  * @returns {(string|null)} Country code or null if couldn't find
  */
 global.getCountry = function() {
-  if(typeof global.userCountry != 'undefined') {
+  if(typeof global.userCountry !== 'undefined') {
     return global.userCountry;
   }
 
@@ -157,9 +157,9 @@ global.getCountry = function() {
     }
   }
 
-  country = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
-  if(country != null) {
-    country = country[1];
+  var countryMatch = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
+  if(countryMatch !== null) {
+    country = countryMatch[1];
   }
 
   return country;
@@ -185,7 +185,7 @@ global.isNumeric = function(n) {
  */
 global.parseValue = function(value) {
   // check if it's even a string
-  if(typeof value != 'string') {
+  if(typeof value !== 'string') {
     return value;
   }
 

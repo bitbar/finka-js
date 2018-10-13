@@ -22,7 +22,7 @@ Number.isNegativeZero = function(n) {
   return 1 / n === -Infinity;
 };
 
-if(typeof Number.isInteger != 'function') {
+if(typeof Number.isInteger !== 'function') {
 
   /**
    * Polyfill for ECMAScript 2015 for Number.isInteger

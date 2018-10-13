@@ -15,7 +15,7 @@ Math.rand = function() {
   return _MRG32k3a();
 };
 
-if(typeof Math.log10 != 'function') {
+if(typeof Math.log10 !== 'function') {
 
   /**
    * Polyfill for ECMAScript 2015 for Math.log10

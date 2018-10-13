@@ -120,11 +120,7 @@ Date.getLocalDateFormat = function(fullFormat) {
     fullFormat = true;
   }
 
-  try {
-    countryCode = global.getCountry() || 'US';
-  } catch(e) {
-    countryCode = 'US';
-  }
+  countryCode = global.getCountry() || 'US';
 
   if(DATE_LOCAL_FORMAT_YMD.indexOf(countryCode) >= 0) {
     format = 'y-m-d';
@@ -220,8 +216,8 @@ Date.toHmsFormat = function(time, accuracy) {
   case 'seconds':
     if(obj.h > 0) {
       ret.push(obj.h + 'h');
-      ret.push(obj.m + 'm');
-    } else if(obj.m > 0) {
+    }
+    if(obj.m > 0) {
       ret.push(obj.m + 'm');
     }
 

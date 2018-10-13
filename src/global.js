@@ -4,7 +4,7 @@
  * @global
  * @type {boolean}
  */
-global.isNodeJs = typeof global.module != 'undefined' && typeof global.module.exports != 'undefined';
+global.isNodeJs = global.process && global.process.release && global.process.release.name === 'node';
 
 /**
  * Get ISO 639-1 language string
@@ -33,7 +33,7 @@ global.getLanguage = function() {
  * @returns {(string|null)} Country code or null if couldn't find
  */
 global.getCountry = function() {
-  if(typeof global.userCountry != 'undefined') {
+  if(typeof global.userCountry !== 'undefined') {
     return global.userCountry;
   }
 
@@ -54,9 +54,9 @@ global.getCountry = function() {
     }
   }
 
-  country = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
-  if(country != null) {
-    country = country[1];
+  var countryMatch = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
+  if(countryMatch !== null) {
+    country = countryMatch[1];
   }
 
   return country;
@@ -82,7 +82,7 @@ global.isNumeric = function(n) {
  */
 global.parseValue = function(value) {
   // check if it's even a string
-  if(typeof value != 'string') {
+  if(typeof value !== 'string') {
     return value;
   }
 

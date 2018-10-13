@@ -72,6 +72,11 @@ describe('Date', function () {
       expect(Date.getLocalDateFormat()).to.be.equal('dd.mm.yyyy');
     });
 
+    it('Returns MDY for default country', function() {
+      global.userCountry = undefined;
+      expect(Date.getLocalDateFormat()).to.be.equal('mm/dd/yyyy');
+    });
+
     // clear
     global.userCountry = undefined;
   });
@@ -110,6 +115,10 @@ describe('Date', function () {
     it('Returns proper string for seconds accuracy', function() {
       expect(Date.toHmsFormat(3723004, 'seconds')).to.be.equal('1h 2m 3s');
     });
+
+    it('Throws Error when unsupported accuracy given', function() {
+      expect(Date.toHmsFormat.bind(Date, 3723004, 'meters')).to.throw(TypeError, 'Unknown accuracy');
+    });
   });
 
   describe('#toStopwatchFormat', function () {
@@ -125,10 +134,29 @@ describe('Date', function () {
   });
 
   describe('.daysPassed', function () {
-    it('Returns proper number', function() {
-      var date1 = new Date(612622800000);
+    var date1 = new Date(612622800000);
+
+    it('Supports comparison to Date instance', function() {
       var date2 = new Date(1307224800000);
       expect(date1.daysPassed(date2)).to.be.equal(8039);
+    });
+
+    it('Supports comparison to Number (Timestamp)', function() {
+      var date2 = 1307224800000;
+      expect(date1.daysPassed(date2)).to.be.equal(8039);
+    });
+
+    it('Supports comparison to String', function() {
+      var date2 = '2011-06-04T22:00:00.000Z';
+      expect(date1.daysPassed(date2)).to.be.equal(8039);
+    });
+
+    it('Supports not giving any param - setting current Date', function() {
+      expect(new Date().daysPassed()).to.be.equal(0);
+    });
+
+    it('Throws Error when giving unsupported param', function() {
+      expect(date1.daysPassed.bind(date1, [])).to.throw(TypeError, 'toDate is not instance of Date');
     });
   });
   

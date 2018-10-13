@@ -5,6 +5,18 @@ const expect = chai.expect;
 describe('String', function () {
 
   describe('#editDistance', function () {
+    it('Returns 0 when empty Array given', function() {
+      expect(String.editDistance('', '')).to.be.equal(0);
+    });
+
+    it('Supports when left side is empty string', function() {
+      expect(String.editDistance('', 'a')).to.be.equal(1);
+    });
+
+    it('Supports when right side is empty string', function() {
+      expect(String.editDistance('a', '')).to.be.equal(1);
+    });
+
     it('Is associative', function() {
       var word1 = 'kitte';
       var word2 = 'kitten';
@@ -331,6 +343,24 @@ describe('String', function () {
     it('Returns `false` when test subject doesn\'t include substring', function() {
       var test = 'kajak';
       var substring = 'je';
+      expect(test.includes(substring)).to.be.false;
+    });
+
+    it('Returns `true` when start param is given and test subject includes substring', function() {
+      var test = 'kajak';
+      var substring = 'ja';
+      expect(test.includes(substring, 2)).to.be.true;
+    });
+
+    it('Returns `false` when start param is given and test subject includes substring, but it\'s after start position', function() {
+      var test = 'kajak';
+      var substring = 'ja';
+      expect(test.includes(substring, 3)).to.be.false;
+    });
+
+    it('Returns `false` when substring length exceeds test subject length', function() {
+      var test = 'kajak';
+      var substring = 'kajaki';
       expect(test.includes(substring)).to.be.false;
     });
   });

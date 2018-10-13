@@ -228,7 +228,7 @@ String.prototype.isLike = function(query) {
   return new RegExp('^' + query + '$').test(this.valueOf());
 };
 
-if(typeof String.prototype.includes != 'function') {
+if(typeof String.prototype.includes !== 'function') {
   /**
    * Polyfill for ECMAScript 2015 for String.prototype.includes
    *

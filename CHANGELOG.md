@@ -1,3 +1,10 @@
+#### 1.3.1 (2018-10-13)
+
+* added missing tests for branches according to
+  [instanbul](https://github.com/gotwarlost/istanbul) coverage report
+* fixing minor issues
+
+
 #### 1.3.0 (2018-10-11)
 
 * `Math`

@@ -75,7 +75,7 @@ describe('Object', function () {
       expect(Object.isLike(subject, query)).to.be.false;
     });
 
-    it('Returns `false` when given subject matches given query', function() {
+    it('Returns `true` when given subject matches given query', function() {
       var query = {
         a: 1,
         c: null,
@@ -83,6 +83,22 @@ describe('Object', function () {
       };
 
       expect(Object.isLike(subject, query)).to.be.true;
+    });
+
+    it('Returns `true` when given subject object matches given query and one of subjects params is function', function() {
+      var query = {
+        a: 1,
+        c: null,
+        d: -1,
+        e: false
+      };
+      subject.e = () => false;
+
+      expect(Object.isLike(subject, query)).to.be.true;
+    });
+
+    it('Returns `false` when given subject and query are not objects and doesn\'t match by default comparator', function() {
+      expect(Object.isLike(true, false)).to.be.false;
     });
   });
 
@@ -167,6 +183,24 @@ describe('Object', function () {
         }
       });
     });
+
+    it('Executes correctly if one of given arguments is null or undefined', function() {
+      var test = {
+        a: 0
+      };
+      var ext1 = {
+        a: 1
+      };
+      var ext2 = {
+        b: 2
+      };
+
+      Object.assign(test, null, ext1, undefined, ext2);
+      expect(test).to.be.deep.equal({
+        a: 1,
+        b: 2
+      });
+    });
   });
 
   describe('#deepAssign', function () {
@@ -223,6 +257,37 @@ describe('Object', function () {
         c: {
           test: true,
           extra: 'stuff'
+        }
+      });
+    });
+
+    it('Executes correctly if one of given arguments is null or undefined', function() {
+      var test = {
+        a: 0,
+        x: {
+          a: 0
+        }
+      };
+      var ext1 = {
+        a: 1,
+        x: {
+          a: 1
+        }
+      };
+      var ext2 = {
+        b: 2,
+        x: {
+          b: 2
+        }
+      };
+
+      Object.deepAssign(test, null, ext1, undefined, ext2);
+      expect(test).to.be.deep.equal({
+        a: 1,
+        b: 2,
+        x: {
+          a: 1,
+          b: 2
         }
       });
     });

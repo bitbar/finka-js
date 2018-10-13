@@ -10,5 +10,5 @@
  * @returns {boolean} Result
  */
 Boolean.xor = function(a, b) {
-  return !a != !b;
+  return !a !== !b;
 };
