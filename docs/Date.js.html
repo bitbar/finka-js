@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.3.1
+                v1.4.0
             
             </span>
         </div>
@@ -52,7 +52,7 @@
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Date.html">Date</a>
-                <div class="nav-item-sub hidden" id="Date_sub"><div class="member-type">Members</div><ul class="inner"><li class="sub-nav-item"><a href="Date.html#.DAY">DAY</a></a></li><li class="sub-nav-item"><a href="Date.html#.DAYAFTERTOMORROW">DAYAFTERTOMORROW</a></a></li><li class="sub-nav-item"><a href="Date.html#.HOUR">HOUR</a></a></li><li class="sub-nav-item"><a href="Date.html#.MINUTE">MINUTE</a></a></li><li class="sub-nav-item"><a href="Date.html#.SECOND">SECOND</a></a></li><li class="sub-nav-item"><a href="Date.html#.TODAY">TODAY</a></a></li><li class="sub-nav-item"><a href="Date.html#.TOMORROW">TOMORROW</a></a></li><li class="sub-nav-item"><a href="Date.html#.WEEK">WEEK</a></a></li><li class="sub-nav-item"><a href="Date.html#.YESTERDAY">YESTERDAY</a></a></li></ul><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Date.html#.daysFromNow">daysFromNow</a></a></li><li class="sub-nav-item"><a href="Date.html#.getHms">getHms</a></a></li><li class="sub-nav-item"><a href="Date.html#.getLocalDateFormat">getLocalDateFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.getTimezoneName">getTimezoneName</a></a></li><li class="sub-nav-item"><a href="Date.html#.toHmsFormat">toHmsFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.toStopwatchFormat">toStopwatchFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.toTimerFormat">toTimerFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#addTime">addTime</a></a></li><li class="sub-nav-item"><a href="Date.html#daysPassed">daysPassed</a></a></li><li class="sub-nav-item"><a href="Date.html#toCustomDate">toCustomDate</a></a></li><li class="sub-nav-item"><a href="Date.html#toInputDateFormat">toInputDateFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#toInputTimeFormat">toInputTimeFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiDate">toUiDate</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiDateTime">toUiDateTime</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiTime">toUiTime</a></a></li></ul></div>
+                <div class="nav-item-sub hidden" id="Date_sub"><div class="member-type">Members</div><ul class="inner"><li class="sub-nav-item"><a href="Date.html#.DAY">DAY</a></a></li><li class="sub-nav-item"><a href="Date.html#.DAYAFTERTOMORROW">DAYAFTERTOMORROW</a></a></li><li class="sub-nav-item"><a href="Date.html#.HOUR">HOUR</a></a></li><li class="sub-nav-item"><a href="Date.html#.MINUTE">MINUTE</a></a></li><li class="sub-nav-item"><a href="Date.html#.SECOND">SECOND</a></a></li><li class="sub-nav-item"><a href="Date.html#.TODAY">TODAY</a></a></li><li class="sub-nav-item"><a href="Date.html#.TOMORROW">TOMORROW</a></a></li><li class="sub-nav-item"><a href="Date.html#.WEEK">WEEK</a></a></li><li class="sub-nav-item"><a href="Date.html#.YESTERDAY">YESTERDAY</a></a></li></ul><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Date.html#.daysFromNow">daysFromNow</a></a></li><li class="sub-nav-item"><a href="Date.html#.getHms">getHms</a></a></li><li class="sub-nav-item"><a href="Date.html#.getLocalDateFormat">getLocalDateFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.getTimezoneName">getTimezoneName</a></a></li><li class="sub-nav-item"><a href="Date.html#.parseValue">parseValue</a></a></li><li class="sub-nav-item"><a href="Date.html#.toHmsFormat">toHmsFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.toStopwatchFormat">toStopwatchFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.toTimerFormat">toTimerFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#addTime">addTime</a></a></li><li class="sub-nav-item"><a href="Date.html#daysPassed">daysPassed</a></a></li><li class="sub-nav-item"><a href="Date.html#toCustomDate">toCustomDate</a></a></li><li class="sub-nav-item"><a href="Date.html#toInputDateFormat">toInputDateFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#toInputTimeFormat">toInputTimeFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiDate">toUiDate</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiDateTime">toUiDateTime</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiTime">toUiTime</a></a></li></ul></div>
             </li><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="JSON.html">JSON</a>
@@ -199,6 +199,47 @@ Object.defineProperty(Date, 'DAYAFTERTOMORROW', {
     return Date.TOMORROW + Date.DAY;
   }
 });
+
+/**
+ * Return new Date instance from given value
+ * 
+ * It's simmilar to native Date.parse, but you can use such strings like:
+ * 'today', 'yesterday', 'tomorrow', 'dayaftertomorrow', 'now'
+ * 
+ * Feel free to contribute if you think that this method should support even more!
+ * 
+ * @param {*} value Value to be parsed
+ * @throws Will throw an error if the value is not supported.
+ * @returns {Date} New Date
+ */
+Date.parseValue = function(value) {
+  var type = typeof value;
+  if(type === 'string') {
+    switch(value.toLowerCase()) {
+    case 'today' :
+      return new Date(Date.TODAY);
+
+    case 'yesterday' :
+      return new Date(Date.YESTERDAY);
+
+    case 'tomorrow' :
+      return new Date(Date.TOMORROW);
+
+    case 'dayaftertomorrow' :
+      return new Date(Date.DAYAFTERTOMORROW);
+
+    case 'now' :
+      return new Date();
+
+    default :
+      throw new Error('Unsupported string: ' + value);
+    }
+  } else if(type === 'number' || value instanceof Date) {
+    return new Date(value);
+  } else {
+    throw new TypeError('Unsupported value type');
+  }
+};
 
 /**
  * Return timestamp of now + days

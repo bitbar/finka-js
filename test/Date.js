@@ -48,6 +48,56 @@ describe('Date', function () {
     });
   });
 
+  describe('#parseValue', function () {
+    it('Supports "today" string', function() {
+      var test = Date.parseValue('today');
+      expect(test.getTime()).to.be.equal(Date.TODAY);
+    });
+
+    it('Supports "yesterday" string', function() {
+      var test = Date.parseValue('yesterday');
+      expect(test.getTime()).to.be.equal(Date.YESTERDAY);
+    });
+
+    it('Supports "tomorrow" string', function() {
+      var test = Date.parseValue('tomorrow');
+      expect(test.getTime()).to.be.equal(Date.TOMORROW);
+    });
+
+    it('Supports "dayaftertomorrow" string', function() {
+      var test = Date.parseValue('dayaftertomorrow');
+      expect(test.getTime()).to.be.equal(Date.DAYAFTERTOMORROW);
+    });
+
+    it('Supports "now" string', function() {
+      var expected = Date.now();
+      var test = Date.parseValue('now');
+      expect(test.getTime()).to.be.within(expected, expected + 1);
+    });
+
+    it('Throws error when unsupported string', function() {
+      var str = 'my birthday';
+      expect(Date.parseValue.bind(Date, str)).to.throw('Unsupported string: ' + str);
+    });
+
+    it('Supports numbers', function() {
+      var test = Date.parseValue(612622800000);
+      expect(test.getTime()).to.be.equal(612622800000);
+    });
+
+    it('Supports Date (clones it)', function() {
+      var expected = new Date();
+      var test = Date.parseValue(expected);
+      expect(test.getTime()).to.be.equal(expected.getTime());
+      expect(test).to.not.be.equal(expected);
+    });
+
+    it('Throws error when unsupported value', function() {
+      var test = [];
+      expect(Date.parseValue.bind(Date, test)).to.throw(TypeError, 'Unsupported value type');
+    });
+  });
+
   describe('#daysFromNow', function () {
     it('Returns proper timestamp', function() {
       var expected = Date.now() + day;

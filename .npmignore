@@ -1,19 +1,35 @@
-# Dirs
+# Static files for README
 _static/
+
+# Documentation
 docs/
+jsdoc.json
+
+# Tests related
 test/
-src/
 coverage/
 
-# Files
+# Source files
+src/
+
+# Rollup config
 rollup.config.js
-jsdoc.json
+
+# Bower config
 bower.json
-*.tgz
+
+# Lint config
 .eslint*
-.travis*
+
+# Husky config
 .huskyrc.json
 
-# IDE
+# npm files
+*.tgz
+
+# Travis files
+.travis*
+
+# IDE files
 .vscode/
 .idea/
