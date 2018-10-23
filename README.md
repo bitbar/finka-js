@@ -62,9 +62,9 @@ That's all!
 
 Download version that fits your better:
 
-[Compressed version - 13KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.min.js)
+[Compressed version - 15KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.min.js)
 
-[Uncompressed version - 33KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.js)
+[Uncompressed version - 39KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.js)
 
 And simply add HTML tag:
 
