@@ -1,3 +1,10 @@
+#### 1.4.0 (2018-10-23)
+
+* `Date`
+
+  * added static method `parseValue`
+
+
 #### 1.3.1 (2018-10-13)
 
 * added missing tests for branches according to

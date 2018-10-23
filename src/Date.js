@@ -98,6 +98,47 @@ Object.defineProperty(Date, 'DAYAFTERTOMORROW', {
 });
 
 /**
+ * Return new Date instance from given value
+ * 
+ * It's simmilar to native Date.parse, but you can use such strings like:
+ * 'today', 'yesterday', 'tomorrow', 'dayaftertomorrow', 'now'
+ * 
+ * Feel free to contribute if you think that this method should support even more!
+ * 
+ * @param {*} value Value to be parsed
+ * @throws Will throw an error if the value is not supported.
+ * @returns {Date} New Date
+ */
+Date.parseValue = function(value) {
+  var type = typeof value;
+  if(type === 'string') {
+    switch(value.toLowerCase()) {
+    case 'today' :
+      return new Date(Date.TODAY);
+
+    case 'yesterday' :
+      return new Date(Date.YESTERDAY);
+
+    case 'tomorrow' :
+      return new Date(Date.TOMORROW);
+
+    case 'dayaftertomorrow' :
+      return new Date(Date.DAYAFTERTOMORROW);
+
+    case 'now' :
+      return new Date();
+
+    default :
+      throw new Error('Unsupported string: ' + value);
+    }
+  } else if(type === 'number' || value instanceof Date) {
+    return new Date(value);
+  } else {
+    throw new TypeError('Unsupported value type');
+  }
+};
+
+/**
  * Return timestamp of now + days
  *
  * @param {number} days Number of days difference
