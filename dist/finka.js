@@ -1,11 +1,10 @@
 /* Finka.js v1.4.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+(function (factory) {
 	typeof define === 'function' && define.amd ? define(factory) :
-	(factory());
-}(this, (function () { 'use strict';
+	factory();
+}((function () { 'use strict';
 
-	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 	function md5cycle(x, k) {
 	  var a = x[0], b = x[1], c = x[2], d = x[3];
@@ -168,12 +167,6 @@
 	  return a + b & 0xFFFFFFFF;
 	};
 
-	var md5$1 = /*#__PURE__*/Object.freeze({
-		default: md5
-	});
-
-	var require$$0 = ( md5$1 && md5 ) || md5$1;
-
 	/**
 	 * Flag if environment is Node JS
 	 *
@@ -287,7 +280,7 @@
 	 * @param {string} String to be hashed
 	 * @returns {string} Hash
 	 */
-	commonjsGlobal.md5 = require$$0;
+	commonjsGlobal.md5 = md5;
 
 	/**
 	 * @namespace Boolean
@@ -1458,18 +1451,12 @@
 	  return random;
 	}
 
-	var MRG32k3a$1 = /*#__PURE__*/Object.freeze({
-		default: MRG32k3a
-	});
-
-	var MRG32k3a$2 = ( MRG32k3a$1 && MRG32k3a ) || MRG32k3a$1;
-
 	/**
 	 * @namespace Math
 	 */
 
 
-	var _MRG32k3a = new MRG32k3a$2();
+	var _MRG32k3a = new MRG32k3a();
 
 	/**
 	 * Better alternative to Math.random based on MRG32k2a algorithm

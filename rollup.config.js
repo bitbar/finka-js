@@ -1,7 +1,7 @@
 // Imports
-import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
-import uglify from 'rollup-plugin-uglify';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import { uglify } from 'rollup-plugin-uglify';
 
 import $package from './package.json';
 
