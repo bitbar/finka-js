@@ -5,10 +5,18 @@
 /**
  * Returns result of logic XOR operation between a and b arguments
  *
+ * @memberof Boolean
  * @param {boolean} a A
  * @param {boolean} b B
  * @returns {boolean} Result
  */
-Boolean.xor = function(a, b) {
+function xor(a, b) {
   return !a !== !b;
+}
+
+
+module.exports = {
+  static: {
+    xor
+  }
 };

@@ -98,4 +98,5 @@ FileSize.getReadableString = function(bytes) {
   return (i === 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
 };
 
-global.FileSize = FileSize;
+
+module.exports = FileSize;

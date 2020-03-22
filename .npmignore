@@ -15,6 +15,9 @@ src/
 # Rollup config
 rollup.config.js
 
+# Babel config
+.babelrc
+
 # Bower config
 bower.json
 
@@ -31,5 +34,6 @@ bower.json
 .travis*
 
 # IDE files
+.editorconfig
 .vscode/
 .idea/

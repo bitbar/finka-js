@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Source: global.js | Finka.js</title>
+    <title>Source: globalThis.js | Finka.js</title>
     <link type="text/css" rel="stylesheet" href="styles/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="styles/main.css">
 
@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.4.0
+                v2.0.0
             
             </span>
         </div>
@@ -92,7 +92,7 @@
     <div class="content">
         <ul class="breadcrumbs">
             <li><a href="index.html">Docs</a> »</li>
-            <li>Source: global.js</li>
+            <li>Source: globalThis.js</li>
         </ul>
         <hr>
         
@@ -107,7 +107,7 @@
  * @global
  * @type {boolean}
  */
-global.isNodeJs = global.process &amp;&amp; global.process.release &amp;&amp; global.process.release.name === 'node';
+const isNodeJs = globalThis.process &amp;&amp; globalThis.process.release &amp;&amp; globalThis.process.release.name === 'node';
 
 /**
  * Get ISO 639-1 language string
@@ -115,10 +115,10 @@ global.isNodeJs = global.process &amp;&amp; global.process.release &amp;&amp; gl
  * @global
  * @returns {string} ISO 639-1 language string
  */
-global.getLanguage = function() {
+function getLanguage() {
   var lang;
 
-  if(global.isNodeJs) {
+  if(globalThis.isNodeJs) {
     lang = process.env.LANGUAGE || process.env.LANG;
   } else {
     lang = navigator.language || navigator.languages &amp;&amp; navigator.languages[0];
@@ -127,7 +127,7 @@ global.getLanguage = function() {
   lang = lang.substr(0, 2);
 
   return lang;
-};
+}
 
 /**
  * Tries to get country from language
@@ -135,14 +135,14 @@ global.getLanguage = function() {
  * @global
  * @returns {(string|null)} Country code or null if couldn't find
  */
-global.getCountry = function() {
-  if(typeof global.userCountry !== 'undefined') {
-    return global.userCountry;
+function getCountry() {
+  if(typeof globalThis.userCountry !== 'undefined') {
+    return globalThis.userCountry;
   }
 
   var country;
 
-  if(global.isNodeJs) {
+  if(globalThis.isNodeJs) {
     country = process.env.LANG;
   } else {
     country = navigator.language;
@@ -163,7 +163,7 @@ global.getCountry = function() {
   }
 
   return country;
-};
+}
 
 /**
  * Check if given argument is numeric
@@ -172,9 +172,9 @@ global.getCountry = function() {
  * @param {*} n Subject of examination
  * @returns {boolean} Verdict
  */
-global.isNumeric = function(n) {
+function isNumeric(n) {
   return !isNaN(parseFloat(n)) &amp;&amp; isFinite(n);
-};
+}
 
 /**
  * Parse value to proper type
@@ -183,14 +183,14 @@ global.isNumeric = function(n) {
  * @param {*} value Value to be parsed
  * @returns {*} Parsed value
  */
-global.parseValue = function(value) {
+function parseValue(value) {
   // check if it's even a string
   if(typeof value !== 'string') {
     return value;
   }
 
   // check if it's number
-  if (global.isNumeric(value)) {
+  if (globalThis.isNumeric(value)) {
     return parseFloat(value);
   }
 
@@ -204,7 +204,7 @@ global.parseValue = function(value) {
 
   // return not parsed value in the end
   return value;
-};
+}
 
 /**
  * MD5
@@ -214,7 +214,22 @@ global.parseValue = function(value) {
  * @param {string} String to be hashed
  * @returns {string} Hash
  */
-global.md5 = require('./md5');
+const md5 = require('./md5');
+
+
+module.exports = {
+  constant: {
+    isNodeJs
+  },
+
+  static: {
+    getLanguage,
+    getCountry,
+    isNumeric,
+    parseValue,
+    md5
+  }
+};
 </code></pre>
 </article>
 
@@ -225,7 +240,7 @@ global.md5 = require('./md5');
         <hr>
         <footer>
             <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
-            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
         </footer>
     </div>
 </div>

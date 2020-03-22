@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.4.0
+                v2.0.0
             
             </span>
         </div>
@@ -105,19 +105,23 @@
  * @namespace Promise
  */
 
-if(typeof Promise !== 'undefined') {
-
-  /**
-   * Returns verdict if given subject is Promise or not
-   *
-   * @param {*} subject Subject of examination
-   * @returns {boolean} Verdict
-   */
-  Promise.isPromise = function(subject) {
-    return Object.isObject(subject) &amp;&amp; (subject instanceof Promise || typeof subject.then === 'function');
-  };
-
+/**
+ * Returns verdict if given subject is Promise or not
+ *
+ * @memberof Promise
+ * @param {*} subject Subject of examination
+ * @returns {boolean} Verdict
+ */
+function isPromise(subject) {
+  return Object.isObject(subject) &amp;&amp; (subject instanceof Promise || typeof subject.then === 'function');
 }
+
+
+module.exports = {
+  static: {
+    isPromise
+  }
+};
 </code></pre>
 </article>
 
@@ -128,7 +132,7 @@ if(typeof Promise !== 'undefined') {
         <hr>
         <footer>
             <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
-            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
         </footer>
     </div>
 </div>

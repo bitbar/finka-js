@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.4.0
+                v2.0.0
             
             </span>
         </div>
@@ -108,16 +108,24 @@
 /**
  * Returns verdict if given string is valid JSON or not
  *
+ * @memberof JSON
  * @param {string} str JSON string to be checked
  * @returns {boolean} Verdict
  */
-JSON.isJSONString = function(str) {
+function isJSONString(str) {
   try {
     JSON.parse(str);
   } catch(e) {
     return false;
   }
   return true;
+}
+
+
+module.exports = {
+  static: {
+    isJSONString
+  }
 };
 </code></pre>
 </article>
@@ -129,7 +137,7 @@ JSON.isJSONString = function(str) {
         <hr>
         <footer>
             <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
-            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
         </footer>
     </div>
 </div>

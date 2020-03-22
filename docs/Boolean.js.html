@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.4.0
+                v2.0.0
             
             </span>
         </div>
@@ -108,12 +108,20 @@
 /**
  * Returns result of logic XOR operation between a and b arguments
  *
+ * @memberof Boolean
  * @param {boolean} a A
  * @param {boolean} b B
  * @returns {boolean} Result
  */
-Boolean.xor = function(a, b) {
+function xor(a, b) {
   return !a !== !b;
+}
+
+
+module.exports = {
+  static: {
+    xor
+  }
 };
 </code></pre>
 </article>
@@ -125,7 +133,7 @@ Boolean.xor = function(a, b) {
         <hr>
         <footer>
             <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
-            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
         </footer>
     </div>
 </div>

@@ -4,7 +4,7 @@
  * @global
  * @type {boolean}
  */
-global.isNodeJs = global.process && global.process.release && global.process.release.name === 'node';
+const isNodeJs = globalThis.process && globalThis.process.release && globalThis.process.release.name === 'node';
 
 /**
  * Get ISO 639-1 language string
@@ -12,10 +12,10 @@ global.isNodeJs = global.process && global.process.release && global.process.rel
  * @global
  * @returns {string} ISO 639-1 language string
  */
-global.getLanguage = function() {
+function getLanguage() {
   var lang;
 
-  if(global.isNodeJs) {
+  if(globalThis.isNodeJs) {
     lang = process.env.LANGUAGE || process.env.LANG;
   } else {
     lang = navigator.language || navigator.languages && navigator.languages[0];
@@ -24,7 +24,7 @@ global.getLanguage = function() {
   lang = lang.substr(0, 2);
 
   return lang;
-};
+}
 
 /**
  * Tries to get country from language
@@ -32,14 +32,14 @@ global.getLanguage = function() {
  * @global
  * @returns {(string|null)} Country code or null if couldn't find
  */
-global.getCountry = function() {
-  if(typeof global.userCountry !== 'undefined') {
-    return global.userCountry;
+function getCountry() {
+  if(typeof globalThis.userCountry !== 'undefined') {
+    return globalThis.userCountry;
   }
 
   var country;
 
-  if(global.isNodeJs) {
+  if(globalThis.isNodeJs) {
     country = process.env.LANG;
   } else {
     country = navigator.language;
@@ -60,7 +60,7 @@ global.getCountry = function() {
   }
 
   return country;
-};
+}
 
 /**
  * Check if given argument is numeric
@@ -69,9 +69,9 @@ global.getCountry = function() {
  * @param {*} n Subject of examination
  * @returns {boolean} Verdict
  */
-global.isNumeric = function(n) {
+function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
-};
+}
 
 /**
  * Parse value to proper type
@@ -80,14 +80,14 @@ global.isNumeric = function(n) {
  * @param {*} value Value to be parsed
  * @returns {*} Parsed value
  */
-global.parseValue = function(value) {
+function parseValue(value) {
   // check if it's even a string
   if(typeof value !== 'string') {
     return value;
   }
 
   // check if it's number
-  if (global.isNumeric(value)) {
+  if (globalThis.isNumeric(value)) {
     return parseFloat(value);
   }
 
@@ -101,7 +101,7 @@ global.parseValue = function(value) {
 
   // return not parsed value in the end
   return value;
-};
+}
 
 /**
  * MD5
@@ -111,4 +111,19 @@ global.parseValue = function(value) {
  * @param {string} String to be hashed
  * @returns {string} Hash
  */
-global.md5 = require('./md5');
+const md5 = require('./md5');
+
+
+module.exports = {
+  constant: {
+    isNodeJs
+  },
+
+  static: {
+    getLanguage,
+    getCountry,
+    isNumeric,
+    parseValue,
+    md5
+  }
+};

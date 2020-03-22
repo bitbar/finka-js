@@ -1,44 +1,37 @@
 // Imports
-import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
-import uglify from 'rollup-plugin-uglify';
+import cjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import babel from 'rollup-plugin-babel';
+import { uglify } from 'rollup-plugin-uglify';
 
 import $package from './package.json';
 
-// Common
-var config = {
-  input: 'src/index.js',
+const input = 'src/index.js';
+const external = Object.keys($package.dependencies || []);
+const globals = {};
 
-  output: {
-    file: 'dist/finka',
-    format: 'umd',
-    name: 'finka-js',
-    banner: `/* Finka.js v${$package.version} ` +
-            '| (c) Bitbar Technologies and contributors ' +
-            '| https://github.com/bitbar/finka-js/blob/master/LICENSE.md ' +
-            '*/'
-  },
-
-  extensions: ['.js']
-};
-
-var input = config.input;
+for(let ext of external) {
+  globals[ext] = ext;
+}
 
 var output = function(min) {
   return {
-    file: config.output.file + (min ? '.min' : '') + '.js',
-    format: config.output.format,
-    name:  config.output.name,
-    banner: config.output.banner
+    file: 'dist/finka' + (min ? '.min' : '') + '.js',
+    format: 'umd',
+    name:  'finka',
+    banner: `/* Finka.js v${$package.version} ` +
+            `|  Copyright ${new Date().getFullYear()} (c) Bitbar Technologies and contributors ` +
+            '| https://github.com/bitbar/finka-js/blob/master/LICENSE.md ' +
+            '*/',
+    globals
   };
 };
 
 var plugins = [
-  nodeResolve({
-    extensions: config.extensions
-  }),
-  commonjs({
-    extensions: config.extensions
+  cjs(),
+  resolve(),
+  babel({
+    exclude: 'node_modules/**'
   })
 ];
 
@@ -46,14 +39,15 @@ var plugins = [
 export default [
   // Uncompressed config
   {
-    input: input,
+    input,
     output: output(),
-    plugins: plugins
+    plugins,
+    external
   },
 
   // Compressed config
   {
-    input: input,
+    input,
     output: output(true),
     plugins: plugins.concat([
       uglify({
@@ -61,6 +55,7 @@ export default [
           comments: /license/i
         }
       })
-    ])
+    ]),
+    external
   }
 ];

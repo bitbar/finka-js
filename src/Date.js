@@ -2,114 +2,112 @@
  * @namespace Date
  */
 
-var DATE_LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
-var DATE_LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
+var LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
+var LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
 
 /**
  * Second in milliseconds
  *
+ * @memberof Date
  * @constant
  * @type {number}
  */
-Date.SECOND = 1000;
+var SECOND = 1000;
 
 /**
  * Minute in milliseconds
  *
+ * @memberof Date
  * @constant
  * @type {number}
  */
-Date.MINUTE = 60 * Date.SECOND;
+var MINUTE = 60 * SECOND;
 
 /**
  * Hour in milliseconds
  *
+ * @memberof Date
  * @constant
  * @type {number}
  */
-Date.HOUR = 60 * Date.MINUTE;
+var HOUR = 60 * MINUTE;
 
 /**
  * Day in milliseconds
  *
+ * @memberof Date
  * @constant
  * @type {number}
  */
-Date.DAY = 24 * Date.HOUR;
+var DAY = 24 * HOUR;
 
 /**
  * Week in milliseconds
  *
+ * @memberof Date
  * @constant
  * @type {number}
  */
-Date.WEEK = 7 * Date.DAY;
+var WEEK = 7 * DAY;
 
 /**
  * Today in milliseconds
  *
+ * @memberof Date
  * @constant
  * @type {number}
  */
-Date.TODAY;
-Object.defineProperty(Date, 'TODAY', {
-  get: function() {
-    return Date.DAY * Math.floor( Date.now() / Date.DAY );
-  }
-});
+function TODAY() {
+  return DAY * Math.floor( Date.now() / DAY );
+}
 
 /**
  * Yesterday in milliseconds
  *
+ * @memberof Date
  * @constant
  * @type {number}
  */
-Date.YESTERDAY;
-Object.defineProperty(Date, 'YESTERDAY', {
-  get: function() {
-    return Date.TODAY - Date.DAY;
-  }
-});
+function YESTERDAY() {
+  return Date.TODAY - DAY;
+}
 
 /**
  * Tomorrow in milliseconds
  *
+ * @memberof Date
  * @constant
  * @type {number}
  */
-Date.TOMORROW;
-Object.defineProperty(Date, 'TOMORROW', {
-  get: function() {
-    return Date.TODAY + Date.DAY;
-  }
-});
+function TOMORROW() {
+  return Date.TODAY + DAY;
+}
 
 /**
  * Day after tomorrow in milliseconds
  *
+ * @memberof Date
  * @constant
  * @type {number}
  */
-Date.DAYAFTERTOMORROW;
-Object.defineProperty(Date, 'DAYAFTERTOMORROW', {
-  get: function() {
-    return Date.TOMORROW + Date.DAY;
-  }
-});
+function DAYAFTERTOMORROW() {
+  return Date.TOMORROW + DAY;
+}
 
 /**
  * Return new Date instance from given value
- * 
+ *
  * It's simmilar to native Date.parse, but you can use such strings like:
  * 'today', 'yesterday', 'tomorrow', 'dayaftertomorrow', 'now'
- * 
+ *
  * Feel free to contribute if you think that this method should support even more!
- * 
+ *
+ * @memberof Date
  * @param {*} value Value to be parsed
  * @throws Will throw an error if the value is not supported.
  * @returns {Date} New Date
  */
-Date.parseValue = function(value) {
+function parseValue(value) {
   var type = typeof value;
   if(type === 'string') {
     switch(value.toLowerCase()) {
@@ -136,25 +134,27 @@ Date.parseValue = function(value) {
   } else {
     throw new TypeError('Unsupported value type');
   }
-};
+}
 
 /**
  * Return timestamp of now + days
  *
+ * @memberof Date
  * @param {number} days Number of days difference
  * @returns {number} Timestamp
  */
-Date.daysFromNow = function(days) {
+function daysFromNow(days) {
   return Date.now() + Date.DAY * days;
-};
+}
 
 /**
  * Get local date format
  *
+ * @memberof Date
  * @param {boolean} [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
  * @returns {string} Local date format
  */
-Date.getLocalDateFormat = function(fullFormat) {
+function getLocalDateFormat(fullFormat) {
   var countryCode, format;
 
   if(typeof fullFormat === 'undefined') {
@@ -163,9 +163,9 @@ Date.getLocalDateFormat = function(fullFormat) {
 
   countryCode = global.getCountry() || 'US';
 
-  if(DATE_LOCAL_FORMAT_YMD.indexOf(countryCode) >= 0) {
+  if(LOCAL_FORMAT_YMD.indexOf(countryCode) >= 0) {
     format = 'y-m-d';
-  } else if(DATE_LOCAL_FORMAT_MDY.indexOf(countryCode) >= 0) {
+  } else if(LOCAL_FORMAT_MDY.indexOf(countryCode) >= 0) {
     format = 'm/d/y';
   } else {
     format = 'd.m.y';
@@ -178,27 +178,29 @@ Date.getLocalDateFormat = function(fullFormat) {
   }
 
   return format;
-};
+}
 
 /**
  * Get timezone name
  *
+ * @memberof Date
  * @returns {string} Timezone
  */
-Date.getTimezoneName = function() {
+function getTimezoneName() {
   return new this().toString().match(/\(([^)]+)\)$/)[1];
-};
+}
 
 /**
  * Returns object with time parts
  *
+ * @memberof Date
  * @example
  * // returns { h: 0, m: 1, s: 1, ms: 500 }
  * Date.getHms(61500)
  * @param {number} time Time to be used
  * @returns {Object} Time in stopwatch format
  */
-Date.getHms = function(time) {
+function getHms(time) {
   var obj = {
     h: 0,
     m: 0,
@@ -221,11 +223,12 @@ Date.getHms = function(time) {
   obj.h = Math.max(0, time);
 
   return obj;
-};
+}
 
 /**
  * Returns given time (in milliseconds) in HMS format
  *
+ * @memberof Date
  * @example
  * // returns '1m 5s'
  * Date.toHmsFormat(61500)
@@ -233,7 +236,7 @@ Date.getHms = function(time) {
  * @param {string} [accuracy=seconds] Accuracy
  * @returns {string} Time in HMS format
  */
-Date.toHmsFormat = function(time, accuracy) {
+function toHmsFormat(time, accuracy) {
   if(typeof accuracy === 'undefined') {
     accuracy = 'seconds';
   }
@@ -270,18 +273,19 @@ Date.toHmsFormat = function(time, accuracy) {
   }
 
   return ret.join(' ');
-};
+}
 
 /**
  * Returns given time (in milliseconds) in stopwatch format - [HH:]MM:SS.XXX
  *
+ * @memberof Date
  * @example
  * // returns '01:01.5'
  * Date.toStopwatchFormat(61500)
  * @param {number} time Time to be converted
  * @returns {string} Time in stopwatch format
  */
-Date.toStopwatchFormat = function(time) {
+function toStopwatchFormat(time) {
   var obj = Date.getHms(time);
   var ret = obj.m.pad(2) + ':' + obj.s.pad(2) + '.' + Math.floor(obj.ms / 100);
 
@@ -290,18 +294,19 @@ Date.toStopwatchFormat = function(time) {
   }
 
   return ret;
-};
+}
 
 /**
  * Returns given time (in milliseconds) in timer format - [HH:]MM:SS
  *
+ * @memberof Date
  * @example
  * // returns '01:01'
  * Date.toStopwatchFormat(61500)
  * @param {number} time Time to be converted
  * @returns {string} Time in timer format
  */
-Date.toTimerFormat = function(time) {
+function toTimerFormat(time) {
   var obj = Date.getHms(time);
   var ret = obj.m.pad(2) + ':' + obj.s.pad(2);
 
@@ -310,15 +315,16 @@ Date.toTimerFormat = function(time) {
   }
 
   return ret;
-};
+}
 
 /**
  * Return number of days passed between this Date and given in argument
  *
+ * @memberof Date.prototype
  * @param {(Date|string|number)} [toDate=now] Proper date
  * @returns {number} Number of days passed
  */
-Date.prototype.daysPassed = function(toDate) {
+function daysPassed(toDate) {
   var toDateType = typeof toDate;
   if(toDateType === 'undefined') {
     toDate = new Date();
@@ -331,29 +337,31 @@ Date.prototype.daysPassed = function(toDate) {
   }
 
   return Math.floor(Math.abs((this.getTime() - toDate.getTime()) / Date.DAY));
-};
+}
 
 /**
  * Returns this Date in custom date format
  *
+ * @memberof Date.prototype
  * @param {string} format String representing date format
  * @returns {string} Date string
  */
-Date.prototype.toCustomDate = function(format) {
+function toCustomDate(format) {
   format = format.replace('d', this.getDate().pad(2));
   format = format.replace('m', (this.getMonth() + 1).pad(2));
   format = format.replace('y', this.getFullYear());
 
   return format;
-};
+}
 
 /**
  * Returns this Date in UI time string
  *
+ * @memberof Date.prototype
  * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
  * @returns {string} Time string
  */
-Date.prototype.toUiTime = function(showSeconds) {
+function toUiTime(showSeconds) {
   if(typeof showSeconds === 'undefined') {
     showSeconds = true;
   }
@@ -365,52 +373,97 @@ Date.prototype.toUiTime = function(showSeconds) {
   }
 
   return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + showSeconds;
-};
+}
 
 /**
  * Returns this Date in UI date string
  *
+ * @memberof Date.prototype
  * @see Date#getLocalDateFormat
  * @returns {string} Date string
  */
-Date.prototype.toUiDate = function() {
+function toUiDate() {
   return this.toCustomDate(Date.getLocalDateFormat(false));
-};
+}
 
 /**
  * Returns this Date in UI datetime string
  *
+ * @memberof Date.prototype
  * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
  * @returns {string} Time string
  */
-Date.prototype.toUiDateTime = function(showSeconds) {
+function toUiDateTime(showSeconds) {
   return this.toUiDate() + ' ' + this.toUiTime(showSeconds);
-};
+}
 
 /**
  * Returns this Date in form inputs time string
  *
+ * @memberof Date.prototype
  * @returns {string} Time string
  */
-Date.prototype.toInputTimeFormat = function() {
+function toInputTimeFormat() {
   return this.toUiTime(false);
-};
+}
 
 /**
  * Returns this Date in forms input date string
  *
+ * @memberof Date.prototype
  * @returns {string} Date string
  */
-Date.prototype.toInputDateFormat = function() {
+function toInputDateFormat() {
   return this.toCustomDate('y-m-d');
-};
+}
 
 /**
  * Add time to this Date
  *
+ * @memberof Date.prototype
  * @param {number} time Time to add
  * @returns {number} New timestamp of this Date
  */
-Date.prototype.addTime = function(time) {
+function addTime(time) {
   return this.setTime(this.getTime() + time );
+}
+
+
+module.exports = {
+  constant: {
+    SECOND,
+    MINUTE,
+    HOUR,
+    DAY,
+    WEEK
+  },
+
+  getter: {
+    TODAY,
+    YESTERDAY,
+    TOMORROW,
+    DAYAFTERTOMORROW
+  },
+
+  static: {
+    parseValue,
+    daysFromNow,
+    getLocalDateFormat,
+    getTimezoneName,
+    getHms,
+    toHmsFormat,
+    toStopwatchFormat,
+    toTimerFormat
+  },
+
+  method: {
+    daysPassed,
+    toCustomDate,
+    toUiTime,
+    toUiDate,
+    toUiDateTime,
+    toInputTimeFormat,
+    toInputDateFormat,
+    addTime
+  }
 };

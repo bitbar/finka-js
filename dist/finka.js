@@ -1,15 +1,17 @@
-/* Finka.js v1.4.0 | (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.0.0 |  Copyright 2020 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(factory());
+	(global = global || self, global.finka = factory());
 }(this, (function () { 'use strict';
 
-	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 	function md5cycle(x, k) {
-	  var a = x[0], b = x[1], c = x[2], d = x[3];
-
+	  var a = x[0],
+	      b = x[1],
+	      c = x[2],
+	      d = x[3];
 	  a = ff(a, b, c, d, k[0], 7, -680876936);
 	  d = ff(d, a, b, c, k[1], 12, -389564586);
 	  c = ff(c, d, a, b, k[2], 17, 606105819);
@@ -26,7 +28,6 @@
 	  d = ff(d, a, b, c, k[13], 12, -40341101);
 	  c = ff(c, d, a, b, k[14], 17, -1502002290);
 	  b = ff(b, c, d, a, k[15], 22, 1236535329);
-
 	  a = gg(a, b, c, d, k[1], 5, -165796510);
 	  d = gg(d, a, b, c, k[6], 9, -1069501632);
 	  c = gg(c, d, a, b, k[11], 14, 643717713);
@@ -43,7 +44,6 @@
 	  d = gg(d, a, b, c, k[2], 9, -51403784);
 	  c = gg(c, d, a, b, k[7], 14, 1735328473);
 	  b = gg(b, c, d, a, k[12], 20, -1926607734);
-
 	  a = hh(a, b, c, d, k[5], 4, -378558);
 	  d = hh(d, a, b, c, k[8], 11, -2022574463);
 	  c = hh(c, d, a, b, k[11], 16, 1839030562);
@@ -60,7 +60,6 @@
 	  d = hh(d, a, b, c, k[12], 11, -421815835);
 	  c = hh(c, d, a, b, k[15], 16, 530742520);
 	  b = hh(b, c, d, a, k[2], 23, -995338651);
-
 	  a = ii(a, b, c, d, k[0], 6, -198630844);
 	  d = ii(d, a, b, c, k[7], 10, 1126891415);
 	  c = ii(c, d, a, b, k[14], 15, -1416354905);
@@ -77,12 +76,10 @@
 	  d = ii(d, a, b, c, k[11], 10, -1120210379);
 	  c = ii(c, d, a, b, k[2], 15, 718787259);
 	  b = ii(b, c, d, a, k[9], 21, -343485551);
-
 	  x[0] = add32(a, x[0]);
 	  x[1] = add32(b, x[1]);
 	  x[2] = add32(c, x[2]);
 	  x[3] = add32(d, x[3]);
-
 	}
 
 	function cmn(q, a, b, x, s, t) {
@@ -107,7 +104,9 @@
 	}
 
 	function md51(s) {
-	  var n = s.length, state = [1732584193, -271733879, -1732584194, 271733878], i;
+	  var n = s.length,
+	      state = [1732584193, -271733879, -1732584194, 271733878],
+	      i;
 
 	  for (i = 64; i <= n; i += 64) {
 	    md5cycle(state, md5blk(s.substring(i - 64, i)));
@@ -124,39 +123,46 @@
 
 	  if (i > 55) {
 	    md5cycle(state, tail);
-	    for (i = 0; i < 16; i++) { tail[i] = 0; }
+
+	    for (i = 0; i < 16; i++) {
+	      tail[i] = 0;
+	    }
 	  }
 
 	  tail[14] = n * 8;
 	  md5cycle(state, tail);
-
 	  return state;
 	}
 
 	function md5blk(s) {
-	  var md5blks = [], i;
+	  var md5blks = [],
+	      i;
+
 	  for (i = 0; i < 64; i += 4) {
-	    md5blks[i >> 2] = s.charCodeAt(i)
-	      + (s.charCodeAt(i + 1) << 8)
-	      + (s.charCodeAt(i + 2) << 16)
-	      + (s.charCodeAt(i + 3) << 24);
+	    md5blks[i >> 2] = s.charCodeAt(i) + (s.charCodeAt(i + 1) << 8) + (s.charCodeAt(i + 2) << 16) + (s.charCodeAt(i + 3) << 24);
 	  }
+
 	  return md5blks;
 	}
 
 	var hex_chr = '0123456789abcdef'.split('');
 
 	function rhex(n) {
-	  var s = '', j = 0;
+	  var s = '',
+	      j = 0;
+
 	  for (; j < 4; j++) {
-	    s += hex_chr[n >> j * 8 + 4 & 0x0F]
-	    + hex_chr[n >> j * 8 & 0x0F];
+	    s += hex_chr[n >> j * 8 + 4 & 0x0F] + hex_chr[n >> j * 8 & 0x0F];
 	  }
+
 	  return s;
 	}
 
 	function hex(x) {
-	  for (var i = 0; i < x.length; i++) { x[i] = rhex(x[i]); }
+	  for (var i = 0; i < x.length; i++) {
+	    x[i] = rhex(x[i]);
+	  }
+
 	  return x.join('');
 	}
 
@@ -164,15 +170,11 @@
 	  return hex(md51(s));
 	}
 
-	var add32 = function (a, b) {
+	var add32 = function add32(a, b) {
 	  return a + b & 0xFFFFFFFF;
 	};
 
-	var md5$1 = /*#__PURE__*/Object.freeze({
-		default: md5
-	});
-
-	var require$$0 = ( md5$1 && md5 ) || md5$1;
+	var md5_1 = md5;
 
 	/**
 	 * Flag if environment is Node JS
@@ -180,49 +182,50 @@
 	 * @global
 	 * @type {boolean}
 	 */
-	commonjsGlobal.isNodeJs = commonjsGlobal.process && commonjsGlobal.process.release && commonjsGlobal.process.release.name === 'node';
 
+	var isNodeJs = globalThis.process && globalThis.process.release && globalThis.process.release.name === 'node';
 	/**
 	 * Get ISO 639-1 language string
 	 *
 	 * @global
 	 * @returns {string} ISO 639-1 language string
 	 */
-	commonjsGlobal.getLanguage = function() {
+
+	function getLanguage() {
 	  var lang;
 
-	  if(commonjsGlobal.isNodeJs) {
+	  if (globalThis.isNodeJs) {
 	    lang = process.env.LANGUAGE || process.env.LANG;
 	  } else {
 	    lang = navigator.language || navigator.languages && navigator.languages[0];
 	  }
 
 	  lang = lang.substr(0, 2);
-
 	  return lang;
-	};
-
+	}
 	/**
 	 * Tries to get country from language
 	 *
 	 * @global
 	 * @returns {(string|null)} Country code or null if couldn't find
 	 */
-	commonjsGlobal.getCountry = function() {
-	  if(typeof commonjsGlobal.userCountry !== 'undefined') {
-	    return commonjsGlobal.userCountry;
+
+
+	function getCountry() {
+	  if (typeof globalThis.userCountry !== 'undefined') {
+	    return globalThis.userCountry;
 	  }
 
 	  var country;
 
-	  if(commonjsGlobal.isNodeJs) {
+	  if (globalThis.isNodeJs) {
 	    country = process.env.LANG;
 	  } else {
 	    country = navigator.language;
 
-	    if(country.length < 3 && navigator.languages) {
-	      for(var i = 0; i < navigator.languages.length; i++) {
-	        if(navigator.languages[i].length > 2) {
+	    if (country.length < 3 && navigator.languages) {
+	      for (var i = 0; i < navigator.languages.length; i++) {
+	        if (navigator.languages[i].length > 2) {
 	          country = navigator.languages[i];
 	          break;
 	        }
@@ -231,13 +234,13 @@
 	  }
 
 	  var countryMatch = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
-	  if(countryMatch !== null) {
+
+	  if (countryMatch !== null) {
 	    country = countryMatch[1];
 	  }
 
 	  return country;
-	};
-
+	}
 	/**
 	 * Check if given argument is numeric
 	 *
@@ -245,10 +248,11 @@
 	 * @param {*} n Subject of examination
 	 * @returns {boolean} Verdict
 	 */
-	commonjsGlobal.isNumeric = function(n) {
-	  return !isNaN(parseFloat(n)) && isFinite(n);
-	};
 
+
+	function isNumeric(n) {
+	  return !isNaN(parseFloat(n)) && isFinite(n);
+	}
 	/**
 	 * Parse value to proper type
 	 *
@@ -256,29 +260,30 @@
 	 * @param {*} value Value to be parsed
 	 * @returns {*} Parsed value
 	 */
-	commonjsGlobal.parseValue = function(value) {
+
+
+	function parseValue(value) {
 	  // check if it's even a string
-	  if(typeof value !== 'string') {
+	  if (typeof value !== 'string') {
 	    return value;
-	  }
+	  } // check if it's number
 
-	  // check if it's number
-	  if (commonjsGlobal.isNumeric(value)) {
+
+	  if (globalThis.isNumeric(value)) {
 	    return parseFloat(value);
-	  }
+	  } // check if it's a boolean
 
-	  // check if it's a boolean
+
 	  var _value = value.toLowerCase();
+
 	  if (_value === 'true' || _value === 'false') {
 	    return _value === 'true';
-	  }
-
-	  // add more check here if you want
-
+	  } // add more check here if you want
 	  // return not parsed value in the end
-	  return value;
-	};
 
+
+	  return value;
+	}
 	/**
 	 * MD5
 	 *
@@ -287,7 +292,216 @@
 	 * @param {string} String to be hashed
 	 * @returns {string} Hash
 	 */
-	commonjsGlobal.md5 = require$$0;
+
+
+	var globalThis_1 = {
+	  constant: {
+	    isNodeJs: isNodeJs
+	  },
+	  "static": {
+	    getLanguage: getLanguage,
+	    getCountry: getCountry,
+	    isNumeric: isNumeric,
+	    parseValue: parseValue,
+	    md5: md5_1
+	  }
+	};
+
+	/**
+	 * @namespace Array
+	 */
+
+	/**
+	 * Sort array of objects
+	 *
+	 * @param {Object[]} arr Array of objects that should be sorted
+	 * @param {string} propertyName Name of property by which sorting will be done
+	 * @param [descending=false] {boolean} Flag to sort in descending order
+	 */
+	function sortArrayOfObjects(arr, propertyName, descending) {
+	  var order = descending ? -1 : 1;
+
+	  var _a, _b;
+
+	  arr.sort(function (a, b) {
+	    _a = a[propertyName];
+	    _b = b[propertyName];
+
+	    if (typeof _a === 'string') {
+	      _a = _a.toLowerCase();
+	    }
+
+	    if (typeof _b === 'string') {
+	      _b = _b.toLowerCase();
+	    }
+
+	    if (_a > _b) {
+	      return order * 1;
+	    } else if (_a < _b) {
+	      return order * -1;
+	    }
+
+	    return 0;
+	  });
+	}
+	/**
+	 * Deep clone array of object
+	 *
+	 * @param arr Array of objects
+	 * @returns {Object[]} Clone of arr
+	 */
+
+
+	function deepCloneArrayOfObjects(arr) {
+	  return arr.map(function (obj) {
+	    return Object.assign({}, obj);
+	  });
+	}
+	/**
+	 * Wrap in Array if @param is not an Array already
+	 *
+	 * @param {(*|Array)} something Something that should be an Array
+	 * @returns {Array}
+	 */
+
+
+	function wrap(something) {
+	  return Array.isArray(something) ? something : [something];
+	}
+	/**
+	 * Empty this Array
+	 *
+	 * @returns {Array} this
+	 */
+
+
+	function empty() {
+	  this.length = 0;
+	  return this;
+	}
+	/**
+	 * Absorb (push) every item of given array to this Array
+	 *
+	 * @param {Array} arr Array to be absorbed
+	 * @returns {Array} this
+	 */
+
+
+	function absorb(arr) {
+	  this.push.apply(this, arr);
+	  return this;
+	}
+	/**
+	 * Returns the difference between this Array and given in argument
+	 *
+	 * @param {Array} arr Array to compare
+	 * @returns {Array} Array with elements that are different
+	 */
+
+
+	function diff(arr) {
+	  return this.filter(function (i) {
+	    return arr.indexOf(i) < 0;
+	  });
+	}
+	/**
+	 * Clone this Array
+	 *
+	 * @returns {Array} Clone of this Array
+	 */
+
+
+	function clone() {
+	  return this.slice(0);
+	}
+	/**
+	 * Look for index of item matching to query
+	 *
+	 * @param {Object} query Query
+	 * @returns {number} Index of matching index; -1 if not found
+	 */
+
+
+	function lookFor(query) {
+	  for (var i = 0; i < this.length; i++) {
+	    if (Object.isLike(this[i], query)) {
+	      return i;
+	    }
+	  }
+
+	  return -1;
+	}
+	/**
+	 * Returns the new array based on current one by filtering according to query
+	 *
+	 * @see Object#isLike
+	 * @param {Object} query Query
+	 * @returns {Array} New Array with matching elements
+	 */
+
+
+	function filterLike(query) {
+	  if (typeof query === 'undefined') {
+	    return [];
+	  }
+
+	  return this.filter(function (item) {
+	    return Object.isLike(item, query);
+	  });
+	}
+	/**
+	 * Unique this Array - remove all duplicate items
+	 *
+	 * @returns {Array} this
+	 */
+
+
+	function unique() {
+	  for (var i = 0; i < this.length; ++i) {
+	    for (var j = i + 1; j < this.length; ++j) {
+	      if (this[i] === this[j]) {
+	        this.splice(j--, 1);
+	      }
+	    }
+	  }
+
+	  return this;
+	}
+	/**
+	 * Shuffle this Array
+	 *
+	 * @returns {Array} this
+	 */
+
+
+	function shuffle() {
+	  for (var i = this.length - 1; i > 0; i--) {
+	    var j = Math.floor(Math.rand() * (i + 1));
+	    var temp = this[i];
+	    this[i] = this[j];
+	    this[j] = temp;
+	  }
+
+	  return this;
+	}
+
+	var _Array = {
+	  "static": {
+	    sortArrayOfObjects: sortArrayOfObjects,
+	    deepCloneArrayOfObjects: deepCloneArrayOfObjects,
+	    wrap: wrap
+	  },
+	  method: {
+	    empty: empty,
+	    absorb: absorb,
+	    diff: diff,
+	    clone: clone,
+	    lookFor: lookFor,
+	    filterLike: filterLike,
+	    unique: unique,
+	    shuffle: shuffle
+	  }
+	};
 
 	/**
 	 * @namespace Boolean
@@ -300,8 +514,714 @@
 	 * @param {boolean} b B
 	 * @returns {boolean} Result
 	 */
-	Boolean.xor = function(a, b) {
+	function xor(a, b) {
 	  return !a !== !b;
+	}
+
+	var _Boolean = {
+	  "static": {
+	    xor: xor
+	  }
+	};
+
+	function _typeof(obj) {
+	  "@babel/helpers - typeof";
+
+	  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+	    _typeof = function (obj) {
+	      return typeof obj;
+	    };
+	  } else {
+	    _typeof = function (obj) {
+	      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	    };
+	  }
+
+	  return _typeof(obj);
+	}
+
+	/**
+	 * @namespace Date
+	 */
+
+	var LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
+	var LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
+	/**
+	 * Second in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+
+	var SECOND = 1000;
+	/**
+	 * Minute in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+
+	var MINUTE = 60 * SECOND;
+	/**
+	 * Hour in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+
+	var HOUR = 60 * MINUTE;
+	/**
+	 * Day in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+
+	var DAY = 24 * HOUR;
+	/**
+	 * Week in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+
+	var WEEK = 7 * DAY;
+	/**
+	 * Today in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+
+	function TODAY() {
+	  return DAY * Math.floor(Date.now() / DAY);
+	}
+	/**
+	 * Yesterday in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+
+
+	function YESTERDAY() {
+	  return Date.TODAY - DAY;
+	}
+	/**
+	 * Tomorrow in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+
+
+	function TOMORROW() {
+	  return Date.TODAY + DAY;
+	}
+	/**
+	 * Day after tomorrow in milliseconds
+	 *
+	 * @constant
+	 * @type {number}
+	 */
+
+
+	function DAYAFTERTOMORROW() {
+	  return Date.TOMORROW + DAY;
+	}
+	/**
+	 * Return new Date instance from given value
+	 *
+	 * It's simmilar to native Date.parse, but you can use such strings like:
+	 * 'today', 'yesterday', 'tomorrow', 'dayaftertomorrow', 'now'
+	 *
+	 * Feel free to contribute if you think that this method should support even more!
+	 *
+	 * @param {*} value Value to be parsed
+	 * @throws Will throw an error if the value is not supported.
+	 * @returns {Date} New Date
+	 */
+
+
+	function parseValue$1(value) {
+	  var type = _typeof(value);
+
+	  if (type === 'string') {
+	    switch (value.toLowerCase()) {
+	      case 'today':
+	        return new Date(Date.TODAY);
+
+	      case 'yesterday':
+	        return new Date(Date.YESTERDAY);
+
+	      case 'tomorrow':
+	        return new Date(Date.TOMORROW);
+
+	      case 'dayaftertomorrow':
+	        return new Date(Date.DAYAFTERTOMORROW);
+
+	      case 'now':
+	        return new Date();
+
+	      default:
+	        throw new Error('Unsupported string: ' + value);
+	    }
+	  } else if (type === 'number' || value instanceof Date) {
+	    return new Date(value);
+	  } else {
+	    throw new TypeError('Unsupported value type');
+	  }
+	}
+	/**
+	 * Return timestamp of now + days
+	 *
+	 * @param {number} days Number of days difference
+	 * @returns {number} Timestamp
+	 */
+
+
+	function daysFromNow(days) {
+	  return Date.now() + Date.DAY * days;
+	}
+	/**
+	 * Get local date format
+	 *
+	 * @param {boolean} [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
+	 * @returns {string} Local date format
+	 */
+
+
+	function getLocalDateFormat(fullFormat) {
+	  var countryCode, format;
+
+	  if (typeof fullFormat === 'undefined') {
+	    fullFormat = true;
+	  }
+
+	  countryCode = commonjsGlobal.getCountry() || 'US';
+
+	  if (LOCAL_FORMAT_YMD.indexOf(countryCode) >= 0) {
+	    format = 'y-m-d';
+	  } else if (LOCAL_FORMAT_MDY.indexOf(countryCode) >= 0) {
+	    format = 'm/d/y';
+	  } else {
+	    format = 'd.m.y';
+	  }
+
+	  if (fullFormat) {
+	    format = format.replace('d', 'dd');
+	    format = format.replace('m', 'mm');
+	    format = format.replace('y', 'yyyy');
+	  }
+
+	  return format;
+	}
+	/**
+	 * Get timezone name
+	 *
+	 * @returns {string} Timezone
+	 */
+
+
+	function getTimezoneName() {
+	  return new this().toString().match(/\(([^)]+)\)$/)[1];
+	}
+	/**
+	 * Returns object with time parts
+	 *
+	 * @example
+	 * // returns { h: 0, m: 1, s: 1, ms: 500 }
+	 * Date.getHms(61500)
+	 * @param {number} time Time to be used
+	 * @returns {Object} Time in stopwatch format
+	 */
+
+
+	function getHms(time) {
+	  var obj = {
+	    h: 0,
+	    m: 0,
+	    s: 0,
+	    ms: 0
+	  };
+	  obj.ms = Math.max(0, time % 1000);
+	  time -= obj.ms;
+	  time /= 1000;
+	  obj.s = Math.max(0, time % 60);
+	  time -= obj.s;
+	  time /= 60;
+	  obj.m = Math.max(0, time % 60);
+	  time -= obj.m;
+	  time /= 60;
+	  obj.h = Math.max(0, time);
+	  return obj;
+	}
+	/**
+	 * Returns given time (in milliseconds) in HMS format
+	 *
+	 * @example
+	 * // returns '1m 5s'
+	 * Date.toHmsFormat(61500)
+	 * @param {number} time Time to be converted
+	 * @param {string} [accuracy=seconds] Accuracy
+	 * @returns {string} Time in HMS format
+	 */
+
+
+	function toHmsFormat(time, accuracy) {
+	  if (typeof accuracy === 'undefined') {
+	    accuracy = 'seconds';
+	  }
+
+	  var obj = Date.getHms(time);
+	  var ret = [];
+
+	  switch (accuracy) {
+	    case 'hours':
+	      ret.push(obj.h + 'h');
+	      break;
+
+	    case 'minutes':
+	      if (obj.h > 0) {
+	        ret.push(obj.h + 'h');
+	      }
+
+	      ret.push(obj.m + 'm');
+	      break;
+
+	    case 'seconds':
+	      if (obj.h > 0) {
+	        ret.push(obj.h + 'h');
+	      }
+
+	      if (obj.m > 0) {
+	        ret.push(obj.m + 'm');
+	      }
+
+	      ret.push(obj.s + 's');
+	      break;
+
+	    default:
+	      throw new TypeError('Unknown accuracy');
+	  }
+
+	  return ret.join(' ');
+	}
+	/**
+	 * Returns given time (in milliseconds) in stopwatch format - [HH:]MM:SS.XXX
+	 *
+	 * @example
+	 * // returns '01:01.5'
+	 * Date.toStopwatchFormat(61500)
+	 * @param {number} time Time to be converted
+	 * @returns {string} Time in stopwatch format
+	 */
+
+
+	function toStopwatchFormat(time) {
+	  var obj = Date.getHms(time);
+	  var ret = obj.m.pad(2) + ':' + obj.s.pad(2) + '.' + Math.floor(obj.ms / 100);
+
+	  if (obj.h > 0) {
+	    ret = obj.h.pad(2) + ':' + ret;
+	  }
+
+	  return ret;
+	}
+	/**
+	 * Returns given time (in milliseconds) in timer format - [HH:]MM:SS
+	 *
+	 * @example
+	 * // returns '01:01'
+	 * Date.toStopwatchFormat(61500)
+	 * @param {number} time Time to be converted
+	 * @returns {string} Time in timer format
+	 */
+
+
+	function toTimerFormat(time) {
+	  var obj = Date.getHms(time);
+	  var ret = obj.m.pad(2) + ':' + obj.s.pad(2);
+
+	  if (obj.h > 0) {
+	    ret = obj.h.pad(2) + ':' + ret;
+	  }
+
+	  return ret;
+	}
+	/**
+	 * Return number of days passed between this Date and given in argument
+	 *
+	 * @param {(Date|string|number)} [toDate=now] Proper date
+	 * @returns {number} Number of days passed
+	 */
+
+
+	function daysPassed(toDate) {
+	  var toDateType = _typeof(toDate);
+
+	  if (toDateType === 'undefined') {
+	    toDate = new Date();
+	  } else if (toDateType === 'number' || toDateType === 'string') {
+	    toDate = new Date(toDate);
+	  }
+
+	  if (!(toDate instanceof Date)) {
+	    throw new TypeError('toDate is not instance of Date');
+	  }
+
+	  return Math.floor(Math.abs((this.getTime() - toDate.getTime()) / Date.DAY));
+	}
+	/**
+	 * Returns this Date in custom date format
+	 *
+	 * @param {string} format String representing date format
+	 * @returns {string} Date string
+	 */
+
+
+	function toCustomDate(format) {
+	  format = format.replace('d', this.getDate().pad(2));
+	  format = format.replace('m', (this.getMonth() + 1).pad(2));
+	  format = format.replace('y', this.getFullYear());
+	  return format;
+	}
+	/**
+	 * Returns this Date in UI time string
+	 *
+	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
+	 * @returns {string} Time string
+	 */
+
+
+	function toUiTime(showSeconds) {
+	  if (typeof showSeconds === 'undefined') {
+	    showSeconds = true;
+	  }
+
+	  if (showSeconds) {
+	    showSeconds = ':' + this.getSeconds().pad(2);
+	  } else {
+	    showSeconds = '';
+	  }
+
+	  return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + showSeconds;
+	}
+	/**
+	 * Returns this Date in UI date string
+	 *
+	 * @see Date#getLocalDateFormat
+	 * @returns {string} Date string
+	 */
+
+
+	function toUiDate() {
+	  return this.toCustomDate(Date.getLocalDateFormat(false));
+	}
+	/**
+	 * Returns this Date in UI datetime string
+	 *
+	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
+	 * @returns {string} Time string
+	 */
+
+
+	function toUiDateTime(showSeconds) {
+	  return this.toUiDate() + ' ' + this.toUiTime(showSeconds);
+	}
+	/**
+	 * Returns this Date in form inputs time string
+	 *
+	 * @returns {string} Time string
+	 */
+
+
+	function toInputTimeFormat() {
+	  return this.toUiTime(false);
+	}
+	/**
+	 * Returns this Date in forms input date string
+	 *
+	 * @returns {string} Date string
+	 */
+
+
+	function toInputDateFormat() {
+	  return this.toCustomDate('y-m-d');
+	}
+	/**
+	 * Add time to this Date
+	 *
+	 * @param {number} time Time to add
+	 * @returns {number} New timestamp of this Date
+	 */
+
+
+	function addTime(time) {
+	  return this.setTime(this.getTime() + time);
+	}
+
+	var _Date = {
+	  constant: {
+	    SECOND: SECOND,
+	    MINUTE: MINUTE,
+	    HOUR: HOUR,
+	    DAY: DAY,
+	    WEEK: WEEK
+	  },
+	  getter: {
+	    TODAY: TODAY,
+	    YESTERDAY: YESTERDAY,
+	    TOMORROW: TOMORROW,
+	    DAYAFTERTOMORROW: DAYAFTERTOMORROW
+	  },
+	  "static": {
+	    parseValue: parseValue$1,
+	    daysFromNow: daysFromNow,
+	    getLocalDateFormat: getLocalDateFormat,
+	    getTimezoneName: getTimezoneName,
+	    getHms: getHms,
+	    toHmsFormat: toHmsFormat,
+	    toStopwatchFormat: toStopwatchFormat,
+	    toTimerFormat: toTimerFormat
+	  },
+	  method: {
+	    daysPassed: daysPassed,
+	    toCustomDate: toCustomDate,
+	    toUiTime: toUiTime,
+	    toUiDate: toUiDate,
+	    toUiDateTime: toUiDateTime,
+	    toInputTimeFormat: toInputTimeFormat,
+	    toInputDateFormat: toInputDateFormat,
+	    addTime: addTime
+	  }
+	};
+
+	/**
+	 * @namespace JSON
+	 */
+
+	/**
+	 * Returns verdict if given string is valid JSON or not
+	 *
+	 * @param {string} str JSON string to be checked
+	 * @returns {boolean} Verdict
+	 */
+	function isJSONString(str) {
+	  try {
+	    JSON.parse(str);
+	  } catch (e) {
+	    return false;
+	  }
+
+	  return true;
+	}
+
+	var _JSON = {
+	  "static": {
+	    isJSONString: isJSONString
+	  }
+	};
+
+	function Mash() {
+	  var n = 0xefc8249d;
+
+	  var mash = function mash(data) {
+	    data = data.toString();
+
+	    for (var i = 0; i < data.length; i++) {
+	      n += data.charCodeAt(i);
+	      var h = 0.02519603282416938 * n;
+	      n = h >>> 0;
+	      h -= n;
+	      h *= n;
+	      n = h >>> 0;
+	      h -= n;
+	      n += h * 0x100000000; // 2^32
+	    }
+
+	    return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
+	  };
+
+	  return mash;
+	}
+
+	function MRG32k3a() {
+	  var args = Array.prototype.slice.call(arguments);
+	  var m1 = 4294967087;
+	  var m2 = 4294944443;
+	  var s10 = 12345,
+	      s11 = 12345,
+	      s12 = 123,
+	      s20 = 12345,
+	      s21 = 12345,
+	      s22 = 123;
+
+	  if (args.length === 0) {
+	    args = [+new Date()];
+	  }
+
+	  var mash = Mash();
+
+	  for (var i = 0; i < args.length; i++) {
+	    s10 += mash(args[i]) * 0x100000000; // 2 ^ 32
+
+	    s11 += mash(args[i]) * 0x100000000;
+	    s12 += mash(args[i]) * 0x100000000;
+	    s20 += mash(args[i]) * 0x100000000;
+	    s21 += mash(args[i]) * 0x100000000;
+	    s22 += mash(args[i]) * 0x100000000;
+	  }
+
+	  s10 %= m1;
+	  s11 %= m1;
+	  s12 %= m1;
+	  s20 %= m2;
+	  s21 %= m2;
+	  s22 %= m2;
+	  mash = null;
+
+	  var uint32 = function uint32() {
+	    var m1 = 4294967087;
+	    var m2 = 4294944443;
+	    var a12 = 1403580;
+	    var a13n = 810728;
+	    var a21 = 527612;
+	    var a23n = 1370589;
+	    var k, p1, p2;
+	    p1 = a12 * s11 - a13n * s10;
+	    k = p1 / m1 | 0;
+	    p1 -= k * m1;
+	    if (p1 < 0) p1 += m1;
+	    s10 = s11;
+	    s11 = s12;
+	    s12 = p1;
+	    p2 = a21 * s22 - a23n * s20;
+	    k = p2 / m2 | 0;
+	    p2 -= k * m2;
+	    if (p2 < 0) p2 += m2;
+	    s20 = s21;
+	    s21 = s22;
+	    s22 = p2;
+	    if (p1 <= p2) return p1 - p2 + m1;else return p1 - p2;
+	  };
+
+	  var random = function random() {
+	    return uint32() * 2.3283064365386963e-10; // 2^-32
+	  }; // random.uint32 = uint32;
+	  // random.fract53 = function() {
+	  //   return random() +
+	  //     (uint32() & 0x1fffff) * 1.1102230246251565e-16; // 2^-53
+	  // };
+	  // random.args = args;
+
+
+	  return random;
+	}
+
+	var MRG32k3a_1 = MRG32k3a;
+
+	/**
+	 * @namespace Math
+	 */
+
+	var _MRG32k3a = new MRG32k3a_1();
+	/**
+	 * Better alternative to Math.random based on MRG32k2a algorithm
+	 *
+	 * @see {@link http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf|PDF paper about it}
+	 * @returns {number} Random float number between 0 and 1
+	 */
+
+
+	function rand() {
+	  return _MRG32k3a();
+	}
+	/**
+	 * Polyfill for ECMAScript 2015 for Math.log10
+	 * https://www.ecma-international.org/ecma-262/6.0/#sec-math.log10
+	 *
+	 * @param {number} x X
+	 * @returns {number} Result
+	 */
+
+
+	function log10(x) {
+	  return Math.log(x) * Math.LOG10E;
+	}
+	/**
+	 * Round given number to given precision
+	 * 
+	 * @param {number} num Number to be rounded
+	 * @param {number} precision Precision
+	 */
+
+
+	function roundTo(num, precision) {
+	  var magnitude = Math.pow(10, precision);
+	  return Math.round(num * magnitude) / magnitude;
+	}
+	/**
+	 * Calculate median of given array of numbers
+	 *
+	 * @param {number[]} values Array of numbers
+	 * @returns {number} Median
+	 */
+
+
+	function median(values) {
+	  if (values.length === 0) {
+	    return 0;
+	  }
+
+	  values.sort(function (a, b) {
+	    return a - b;
+	  });
+	  var half = Math.floor(values.length / 2);
+	  return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2;
+	}
+	/**
+	 * Sum given array of numbers
+	 *
+	 * @param {number[]} values Array of numbers
+	 * @returns {number} Sum
+	 */
+
+
+	function sum(values) {
+	  if (values.length === 0) {
+	    return 0;
+	  }
+
+	  return values.reduce(function (a, b) {
+	    return a + b;
+	  });
+	}
+	/**
+	 * Calculate average of given array of numbers
+	 *
+	 * @param {number[]} values Array of numbers
+	 * @returns {number} Average
+	 */
+
+
+	function avg(values) {
+	  if (values.length === 0) {
+	    return 0;
+	  }
+
+	  return Math.sum(values) / values.length;
+	}
+
+	var _Math = {
+	  "static": {
+	    rand: rand,
+	    log10: log10,
+	    roundTo: roundTo,
+	    median: median,
+	    sum: sum,
+	    avg: avg
+	  }
 	};
 
 	/**
@@ -314,75 +1234,327 @@
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
-	Number.isNumber = function(n) {
+	function isNumber(n) {
 	  return n === Number(n);
-	};
-
+	}
 	/**
 	 * Check if given number is negative zero (-0)
 	 * 
 	 * @param {number} n Number to check 
 	 * @returns {boolean} Verdict
 	 */
-	Number.isNegativeZero = function(n) {
+
+
+	function isNegativeZero(n) {
 	  return 1 / n === -Infinity;
-	};
-
-	if(typeof Number.isInteger !== 'function') {
-
-	  /**
-	   * Polyfill for ECMAScript 2015 for Number.isInteger
-	   *
-	   * @param {number} n Number to check
-	   * @returns {boolean} Verdict
-	   */
-	  Number.isInteger = function(n) {
-	    return Number.isNumber(n) && n % 1 === 0;
-	  };
 	}
+	/**
+	 * Polyfill for ECMAScript 2015 for Number.isInteger
+	 *
+	 * @param {number} n Number to check
+	 * @returns {boolean} Verdict
+	 */
 
+
+	function isInteger(n) {
+	  return Number.isNumber(n) && n % 1 === 0;
+	}
 	/**
 	 * Check if given number is natural (this function assumes that 0 is also natural)
 	 *
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
-	Number.isNatural = function(n) {
-	  return Number.isInteger(n) && n >= 0 && !Number.isNegativeZero(n);
-	};
 
+
+	function isNatural(n) {
+	  return Number.isInteger(n) && n >= 0 && !Number.isNegativeZero(n);
+	}
 	/**
 	 * Check if given number is float
 	 *
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
-	Number.isFloat = function(n){
-	  return Number.isNumber(n) && n % 1 !== 0;
-	};
 
+
+	function isFloat(n) {
+	  return Number.isNumber(n) && n % 1 !== 0;
+	}
 	/**
 	 * Returns string padded with leading zeros to length equal given length
 	 *
 	 * @param {number} padding Length to which should be number padded
 	 * @returns {string} Padded string
 	 */
-	Number.prototype.pad = function(padding) {
+
+
+	function pad(padding) {
 	  var value = this.toString();
 	  var pointIndex = value.indexOf('.');
 	  var toAdd = padding;
 
-	  if(pointIndex > -1) {
+	  if (pointIndex > -1) {
 	    toAdd -= pointIndex;
 	  } else {
 	    toAdd -= value.length;
-	  } 
+	  }
 
-	  for(var i = 0; i < toAdd; i++) {
+	  for (var i = 0; i < toAdd; i++) {
 	    value = '0' + value;
 	  }
 
 	  return value;
+	}
+
+	var _Number = {
+	  "static": {
+	    isNumber: isNumber,
+	    isNegativeZero: isNegativeZero,
+	    isInteger: isInteger,
+	    isNatural: isNatural,
+	    isFloat: isFloat
+	  },
+	  method: {
+	    pad: pad
+	  }
+	};
+
+	/**
+	 * @namespace Object
+	 */
+
+	/**
+	 * Returns verdict if given subject is Object or not
+	 *
+	 * @param {*} subject Subject of examination
+	 * @returns {boolean} Verdict
+	 */
+	function isObject(subject) {
+	  return subject !== null && _typeof(subject) === 'object';
+	}
+	/**
+	 * Copy key and values from src Object to dst  Object
+	 *
+	 * @param {Object} src Source
+	 * @param {Object} dst Destination
+	 * @param {(Array|null)} [what] What should be copied? By default those are all keys and values from source
+	 * @returns {void}
+	 */
+
+
+	function copy(src, dst, what) {
+	  var i;
+
+	  if (what == null || what.length == 0) {
+	    for (i in src) {
+	      dst[i] = src[i];
+	    }
+	  } else {
+	    for (i = 0; i < what.length; i++) {
+	      dst[what[i]] = src[what[i]];
+	    }
+	  }
+	}
+	/**
+	 * Returns verdict if subject match query
+	 *
+	 * @param {Object} subject Subject of examination
+	 * @param {Object|*} query Query - if object then will compare each key of query with subject,
+	 * otherwise will just use standard comparator
+	 * @returns {boolean} Verdict
+	 */
+
+
+	function isLike(subject, query) {
+	  var k, v;
+
+	  if (_typeof(query) == 'object' && _typeof(subject) == 'object') {
+	    for (k in query) {
+	      v = typeof subject[k] == 'function' ? subject[k]() : subject[k];
+
+	      if (v !== query[k]) {
+	        return false;
+	      }
+	    }
+	  } else {
+	    if (subject !== query) {
+	      return false;
+	    }
+	  }
+
+	  return true;
+	}
+	/**
+	 * Count number of items in given subject
+	 *
+	 * @param {Object} subject Subject of examination
+	 * @returns {number} Number of items
+	 */
+
+
+	function count(subject) {
+	  var items = 0;
+
+	  for (var i in subject) {
+	    if (subject.hasOwnProperty(i)) {
+	      items += 1;
+	    }
+	  }
+
+	  return items;
+	}
+	/**
+	 * Polyfill for ECMAScript 2017 for Object.assign
+	 * https://www.ecma-international.org/ecma-262/8.0/#sec-object.values
+	 */
+
+
+	function values(o) {
+	  var obj = Object(o);
+	  var values = [];
+
+	  for (var k in obj) {
+	    values.push(obj[k]);
+	  }
+
+	  return values;
+	}
+	/**
+	 * Polyfill for ECMAScript 2015 for Object.assign
+	 * https://www.ecma-international.org/ecma-262/6.0/#sec-object.assign
+	 */
+
+
+	function assign() {
+	  var args = Array.prototype.slice.call(arguments, 0);
+	  var to = Object(args[0]);
+
+	  if (args.length !== 1) {
+	    var sources = args.slice(1);
+	    var nextSource, keys, from, nextKey, propValue;
+
+	    for (var i = 0; i < sources.length; i++) {
+	      nextSource = sources[i];
+	      from = Object(nextSource);
+
+	      if (typeof nextSource === 'undefined' || nextSource === null) {
+	        keys = [];
+	      } else {
+	        keys = Object.keys(from);
+	      }
+
+	      for (var j = 0; j < keys.length; j++) {
+	        nextKey = keys[j];
+	        propValue = from[nextKey];
+
+	        if (typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
+	          to[nextKey] = propValue;
+	        }
+	      }
+	    }
+	  }
+
+	  return to;
+	}
+	/**
+	 * This is similar to Object.assign, but extends also deep nested Objects
+	 * 
+	 * @returns {object} Object
+	 */
+
+
+	function deepAssign() {
+	  var args = Array.prototype.slice.call(arguments, 0);
+	  var to = Object(args[0]);
+
+	  if (args.length !== 1) {
+	    var sources = args.slice(1);
+	    var nextSource, keys, from, nextKey, propValue;
+
+	    for (var i = 0; i < sources.length; i++) {
+	      nextSource = sources[i];
+	      from = Object(nextSource);
+
+	      if (typeof nextSource === 'undefined' || nextSource === null) {
+	        keys = [];
+	      } else {
+	        keys = Object.keys(from);
+	      }
+
+	      for (var j = 0; j < keys.length; j++) {
+	        nextKey = keys[j];
+	        propValue = from[nextKey];
+
+	        if (typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
+	          if (_typeof(to[nextKey]) === 'object' && _typeof(propValue) === 'object') {
+	            var areArrays = Array.isArray(to[nextKey]) && Array.isArray(propValue);
+	            to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
+
+	            if (areArrays) {
+	              to[nextKey] = Object.values(to[nextKey]);
+	            }
+	          } else {
+	            to[nextKey] = propValue;
+	          }
+	        }
+	      }
+	    }
+	  }
+
+	  return to;
+	}
+
+	var _Object = {
+	  "static": {
+	    isObject: isObject,
+	    copy: copy,
+	    isLike: isLike,
+	    count: count,
+	    values: values,
+	    assign: assign,
+	    deepAssign: deepAssign
+	  }
+	};
+
+	/**
+	 * @namespace Promise
+	 */
+
+	/**
+	 * Returns verdict if given subject is Promise or not
+	 *
+	 * @param {*} subject Subject of examination
+	 * @returns {boolean} Verdict
+	 */
+	function isPromise(subject) {
+	  return Object.isObject(subject) && (subject instanceof Promise || typeof subject.then === 'function');
+	}
+
+	var _Promise = {
+	  "static": {
+	    isPromise: isPromise
+	  }
+	};
+
+	/**
+	 * @namespace RegExp
+	 */
+
+	/**
+	 * Escape given string so it can be safely used in RegExp
+	 *
+	 * @param {string} str String to be escaped
+	 * @returns {string} Escaped string
+	 */
+	function escapeString(str) {
+	  return str.replace(/[-[\]/\\{}()*+?.^$|]/g, '\\$&');
+	}
+
+	var _RegExp = {
+	  "static": {
+	    escapeString: escapeString
+	  }
 	};
 
 	/**
@@ -397,39 +1569,48 @@
 	 * @param {string} b B
 	 * @returns {number} Distance
 	 */
-	String.editDistance = function(a, b) {
-	  var matrix = [], i, j;
+	function editDistance(a, b) {
+	  var matrix = [],
+	      i,
+	      j;
 
-	  if(a.length === 0) { return b.length; }
-	  if(b.length === 0) { return a.length; }
-	  if(a === b) { return 0; }
+	  if (a.length === 0) {
+	    return b.length;
+	  }
 
-	  // increment along the first column of each row
-	  for(i = 0; i <= b.length; i++) {
+	  if (b.length === 0) {
+	    return a.length;
+	  }
+
+	  if (a === b) {
+	    return 0;
+	  } // increment along the first column of each row
+
+
+	  for (i = 0; i <= b.length; i++) {
 	    matrix[i] = [i];
-	  }
+	  } // increment each column in the first row
 
-	  // increment each column in the first row
-	  for(j = 0; j <= a.length; j++){
+
+	  for (j = 0; j <= a.length; j++) {
 	    matrix[0][j] = j;
-	  }
+	  } // Fill in the rest of the matrix
 
-	  // Fill in the rest of the matrix
-	  for(i = 1; i <= b.length; i++){
-	    for(j = 1; j <= a.length; j++){
-	      if(b.charAt(i-1) === a.charAt(j-1)){
-	        matrix[i][j] = matrix[i-1][j-1];
+
+	  for (i = 1; i <= b.length; i++) {
+	    for (j = 1; j <= a.length; j++) {
+	      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+	        matrix[i][j] = matrix[i - 1][j - 1];
 	      } else {
-	        matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
-	          Math.min(matrix[i][j-1] + 1, // insertion
-	            matrix[i-1][j] + 1)); // deletion
+	        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, // substitution
+	        Math.min(matrix[i][j - 1] + 1, // insertion
+	        matrix[i - 1][j] + 1)); // deletion
 	      }
 	    }
 	  }
 
 	  return matrix[b.length][a.length];
-	};
-
+	}
 	/**
 	 * Get similarity ratio based on edit distance
 	 *
@@ -438,134 +1619,136 @@
 	 * @param {string} b B
 	 * @returns {number} Ratio
 	 */
-	String.getSimilarity = function(a, b) {
+
+
+	function getSimilarity(a, b) {
 	  var l = Math.max(a.length, b.length);
 	  return (l - String.editDistance(a, b)) / l;
-	};
-
+	}
 	/**
 	 * Returns string with capitalised first letter
 	 *
 	 * @param {boolean} [lower=false] Flag if should lower all letters first
 	 * @returns {string} New string
 	 */
-	String.prototype.capitaliseFirstLetter = function(lower) {
+
+
+	function capitaliseFirstLetter(lower) {
 	  var value = this.valueOf();
 
-	  if(lower) {
+	  if (lower) {
 	    value = value.toLowerCase();
 	  }
 
-	  return value.replace(/[a-z]/i, function(m) { return m.toUpperCase(); });
-	};
-
+	  return value.replace(/[a-z]/i, function (m) {
+	    return m.toUpperCase();
+	  });
+	}
 	/**
 	 * Returns string with lower first letter
 	 *
 	 * @returns {string} New string
 	 */
-	String.prototype.lowerFirstLetter = function() {
-	  return this.valueOf().replace(/[a-z]/i, function(m) { return m.toLowerCase(); });
-	};
 
+
+	function lowerFirstLetter() {
+	  return this.valueOf().replace(/[a-z]/i, function (m) {
+	    return m.toLowerCase();
+	  });
+	}
 	/**
 	 * Returns string with removed cases
 	 *
 	 * @returns {string} New string
 	 */
-	String.prototype.noCase = function() {
-	  var value = this.valueOf();
 
-	  // detect capitalized snake case
-	  if(/^[A-Z0-9_]+$/.test(value)) {
+
+	function noCase() {
+	  var value = this.valueOf(); // detect capitalized snake case
+
+	  if (/^[A-Z0-9_]+$/.test(value)) {
 	    return value.replace(/_/g, ' ').toLowerCase();
-	  }
+	  } // clean kebab and snake case
 
-	  // clean kebab and snake case
-	  value = value.replace(/[-_]/g, ' ');
 
-	  // clean special characters
-	  value = value.replace(/[^a-z0-9 ]/gi, '');
+	  value = value.replace(/[-_]/g, ' '); // clean special characters
 
-	  // clean pascal case
-	  value = value.lowerFirstLetter();
+	  value = value.replace(/[^a-z0-9 ]/gi, ''); // clean pascal case
 
-	  // clean camel case
-	  value = value.replace(/([A-Za-z])([0-9])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
-	  value = value.replace(/[A-Z][a-z]/g, function(m) { return ' ' + m.toLowerCase(); });
-	  value = value.replace(/([a-z0-9])([A-Z])/g, function(m, m1, m2) { return m1 + ' ' + m2; });
+	  value = value.lowerFirstLetter(); // clean camel case
 
-	  // minimize white spaces
+	  value = value.replace(/([A-Za-z])([0-9])/g, function (m, m1, m2) {
+	    return m1 + ' ' + m2;
+	  });
+	  value = value.replace(/[A-Z][a-z]/g, function (m) {
+	    return ' ' + m.toLowerCase();
+	  });
+	  value = value.replace(/([a-z0-9])([A-Z])/g, function (m, m1, m2) {
+	    return m1 + ' ' + m2;
+	  }); // minimize white spaces
+
 	  value = value.trim().replace(/\s{2,}/g, ' ');
-
 	  return value;
-	};
-
+	}
 	/**
 	 * Returns string in camelCase
 	 *
 	 * @returns {string} String in camelCase
 	 */
-	String.prototype.toCamelCase = function() {
-	  var value = this.valueOf();
 
-	  // normalize
-	  value = value.noCase();
-	  
-	  // replace
-	  value = value.replace(/ [a-z0-9]/gi, function(m) { return m[1].toUpperCase(); });
 
+	function toCamelCase() {
+	  var value = this.valueOf(); // normalize
+
+	  value = value.noCase(); // replace
+
+	  value = value.replace(/ [a-z0-9]/gi, function (m) {
+	    return m[1].toUpperCase();
+	  });
 	  return value;
-	};
-
+	}
 	/**
 	 * Returns string in PascalCase
 	 *
 	 * @returns {string} String in PascalCase
 	 */
-	String.prototype.toPascalCase = function() {
-	  return this.toCamelCase().capitaliseFirstLetter();
-	};
 
+
+	function toPascalCase() {
+	  return this.toCamelCase().capitaliseFirstLetter();
+	}
 	/**
 	 * Returns string in kebab-case
 	 *
 	 * @returns {string} String in kebab-case
 	 */
-	String.prototype.toKebabCase = function() {
-	  var value = this.valueOf();
 
-	  // normalize
-	  value = value.noCase();
 
-	  // replace
+	function toKebabCase() {
+	  var value = this.valueOf(); // normalize
+
+	  value = value.noCase(); // replace
+
 	  value = value.replace(/\s/g, '-');
-
 	  return value;
-	};
-
+	}
 	/**
 	 * Returns string in snake_case
 	 * @param {boolean} [convertToUpperCase=false] Set this flag to convert to UpperCase
 	 * @returns {string} String in snake_case
 	 */
-	String.prototype.toSnakeCase = function(convertToUpperCase) {
 
+
+	function toSnakeCase(convertToUpperCase) {
 	  var toUpperCase = convertToUpperCase || false;
+	  var value = this.valueOf(); // normalize
 
-	  var value = this.valueOf();
+	  value = value.noCase(); // replace
 
-	  // normalize
-	  value = value.noCase();
-
-	  // replace
 	  value = value.replace(/\s/g, '_');
-
-	  if(toUpperCase) return value.toUpperCase();
-
+	  if (toUpperCase) return value.toUpperCase();
 	  return value;
-	};
-
+	}
 	/**
 	 * Returns checksum crc32
 	 *
@@ -574,9 +1757,10 @@
 	 * @see {@link https://stackoverflow.com/a/3276730|Stack Overflow Answer}
 	 * @returns {number} Checksum
 	 */
-	String.prototype.toChecksum = function() {
-	  var value, i, chk;
 
+
+	function toChecksum() {
+	  var value, i, chk;
 	  value = this.valueOf();
 	  chk = 0x12345678;
 
@@ -585,1023 +1769,77 @@
 	  }
 
 	  return chk;
-	};
-
+	}
 	/**
 	 * Returns string in boolean
 	 *
 	 * @returns {boolean} True if string looks somehow like 'true'
 	 */
-	String.prototype.toBoolean = function() {
-	  return this.valueOf().toLowerCase() === 'true';
-	};
 
+
+	function toBoolean() {
+	  return this.valueOf().toLowerCase() === 'true';
+	}
 	/**
 	 * Returns reversed string
 	 *
 	 * @returns {string} Reversed string
 	 */
-	String.prototype.reverse = function() {
-	  return this.valueOf().split('').reverse().join('');
-	};
 
+
+	function reverse() {
+	  return this.valueOf().split('').reverse().join('');
+	}
 	/**
 	 * Check if string is like given query (you can use regexp notation)
 	 *
 	 * @param {string} query Query
 	 * @returns {boolean} Verdict
 	 */
-	String.prototype.isLike = function(query) {
+
+
+	function isLike$1(query) {
 	  return new RegExp('^' + query + '$').test(this.valueOf());
-	};
-
-	if(typeof String.prototype.includes !== 'function') {
-	  /**
-	   * Polyfill for ECMAScript 2015 for String.prototype.includes
-	   *
-	   * @param {string} search Search for
-	   * @param {number} [start=0] Searching start position
-	   * @returns {boolean} Verdict
-	   */
-	  String.prototype.includes = function(search, start) {
-	    var _start = typeof start !== 'number' ? 0 : start;
-
-	    if (_start + search.length > this.length) {
-	      return false;
-	    }
-	    
-	    return this.indexOf(search, _start) !== -1;
-	  };
 	}
-
 	/**
-	 * @namespace Object
-	 */
-
-	/**
-	 * Returns verdict if given subject is Object or not
+	 * Polyfill for ECMAScript 2015 for String.prototype.includes
 	 *
-	 * @param {*} subject Subject of examination
+	 * @param {string} search Search for
+	 * @param {number} [start=0] Searching start position
 	 * @returns {boolean} Verdict
 	 */
-	Object.isObject = function(subject) {
-	  return subject !== null && typeof subject === 'object';
-	};
 
-	/**
-	 * Copy key and values from src Object to dst  Object
-	 *
-	 * @param {Object} src Source
-	 * @param {Object} dst Destination
-	 * @param {(Array|null)} [what] What should be copied? By default those are all keys and values from source
-	 * @returns {void}
-	 */
-	Object.copy = function(src, dst, what) {
-	  var i;
-	  if(what == null || what.length == 0) {
-	    for(i in src) {
-	      dst[i] = src[i];
-	    }
-	  } else {
-	    for(i = 0; i < what.length; i++) {
-	      dst[what[i]] = src[what[i]];
-	    }
-	  }
-	};
 
-	/**
-	 * Returns verdict if subject match query
-	 *
-	 * @param {Object} subject Subject of examination
-	 * @param {Object|*} query Query - if object then will compare each key of query with subject,
-	 * otherwise will just use standard comparator
-	 * @returns {boolean} Verdict
-	 */
-	Object.isLike = function(subject, query) {
-	  var k, v;
-	  if(typeof query == 'object' && typeof subject == 'object') {
-	    for(k in query) {
-	      v = typeof subject[k] == 'function' ? subject[k]() : subject[k];
-	      if(v !== query[k]) {
-	        return false;
-	      }
-	    }
-	  } else {
-	    if(subject !== query) {
-	      return false;
-	    }
-	  }
-	  return true;
-	};
+	function includes(search, start) {
+	  var _start = typeof start !== 'number' ? 0 : start;
 
-	/**
-	 * Count number of items in given subject
-	 *
-	 * @param {Object} subject Subject of examination
-	 * @returns {number} Number of items
-	 */
-	Object.count = function(subject) {
-	  var items = 0;
-	  for(var i in subject) {
-	    if(subject.hasOwnProperty(i)) {
-	      items += 1;
-	    }
-	  }
-	  return items;
-	};
-
-	if(typeof Object.values !== 'function') {
-
-	  /**
-	   * Polyfill for ECMAScript 2017 for Object.assign
-	   * https://www.ecma-international.org/ecma-262/8.0/#sec-object.values
-	   */
-	  Object.values = function(o) {
-	    var obj = Object(o);
-	    var values = [];
-
-	    for(var k in obj) {
-	      values.push(obj[k]);
-	    }
-
-	    return values;
-	  };
-
-	}
-
-	if(typeof Object.assign !== 'function') {
-
-	  /**
-	   * Polyfill for ECMAScript 2015 for Object.assign
-	   * https://www.ecma-international.org/ecma-262/6.0/#sec-object.assign
-	   */
-	  Object.assign = function() {
-	    var args = Array.prototype.slice.call(arguments, 0);
-	    var to = Object(args[0]);
-
-	    if(args.length !== 1) {
-	      var sources = args.slice(1);
-	      var nextSource, keys, from, nextKey, propValue;
-
-	      for(var i = 0; i < sources.length; i++) {
-	        nextSource = sources[i];
-	        from = Object(nextSource);
-
-	        if(typeof nextSource === 'undefined' || nextSource === null) {
-	          keys = [];
-	        } else {  
-	          keys = Object.keys(from);
-	        }
-
-	        for(var j = 0; j < keys.length; j++) {
-	          nextKey = keys[j];
-	          propValue = from[nextKey];
-	          if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
-	            to[nextKey] = propValue;
-	          }
-	        }
-	      }
-	    }
-
-	    return to;
-	  };
-
-	}
-
-	/**
-	 * This is similar to Object.assign, but extends also deep nested Objects
-	 * 
-	 * @returns {object} Object
-	 */
-	Object.deepAssign = function() {
-	  var args = Array.prototype.slice.call(arguments, 0);
-	  var to = Object(args[0]);
-
-	  if(args.length !== 1) {
-	    var sources = args.slice(1);
-	    var nextSource, keys, from, nextKey, propValue;
-
-	    for(var i = 0; i < sources.length; i++) {
-	      nextSource = sources[i];
-	      from = Object(nextSource);
-
-	      if(typeof nextSource === 'undefined' || nextSource === null) {
-	        keys = [];
-	      } else {  
-	        keys = Object.keys(from);
-	      }
-
-	      for(var j = 0; j < keys.length; j++) {
-	        nextKey = keys[j];
-	        propValue = from[nextKey];
-	        if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
-	          if(typeof to[nextKey] === 'object' && typeof propValue === 'object') {
-	            var areArrays = Array.isArray(to[nextKey]) && Array.isArray(propValue);
-	            
-	            to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
-
-	            if(areArrays) {
-	              to[nextKey] = Object.values(to[nextKey]);
-	            }
-	          } else {
-	            to[nextKey] = propValue;
-	          }
-	        }
-	      }
-	    }
-	  }
-
-	  return to;
-	};
-
-	/**
-	 * @namespace Array
-	 */
-
-	/**
-	 * Sort array of objects
-	 *
-	 * @param {Object[]} arr Array of objects that should be sorted
-	 * @param {string} propertyName Name of property by which sorting will be done
-	 * @param [descending=false] {boolean} Flag to sort in descending order
-	 */
-	Array.sortArrayOfObjects = function(arr, propertyName, descending) {
-	  var order = descending ? -1 : 1;
-	  var _a, _b;
-
-	  arr.sort(function(a, b) {
-	    _a = a[propertyName];
-	    _b = b[propertyName];
-
-	    if(typeof _a === 'string') {
-	      _a = _a.toLowerCase();
-	    }
-	    if(typeof _b === 'string') {
-	      _b = _b.toLowerCase();
-	    }
-
-	    if(_a > _b) {
-	      return order * 1;
-	    } else if(_a < _b) {
-	      return order * -1;
-	    }
-	    return 0;
-	  });
-	};
-
-	/**
-	 * Deep clone array of object
-	 *
-	 * @param arr Array of objects
-	 * @returns {Object[]} Clone of arr
-	 */
-	Array.deepCloneArrayOfObjects = function(arr) {
-	  return arr.map(function(obj) {
-	    return Object.assign({}, obj);
-	  });
-	};
-
-	/**
-	 * Wrap in Array if @param is not an Array already
-	 *
-	 * @param {(*|Array)} something Something that should be an Array
-	 * @returns {Array}
-	 */
-	Array.wrap = function(something) {
-	  return Array.isArray(something) ? something : [something];
-	};
-
-	/**
-	 * Empty this Array
-	 *
-	 * @returns {Array} this
-	 */
-	Array.prototype.empty = function() {
-	  this.length = 0;
-	  return this;
-	};
-
-	/**
-	 * Absorb (push) every item of given array to this Array
-	 *
-	 * @param {Array} arr Array to be absorbed
-	 * @returns {Array} this
-	 */
-	Array.prototype.absorb = function(arr) {
-	  this.push.apply(this, arr);
-	  return this;
-	};
-
-	/**
-	 * Returns the difference between this Array and given in argument
-	 *
-	 * @param {Array} arr Array to compare
-	 * @returns {Array} Array with elements that are different
-	 */
-	Array.prototype.diff = function(arr) {
-	  return this.filter(function(i) { return arr.indexOf(i) < 0; });
-	};
-
-	/**
-	 * Clone this Array
-	 *
-	 * @returns {Array} Clone of this Array
-	 */
-	Array.prototype.clone = function() {
-	  return this.slice(0);
-	};
-
-	/**
-	 * Look for index of item matching to query
-	 *
-	 * @param {Object} query Query
-	 * @returns {number} Index of matching index; -1 if not found
-	 */
-	Array.prototype.lookFor = function(query) {
-	  for(var i = 0; i < this.length; i++) {
-	    if(Object.isLike(this[i], query)) {
-	      return i;
-	    }
-	  }
-
-	  return -1;
-	};
-
-	/**
-	 * Returns the new array based on current one by filtering according to query
-	 *
-	 * @see Object#isLike
-	 * @param {Object} query Query
-	 * @returns {Array} New Array with matching elements
-	 */
-	Array.prototype.filterLike = function(query) {
-	  if(typeof query === 'undefined') {
-	    return [];
-	  }
-	  
-	  return this.filter(function(item) {
-	    return Object.isLike(item, query);
-	  });
-	};
-
-	/**
-	 * Unique this Array - remove all duplicate items
-	 *
-	 * @returns {Array} this
-	 */
-	Array.prototype.unique = function() {
-	  for(var i = 0; i < this.length; ++i) {
-	    for(var j = i + 1; j < this.length; ++j) {
-	      if(this[i] === this[j]) {
-	        this.splice(j--, 1);
-	      }
-	    }
-	  }
-
-	  return this;
-	};
-
-	/**
-	 * Shuffle this Array
-	 *
-	 * @returns {Array} this
-	 */
-	Array.prototype.shuffle = function() {
-	  for (var i = this.length - 1; i > 0; i--) {
-	    var j = Math.floor(Math.rand() * (i + 1));
-	    var temp = this[i];
-	    this[i] = this[j];
-	    this[j] = temp;
-	  }
-
-	  return this;
-	};
-
-	/**
-	 * @namespace Date
-	 */
-
-	var DATE_LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
-	var DATE_LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
-
-	/**
-	 * Second in milliseconds
-	 *
-	 * @constant
-	 * @type {number}
-	 */
-	Date.SECOND = 1000;
-
-	/**
-	 * Minute in milliseconds
-	 *
-	 * @constant
-	 * @type {number}
-	 */
-	Date.MINUTE = 60 * Date.SECOND;
-
-	/**
-	 * Hour in milliseconds
-	 *
-	 * @constant
-	 * @type {number}
-	 */
-	Date.HOUR = 60 * Date.MINUTE;
-
-	/**
-	 * Day in milliseconds
-	 *
-	 * @constant
-	 * @type {number}
-	 */
-	Date.DAY = 24 * Date.HOUR;
-
-	/**
-	 * Week in milliseconds
-	 *
-	 * @constant
-	 * @type {number}
-	 */
-	Date.WEEK = 7 * Date.DAY;
-	Object.defineProperty(Date, 'TODAY', {
-	  get: function() {
-	    return Date.DAY * Math.floor( Date.now() / Date.DAY );
-	  }
-	});
-	Object.defineProperty(Date, 'YESTERDAY', {
-	  get: function() {
-	    return Date.TODAY - Date.DAY;
-	  }
-	});
-	Object.defineProperty(Date, 'TOMORROW', {
-	  get: function() {
-	    return Date.TODAY + Date.DAY;
-	  }
-	});
-	Object.defineProperty(Date, 'DAYAFTERTOMORROW', {
-	  get: function() {
-	    return Date.TOMORROW + Date.DAY;
-	  }
-	});
-
-	/**
-	 * Return new Date instance from given value
-	 * 
-	 * It's simmilar to native Date.parse, but you can use such strings like:
-	 * 'today', 'yesterday', 'tomorrow', 'dayaftertomorrow', 'now'
-	 * 
-	 * Feel free to contribute if you think that this method should support even more!
-	 * 
-	 * @param {*} value Value to be parsed
-	 * @throws Will throw an error if the value is not supported.
-	 * @returns {Date} New Date
-	 */
-	Date.parseValue = function(value) {
-	  var type = typeof value;
-	  if(type === 'string') {
-	    switch(value.toLowerCase()) {
-	    case 'today' :
-	      return new Date(Date.TODAY);
-
-	    case 'yesterday' :
-	      return new Date(Date.YESTERDAY);
-
-	    case 'tomorrow' :
-	      return new Date(Date.TOMORROW);
-
-	    case 'dayaftertomorrow' :
-	      return new Date(Date.DAYAFTERTOMORROW);
-
-	    case 'now' :
-	      return new Date();
-
-	    default :
-	      throw new Error('Unsupported string: ' + value);
-	    }
-	  } else if(type === 'number' || value instanceof Date) {
-	    return new Date(value);
-	  } else {
-	    throw new TypeError('Unsupported value type');
-	  }
-	};
-
-	/**
-	 * Return timestamp of now + days
-	 *
-	 * @param {number} days Number of days difference
-	 * @returns {number} Timestamp
-	 */
-	Date.daysFromNow = function(days) {
-	  return Date.now() + Date.DAY * days;
-	};
-
-	/**
-	 * Get local date format
-	 *
-	 * @param {boolean} [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
-	 * @returns {string} Local date format
-	 */
-	Date.getLocalDateFormat = function(fullFormat) {
-	  var countryCode, format;
-
-	  if(typeof fullFormat === 'undefined') {
-	    fullFormat = true;
-	  }
-
-	  countryCode = commonjsGlobal.getCountry() || 'US';
-
-	  if(DATE_LOCAL_FORMAT_YMD.indexOf(countryCode) >= 0) {
-	    format = 'y-m-d';
-	  } else if(DATE_LOCAL_FORMAT_MDY.indexOf(countryCode) >= 0) {
-	    format = 'm/d/y';
-	  } else {
-	    format = 'd.m.y';
-	  }
-
-	  if(fullFormat) {
-	    format = format.replace('d', 'dd');
-	    format = format.replace('m', 'mm');
-	    format = format.replace('y', 'yyyy');
-	  }
-
-	  return format;
-	};
-
-	/**
-	 * Get timezone name
-	 *
-	 * @returns {string} Timezone
-	 */
-	Date.getTimezoneName = function() {
-	  return new this().toString().match(/\(([^)]+)\)$/)[1];
-	};
-
-	/**
-	 * Returns object with time parts
-	 *
-	 * @example
-	 * // returns { h: 0, m: 1, s: 1, ms: 500 }
-	 * Date.getHms(61500)
-	 * @param {number} time Time to be used
-	 * @returns {Object} Time in stopwatch format
-	 */
-	Date.getHms = function(time) {
-	  var obj = {
-	    h: 0,
-	    m: 0,
-	    s: 0,
-	    ms: 0
-	  };
-
-	  obj.ms = Math.max(0, time % 1000);
-	  time -= obj.ms;
-
-	  time /= 1000;
-	  obj.s = Math.max(0, time % 60);
-	  time -= obj.s;
-
-	  time /= 60;
-	  obj.m = Math.max(0, time % 60);
-	  time -= obj.m;
-
-	  time /= 60;
-	  obj.h = Math.max(0, time);
-
-	  return obj;
-	};
-
-	/**
-	 * Returns given time (in milliseconds) in HMS format
-	 *
-	 * @example
-	 * // returns '1m 5s'
-	 * Date.toHmsFormat(61500)
-	 * @param {number} time Time to be converted
-	 * @param {string} [accuracy=seconds] Accuracy
-	 * @returns {string} Time in HMS format
-	 */
-	Date.toHmsFormat = function(time, accuracy) {
-	  if(typeof accuracy === 'undefined') {
-	    accuracy = 'seconds';
-	  }
-
-	  var obj = Date.getHms(time);
-	  var ret = [];
-
-	  switch(accuracy) {
-	  case 'hours':
-	    ret.push(obj.h + 'h');
-	    break;
-
-	  case 'minutes':
-	    if(obj.h > 0) {
-	      ret.push(obj.h + 'h');
-	    }
-
-	    ret.push(obj.m + 'm');
-	    break;
-
-	  case 'seconds':
-	    if(obj.h > 0) {
-	      ret.push(obj.h + 'h');
-	    }
-	    if(obj.m > 0) {
-	      ret.push(obj.m + 'm');
-	    }
-
-	    ret.push(obj.s + 's');
-	    break;
-
-	  default:
-	    throw new TypeError('Unknown accuracy');
-	  }
-
-	  return ret.join(' ');
-	};
-
-	/**
-	 * Returns given time (in milliseconds) in stopwatch format - [HH:]MM:SS.XXX
-	 *
-	 * @example
-	 * // returns '01:01.5'
-	 * Date.toStopwatchFormat(61500)
-	 * @param {number} time Time to be converted
-	 * @returns {string} Time in stopwatch format
-	 */
-	Date.toStopwatchFormat = function(time) {
-	  var obj = Date.getHms(time);
-	  var ret = obj.m.pad(2) + ':' + obj.s.pad(2) + '.' + Math.floor(obj.ms / 100);
-
-	  if(obj.h > 0) {
-	    ret = obj.h.pad(2) + ':' + ret;
-	  }
-
-	  return ret;
-	};
-
-	/**
-	 * Returns given time (in milliseconds) in timer format - [HH:]MM:SS
-	 *
-	 * @example
-	 * // returns '01:01'
-	 * Date.toStopwatchFormat(61500)
-	 * @param {number} time Time to be converted
-	 * @returns {string} Time in timer format
-	 */
-	Date.toTimerFormat = function(time) {
-	  var obj = Date.getHms(time);
-	  var ret = obj.m.pad(2) + ':' + obj.s.pad(2);
-
-	  if(obj.h > 0) {
-	    ret = obj.h.pad(2) + ':' + ret;
-	  }
-
-	  return ret;
-	};
-
-	/**
-	 * Return number of days passed between this Date and given in argument
-	 *
-	 * @param {(Date|string|number)} [toDate=now] Proper date
-	 * @returns {number} Number of days passed
-	 */
-	Date.prototype.daysPassed = function(toDate) {
-	  var toDateType = typeof toDate;
-	  if(toDateType === 'undefined') {
-	    toDate = new Date();
-	  } else if(toDateType === 'number' || toDateType === 'string') {
-	    toDate = new Date(toDate);
-	  }
-
-	  if(!(toDate instanceof Date)) {
-	    throw new TypeError('toDate is not instance of Date');
-	  }
-
-	  return Math.floor(Math.abs((this.getTime() - toDate.getTime()) / Date.DAY));
-	};
-
-	/**
-	 * Returns this Date in custom date format
-	 *
-	 * @param {string} format String representing date format
-	 * @returns {string} Date string
-	 */
-	Date.prototype.toCustomDate = function(format) {
-	  format = format.replace('d', this.getDate().pad(2));
-	  format = format.replace('m', (this.getMonth() + 1).pad(2));
-	  format = format.replace('y', this.getFullYear());
-
-	  return format;
-	};
-
-	/**
-	 * Returns this Date in UI time string
-	 *
-	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
-	 * @returns {string} Time string
-	 */
-	Date.prototype.toUiTime = function(showSeconds) {
-	  if(typeof showSeconds === 'undefined') {
-	    showSeconds = true;
-	  }
-
-	  if(showSeconds) {
-	    showSeconds = ':' + this.getSeconds().pad(2);
-	  } else {
-	    showSeconds = '';
-	  }
-
-	  return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + showSeconds;
-	};
-
-	/**
-	 * Returns this Date in UI date string
-	 *
-	 * @see Date#getLocalDateFormat
-	 * @returns {string} Date string
-	 */
-	Date.prototype.toUiDate = function() {
-	  return this.toCustomDate(Date.getLocalDateFormat(false));
-	};
-
-	/**
-	 * Returns this Date in UI datetime string
-	 *
-	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
-	 * @returns {string} Time string
-	 */
-	Date.prototype.toUiDateTime = function(showSeconds) {
-	  return this.toUiDate() + ' ' + this.toUiTime(showSeconds);
-	};
-
-	/**
-	 * Returns this Date in form inputs time string
-	 *
-	 * @returns {string} Time string
-	 */
-	Date.prototype.toInputTimeFormat = function() {
-	  return this.toUiTime(false);
-	};
-
-	/**
-	 * Returns this Date in forms input date string
-	 *
-	 * @returns {string} Date string
-	 */
-	Date.prototype.toInputDateFormat = function() {
-	  return this.toCustomDate('y-m-d');
-	};
-
-	/**
-	 * Add time to this Date
-	 *
-	 * @param {number} time Time to add
-	 * @returns {number} New timestamp of this Date
-	 */
-	Date.prototype.addTime = function(time) {
-	  return this.setTime(this.getTime() + time );
-	};
-
-	function Mash() {
-	  var n = 0xefc8249d;
-
-	  var mash = function(data) {
-	    data = data.toString();
-	    for (var i = 0; i < data.length; i++) {
-	      n += data.charCodeAt(i);
-	      var h = 0.02519603282416938 * n;
-	      n = h >>> 0;
-	      h -= n;
-	      h *= n;
-	      n = h >>> 0;
-	      h -= n;
-	      n += h * 0x100000000; // 2^32
-	    }
-	    return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
-	  };
-
-	  return mash;
-	}
-
-	function MRG32k3a() {
-	  var args = Array.prototype.slice.call(arguments);
-	  var m1 = 4294967087;
-	  var m2 = 4294944443;
-	  var s10 = 12345,
-	    s11 = 12345,
-	    s12 = 123,
-	    s20 = 12345,
-	    s21 = 12345,
-	    s22 = 123;
-
-	  if (args.length === 0) {
-	    args = [+new Date()];
-	  }
-	  var mash = Mash();
-	  for (var i = 0; i < args.length; i++) {
-	    s10 += mash(args[i]) * 0x100000000; // 2 ^ 32
-	    s11 += mash(args[i]) * 0x100000000;
-	    s12 += mash(args[i]) * 0x100000000;
-	    s20 += mash(args[i]) * 0x100000000;
-	    s21 += mash(args[i]) * 0x100000000;
-	    s22 += mash(args[i]) * 0x100000000;
-	  }
-	  s10 %= m1;
-	  s11 %= m1;
-	  s12 %= m1;
-	  s20 %= m2;
-	  s21 %= m2;
-	  s22 %= m2;
-	  mash = null;
-
-	  var uint32 = function() {
-	    var m1 = 4294967087;
-	    var m2 = 4294944443;
-	    var a12 = 1403580;
-	    var a13n = 810728;
-	    var a21 = 527612;
-	    var a23n = 1370589;
-
-	    var k, p1, p2;
-
-	    p1 = a12 * s11 - a13n * s10;
-	    k = p1 / m1 | 0;
-	    p1 -= k * m1;
-	    if (p1 < 0) p1 += m1;
-	    s10 = s11;
-	    s11 = s12;
-	    s12 = p1;
-
-	    p2 = a21 * s22 - a23n * s20;
-	    k = p2 / m2 | 0;
-	    p2 -= k * m2;
-	    if (p2 < 0) p2 += m2;
-	    s20 = s21;
-	    s21 = s22;
-	    s22 = p2;
-
-	    if (p1 <= p2) return p1 - p2 + m1;
-	    else return p1 - p2;
-	  };
-
-	  var random = function() {
-	    return uint32() * 2.3283064365386963e-10; // 2^-32
-	  };
-
-	  // random.uint32 = uint32;
-	  // random.fract53 = function() {
-	  //   return random() +
-	  //     (uint32() & 0x1fffff) * 1.1102230246251565e-16; // 2^-53
-	  // };
-	  // random.args = args;
-
-	  return random;
-	}
-
-	var MRG32k3a$1 = /*#__PURE__*/Object.freeze({
-		default: MRG32k3a
-	});
-
-	var MRG32k3a$2 = ( MRG32k3a$1 && MRG32k3a ) || MRG32k3a$1;
-
-	/**
-	 * @namespace Math
-	 */
-
-
-	var _MRG32k3a = new MRG32k3a$2();
-
-	/**
-	 * Better alternative to Math.random based on MRG32k2a algorithm
-	 *
-	 * @see {@link http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf|PDF paper about it}
-	 * @returns {number} Random float number between 0 and 1
-	 */
-	Math.rand = function() {
-	  return _MRG32k3a();
-	};
-
-	if(typeof Math.log10 !== 'function') {
-
-	  /**
-	   * Polyfill for ECMAScript 2015 for Math.log10
-	   * https://www.ecma-international.org/ecma-262/6.0/#sec-math.log10
-	   *
-	   * @param {number} x X
-	   * @returns {number} Result
-	   */
-	  Math.log10 = function(x) {
-	    return Math.log(x) * Math.LOG10E;
-	  };
-
-	}
-
-	/**
-	 * Round given number to given precision
-	 * 
-	 * @param {number} num Number to be rounded
-	 * @param {number} precision Precision
-	 */
-	Math.roundTo = function(num, precision) {
-	  var magnitude = Math.pow(10, precision);
-	  return Math.round(num * magnitude) / magnitude;
-	};
-
-	/**
-	 * Calculate median of given array of numbers
-	 *
-	 * @param {number[]} values Array of numbers
-	 * @returns {number} Median
-	 */
-	Math.median = function(values) {
-	  if(values.length === 0) {
-	    return 0;
-	  }
-
-	  values.sort(function(a, b) { return a - b; });
-
-	  var half = Math.floor(values.length / 2);
-	  return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2;
-	};
-
-	/**
-	 * Sum given array of numbers
-	 *
-	 * @param {number[]} values Array of numbers
-	 * @returns {number} Sum
-	 */
-	Math.sum = function(values) {
-	  if(values.length === 0) {
-	    return 0;
-	  }
-
-	  return values.reduce(function(a, b) { return a + b; });
-	};
-
-	/**
-	 * Calculate average of given array of numbers
-	 *
-	 * @param {number[]} values Array of numbers
-	 * @returns {number} Average
-	 */
-	Math.avg = function(values) {
-	  if(values.length === 0) {
-	    return 0;
-	  }
-
-	  return Math.sum(values) / values.length;
-	};
-
-	/**
-	 * @namespace RegExp
-	 */
-
-	/**
-	 * Escape given string so it can be safely used in RegExp
-	 *
-	 * @param {string} str String to be escaped
-	 * @returns {string} Escaped string
-	 */
-	RegExp.escapeString = function(str) {
-	  return str.replace(/[-[\]/\\{}()*+?.^$|]/g, '\\$&');
-	};
-
-	/**
-	 * @namespace JSON
-	 */
-
-	/**
-	 * Returns verdict if given string is valid JSON or not
-	 *
-	 * @param {string} str JSON string to be checked
-	 * @returns {boolean} Verdict
-	 */
-	JSON.isJSONString = function(str) {
-	  try {
-	    JSON.parse(str);
-	  } catch(e) {
+	  if (_start + search.length > this.length) {
 	    return false;
 	  }
-	  return true;
-	};
 
-	/**
-	 * @namespace Promise
-	 */
-
-	if(typeof Promise !== 'undefined') {
-
-	  /**
-	   * Returns verdict if given subject is Promise or not
-	   *
-	   * @param {*} subject Subject of examination
-	   * @returns {boolean} Verdict
-	   */
-	  Promise.isPromise = function(subject) {
-	    return Object.isObject(subject) && (subject instanceof Promise || typeof subject.then === 'function');
-	  };
-
+	  return this.indexOf(search, _start) !== -1;
 	}
+
+	var _String = {
+	  "static": {
+	    editDistance: editDistance,
+	    getSimilarity: getSimilarity
+	  },
+	  method: {
+	    capitaliseFirstLetter: capitaliseFirstLetter,
+	    lowerFirstLetter: lowerFirstLetter,
+	    noCase: noCase,
+	    toCamelCase: toCamelCase,
+	    toPascalCase: toPascalCase,
+	    toKebabCase: toKebabCase,
+	    toSnakeCase: toSnakeCase,
+	    toChecksum: toChecksum,
+	    toBoolean: toBoolean,
+	    reverse: reverse,
+	    isLike: isLike$1,
+	    includes: includes
+	  }
+	};
 
 	/**
 	 * Creates a new FileSize
@@ -1610,99 +1848,178 @@
 	 * @constructor
 	 */
 	function FileSize(bytes) {
-
 	  /**
 	   * Number of bytes
 	   * @type {number}
 	   */
 	  this.bytes = bytes;
-
-
 	  /**
 	   * Returns this.bytes as human-readable file size string
 	   *
 	   * @returns {string} Human-readable file size string
 	   */
-	  this.toReadableString = function() {
+
+	  this.toReadableString = function () {
 	    return FileSize.getReadableString(this.bytes);
 	  };
-
 	}
-
 	/**
 	 * List of available size units
 	 *
 	 * @constant
 	 * @type {string[]}
 	 */
-	FileSize.UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB'];
 
+
+	FileSize.UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB'];
 	/**
 	 * 1B in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-	FileSize.B = 1;
 
+	FileSize.B = 1;
 	/**
 	 * 1KB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-	FileSize.KB = 1024 * FileSize.B;
 
+	FileSize.KB = 1024 * FileSize.B;
 	/**
 	 * 1MB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-	FileSize.MB = 1024 * FileSize.KB;
 
+	FileSize.MB = 1024 * FileSize.KB;
 	/**
 	 * 1GB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-	FileSize.GB = 1024 * FileSize.MB;
 
+	FileSize.GB = 1024 * FileSize.MB;
 	/**
 	 * 1TB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-	FileSize.TB = 1024 * FileSize.GB;
 
+	FileSize.TB = 1024 * FileSize.GB;
 	/**
 	 * 1EB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-	FileSize.EB = 1024 * FileSize.TB;
 
+	FileSize.EB = 1024 * FileSize.TB;
 	/**
 	 * Returns human-readable file size string from given number of bytes
 	 *
 	 * @param {number} bytes Number of bytes
 	 * @returns {string} Human-readable file size string
 	 */
-	FileSize.getReadableString = function(bytes) {
+
+	FileSize.getReadableString = function (bytes) {
 	  var i;
 	  var val = bytes;
 
 	  for (i = 0; i < FileSize.UNITS.length; i++) {
-	    if(val < 1000) break;
+	    if (val < 1000) break;
 	    val /= 1024;
 	  }
 
 	  return (i === 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
 	};
 
-	commonjsGlobal.FileSize = FileSize;
+	var FileSize_1 = FileSize;
+
+	/* eslint-disable no-undef */
+
+	var extensions = {
+	  globalThis: globalThis_1,
+	  Array: _Array,
+	  Boolean: _Boolean,
+	  Date: _Date,
+	  JSON: _JSON,
+	  Math: _Math,
+	  Number: _Number,
+	  Object: _Object,
+	  Promise: _Promise,
+	  RegExp: _RegExp,
+	  String: _String
+	};
+	var libraries = {
+	  FileSize: FileSize_1
+	};
+
+	function finka() {
+	  // Check globalThis existance
+	  if (typeof globalThis === 'undefined') {
+	    // without definition on purpose
+	    globalThis = typeof window == 'undefined' ? commonjsGlobal : window;
+	  } // Enable extensions
+
+
+	  for (var extName in extensions) {
+	    var ext = extensions[extName];
+	    var target = globalThis[extName]; // constant
+
+	    if (typeof ext.constant !== 'undefined') {
+	      for (var name in ext.constant) {
+	        if (typeof target[name] === 'undefined') {
+	          target[name] = ext.constant[name];
+	        }
+	      }
+	    } // getter
+
+
+	    if (typeof ext.getter !== 'undefined') {
+	      for (var _name in ext.getter) {
+	        if (typeof target[_name] === 'undefined') {
+	          Object.defineProperty(target, _name, {
+	            get: ext.getter[_name]
+	          });
+	        }
+	      }
+	    } // static
+
+
+	    if (typeof ext["static"] !== 'undefined') {
+	      for (var _name2 in ext["static"]) {
+	        if (typeof target[_name2] === 'undefined') {
+	          target[_name2] = ext["static"][_name2].bind(target);
+	        }
+	      }
+	    } // method
+
+
+	    if (typeof ext.method !== 'undefined') {
+	      for (var _name3 in ext.method) {
+	        if (typeof target.prototype[_name3] === 'undefined') {
+	          target.prototype[_name3] = ext.method[_name3];
+	        }
+	      }
+	    }
+	  } // Enable libraries
+
+
+	  for (var libName in libraries) {
+	    if (typeof globalThis[libName] === 'undefined') {
+	      globalThis[libName] = libraries[libName];
+	    }
+	  }
+	}
+
+	var src = finka;
+
+	return src;
 
 })));

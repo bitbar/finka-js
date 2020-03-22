@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.4.0
+                v2.0.0
             
             </span>
         </div>
@@ -201,7 +201,8 @@ FileSize.getReadableString = function(bytes) {
   return (i === 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
 };
 
-global.FileSize = FileSize;
+
+module.exports = FileSize;
 </code></pre>
 </article>
 
@@ -212,7 +213,7 @@ global.FileSize = FileSize;
         <hr>
         <footer>
             <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
-            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
         </footer>
     </div>
 </div>
