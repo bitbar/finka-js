@@ -32,7 +32,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.4.0
+                v2.0.0
             
             </span>
         </div>
@@ -116,39 +116,58 @@
        alt="Finka.js"
        title="Finka.js" />
 </p>
-
-<h1>Finka.js</h1><p><a href="https://travis-ci.com/bitbar/finka-js"><img src="https://img.shields.io/travis/com/bitbar/finka-js/master.svg" alt="Build Status"></a>
+<h1>Finka.js</h1>
+<p><a href="https://travis-ci.com/bitbar/finka-js"><img src="https://img.shields.io/travis/com/bitbar/finka-js/master.svg" alt="Build Status"></a>
 <a href="https://coveralls.io/github/bitbar/finka-js?branch=master"><img src="https://img.shields.io/coveralls/github/bitbar/finka-js/master.svg" alt="Coverage Status"></a>
 <a href="https://lgtm.com/projects/g/bitbar/finka-js/context:javascript"><img src="https://img.shields.io/lgtm/grade/javascript/g/bitbar/finka-js.svg" alt="Language grade: JavaScript"></a>
 <a href="releases"><img src="https://img.shields.io/github/release/bitbar/finka-js.svg" alt="Current Release"></a>
 <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a></p>
 <p>Handy tool in nowadays JavaScript jungle.</p>
 <p>It's extending default JS classes like <code>Array</code> or <code>String</code> with new handy methods,
-that probably sooner or later you are going to search for on Stack Overflow ;) </p>
-<h2>What means <em>Finka</em>?</h2><p><em>Finka</em> is Polish word and means a knife usually used by scouts. It's also abbreviation to <em>nóż fiński</em> so <em>Finnish knife</em>.
+that probably sooner or later you are going to search for on Stack Overflow ;)</p>
+<h2>What means <em>Finka</em>?</h2>
+<p><em>Finka</em> is Polish word and means a knife usually used by scouts. It's also abbreviation to <em>nóż fiński</em> so <em>Finnish knife</em>.
 According to <em>Wikipedia</em> it's originally really Finnish knife called <a href="https://en.wikipedia.org/wiki/Puukko">Puukko</a>.</p>
 <p><a href="https://bitbar.com/">Bitbar</a> is Finnish company responsible for <a href="https://bitbar.com/testing/">Bitbar Cloud</a>,
 which hosts hundreds of Android and iOS devices, enabling users to create and test high quality mobile apps and games.
 Main R&amp;D team is in Wrocław, Poland.</p>
-<h2>Getting Started</h2><h3>Prerequisites</h3><p>This package is using <a href="https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js">UMD</a> pattern, so it means that you can use it:</p>
+<h2>Getting Started</h2>
+<h3>Prerequisites</h3>
+<p>This package is using <a href="https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js">UMD</a> pattern, so it means that you can use it:</p>
 <ul>
 <li>in Node.js project</li>
-<li>browser running project<ul>
+<li>browser running project
+<ul>
 <li>without AMD</li>
 <li>with AMD</li>
 </ul>
 </li>
 </ul>
-<h3>Usage</h3><h4>Option A: With <code>npm</code></h4><p>Install:</p>
-<pre class="prettyprint source lang-sh"><code>npm install finka</code></pre><p>And then in you main JS file:</p>
-<pre class="prettyprint source lang-js"><code>require('finka');</code></pre><p>That's all!</p>
-<h4>Option B: Download</h4><p>Download version that fits your better:</p>
-<p><a href="https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.min.js">Compressed version - 13KB</a></p>
-<p><a href="https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.js">Uncompressed version - 33KB</a></p>
-<p>And simply add HTML tag:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;finka.min.js&quot;>&lt;/script></code></pre><p>Done!</p>
-<h3>Documentation</h3><p><a href="https://bitbar.github.io/finka-js/">https://bitbar.github.io/finka-js/</a></p>
-<h2>Contribution</h2><h3>Checking code quality</h3><pre class="prettyprint source lang-sh"><code>npm run lint</code></pre><h3>Running tests</h3><pre class="prettyprint source lang-sh"><code>npm run test</code></pre><h3>Building</h3><pre class="prettyprint source lang-sh"><code>npm run build</code></pre><h3>Updating documentation</h3><pre class="prettyprint source lang-sh"><code>npm run docs</code></pre><h2>Authors</h2><ul>
+<h3>Usage</h3>
+<p>Install:</p>
+<pre class="prettyprint source lang-sh"><code>npm install @bitbar/finka
+</code></pre>
+<p>And then in you main JS file:</p>
+<pre class="prettyprint source lang-js"><code>const finka = require('@bitbar/finka');
+finka();
+</code></pre>
+<h3>Documentation</h3>
+<p><a href="https://bitbar.github.io/finka-js/">https://bitbar.github.io/finka-js/</a></p>
+<h2>Contribution</h2>
+<h3>Checking code quality</h3>
+<pre class="prettyprint source lang-sh"><code>npm run lint
+</code></pre>
+<h3>Running tests</h3>
+<pre class="prettyprint source lang-sh"><code>npm run test
+</code></pre>
+<h3>Building</h3>
+<pre class="prettyprint source lang-sh"><code>npm run build
+</code></pre>
+<h3>Updating documentation</h3>
+<pre class="prettyprint source lang-sh"><code>npm run docs
+</code></pre>
+<h2>Authors</h2>
+<ul>
 <li><strong>Marek Sierociński</strong> - <a href="https://github.com/marverix">marverix</a></li>
 <li><strong>tpiechaczek</strong> - <a href="https://github.com/tpiechaczek">tpiechaczek</a></li>
 <li><strong>Bartosz Trzos</strong> - <a href="https://github.com/Trzosoo">Trzosoo</a></li>
@@ -158,7 +177,8 @@ Main R&amp;D team is in Wrocław, Poland.</p>
 <li><strong>gfduszynski</strong> - <a href="https://github.com/gfduszynski">gfduszynski</a></li>
 </ul>
 <p>See also the list of <a href="https://github.com/bitbar/finka-js/contributors">contributors</a> who participated in this project.</p>
-<h2>License</h2><p>This project is licensed under the MIT License - see the <a href="LICENSE.md">LICENSE.md</a> file for details</p></article>
+<h2>License</h2>
+<p>This project is licensed under the MIT License - see the <a href="LICENSE.md">LICENSE.md</a> file for details</p></article>
 
 
 
@@ -168,7 +188,7 @@ Main R&amp;D team is in Wrocław, Poland.</p>
         <hr>
         <footer>
             <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
-            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
         </footer>
     </div>
 </div>
@@ -179,8 +199,8 @@ Main R&amp;D team is in Wrocław, Poland.</p>
 window.isApi = true
 window.isManual = false
 window.doc = {
-    name: 'finka',
-    longname: 'package:finka',
+    name: '@bitbar/finka',
+    longname: 'package:@bitbar/finka',
 }
 
 if (!doc.name) isApi = false

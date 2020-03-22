@@ -94,4 +94,5 @@ function MRG32k3a() {
   return random;
 }
 
-export default MRG32k3a;
+
+module.exports = MRG32k3a;

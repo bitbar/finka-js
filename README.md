@@ -15,8 +15,7 @@
 Handy tool in nowadays JavaScript jungle.
 
 It's extending default JS classes like `Array` or `String` with new handy methods,
-that probably sooner or later you are going to search for on Stack Overflow ;) 
-
+that probably sooner or later you are going to search for on Stack Overflow ;)
 
 ## What means _Finka_?
 
@@ -27,58 +26,35 @@ According to _Wikipedia_ it's originally really Finnish knife called [Puukko](ht
 which hosts hundreds of Android and iOS devices, enabling users to create and test high quality mobile apps and games.
 Main R&D team is in Wrocław, Poland.
 
-
 ## Getting Started
 
 ### Prerequisites
 
 This package is using [UMD](https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js) pattern, so it means that you can use it:
 
-  * in Node.js project
-  * browser running project
-    * without AMD
-    * with AMD
+* in Node.js project
+* browser running project
+  * without AMD
+  * with AMD
 
 ### Usage
 
-#### Option A: With `npm`
-    
 Install:
 
 ```sh
-npm install finka
+npm install @bitbar/finka
 ```
 
 And then in you main JS file:
 
 ```js
-require('finka');
+const finka = require('@bitbar/finka');
+finka();
 ```
-
-That's all!
-
-
-#### Option B: Download
-
-Download version that fits your better:
-
-[Compressed version - 15KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.min.js)
-
-[Uncompressed version - 39KB](https://raw.githubusercontent.com/bitbar/finka-js/master/dist/finka.js)
-
-And simply add HTML tag:
-
-```html
-<script type="text/javascript" src="finka.min.js"></script>
-```
-
-Done!
-
 
 ### Documentation
 
 [https://bitbar.github.io/finka-js/](https://bitbar.github.io/finka-js/)
-
 
 ## Contribution
 
@@ -106,7 +82,6 @@ npm run build
 npm run docs
 ```
 
-
 ## Authors
 
 * **Marek Sierociński** - [marverix](https://github.com/marverix)
@@ -118,7 +93,6 @@ npm run docs
 * **gfduszynski** - [gfduszynski](https://github.com/gfduszynski)
 
 See also the list of [contributors](https://github.com/bitbar/finka-js/contributors) who participated in this project.
-
 
 ## License
 

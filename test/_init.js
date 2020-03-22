@@ -2,5 +2,6 @@
 process.env.LANGUAGE = 'en_US';
 process.env.LANG = 'US';
 
-// require 
-require('../dist/finka');
+// require
+const finka = require('../dist/finka');
+finka();

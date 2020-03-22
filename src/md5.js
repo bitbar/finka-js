@@ -159,4 +159,5 @@ var add32 = function (a, b) {
   return a + b & 0xFFFFFFFF;
 };
 
-export default md5;
+
+module.exports = md5;

@@ -5,12 +5,13 @@
 /**
  * Calculate edit distance between string a and b
  *
+ * @memberof String
  * @see {@link https://en.wikipedia.org/wiki/Edit_distance|Article on Wikipedia}
  * @param {string} a A
  * @param {string} b B
  * @returns {number} Distance
  */
-String.editDistance = function(a, b) {
+function editDistance(a, b) {
   var matrix = [], i, j;
 
   if(a.length === 0) { return b.length; }
@@ -41,28 +42,30 @@ String.editDistance = function(a, b) {
   }
 
   return matrix[b.length][a.length];
-};
+}
 
 /**
  * Get similarity ratio based on edit distance
  *
+ * @memberof String
  * @see {@link String.editDistance}
  * @param {string} a A
  * @param {string} b B
  * @returns {number} Ratio
  */
-String.getSimilarity = function(a, b) {
+function getSimilarity(a, b) {
   var l = Math.max(a.length, b.length);
   return (l - String.editDistance(a, b)) / l;
-};
+}
 
 /**
  * Returns string with capitalised first letter
  *
+ * @memberof String.prototype
  * @param {boolean} [lower=false] Flag if should lower all letters first
  * @returns {string} New string
  */
-String.prototype.capitaliseFirstLetter = function(lower) {
+function capitaliseFirstLetter(lower) {
   var value = this.valueOf();
 
   if(lower) {
@@ -70,23 +73,25 @@ String.prototype.capitaliseFirstLetter = function(lower) {
   }
 
   return value.replace(/[a-z]/i, function(m) { return m.toUpperCase(); });
-};
+}
 
 /**
  * Returns string with lower first letter
  *
+ * @memberof String.prototype
  * @returns {string} New string
  */
-String.prototype.lowerFirstLetter = function() {
+function lowerFirstLetter() {
   return this.valueOf().replace(/[a-z]/i, function(m) { return m.toLowerCase(); });
-};
+}
 
 /**
  * Returns string with removed cases
  *
+ * @memberof String.prototype
  * @returns {string} New string
  */
-String.prototype.noCase = function() {
+function noCase() {
   var value = this.valueOf();
 
   // detect capitalized snake case
@@ -112,40 +117,43 @@ String.prototype.noCase = function() {
   value = value.trim().replace(/\s{2,}/g, ' ');
 
   return value;
-};
+}
 
 /**
  * Returns string in camelCase
  *
+ * @memberof String.prototype
  * @returns {string} String in camelCase
  */
-String.prototype.toCamelCase = function() {
+function toCamelCase() {
   var value = this.valueOf();
 
   // normalize
   value = value.noCase();
-  
+
   // replace
   value = value.replace(/ [a-z0-9]/gi, function(m) { return m[1].toUpperCase(); });
 
   return value;
-};
+}
 
 /**
  * Returns string in PascalCase
  *
+ * @memberof String.prototype
  * @returns {string} String in PascalCase
  */
-String.prototype.toPascalCase = function() {
+function toPascalCase() {
   return this.toCamelCase().capitaliseFirstLetter();
-};
+}
 
 /**
  * Returns string in kebab-case
  *
+ * @memberof String.prototype
  * @returns {string} String in kebab-case
  */
-String.prototype.toKebabCase = function() {
+function toKebabCase() {
   var value = this.valueOf();
 
   // normalize
@@ -155,14 +163,16 @@ String.prototype.toKebabCase = function() {
   value = value.replace(/\s/g, '-');
 
   return value;
-};
+}
 
 /**
  * Returns string in snake_case
+ *
+ * @memberof String.prototype
  * @param {boolean} [convertToUpperCase=false] Set this flag to convert to UpperCase
  * @returns {string} String in snake_case
  */
-String.prototype.toSnakeCase = function(convertToUpperCase) {
+function toSnakeCase(convertToUpperCase) {
 
   var toUpperCase = convertToUpperCase || false;
 
@@ -177,17 +187,18 @@ String.prototype.toSnakeCase = function(convertToUpperCase) {
   if(toUpperCase) return value.toUpperCase();
 
   return value;
-};
+}
 
 /**
  * Returns checksum crc32
  *
+ * @memberof String.prototype
  * @author joelpt
  * @author schnaader
  * @see {@link https://stackoverflow.com/a/3276730|Stack Overflow Answer}
  * @returns {number} Checksum
  */
-String.prototype.toChecksum = function() {
+function toChecksum() {
   var value, i, chk;
 
   value = this.valueOf();
@@ -198,51 +209,76 @@ String.prototype.toChecksum = function() {
   }
 
   return chk;
-};
+}
 
 /**
  * Returns string in boolean
  *
+ * @memberof String.prototype
  * @returns {boolean} True if string looks somehow like 'true'
  */
-String.prototype.toBoolean = function() {
+function toBoolean() {
   return this.valueOf().toLowerCase() === 'true';
-};
+}
 
 /**
  * Returns reversed string
  *
+ * @memberof String.prototype
  * @returns {string} Reversed string
  */
-String.prototype.reverse = function() {
+function reverse() {
   return this.valueOf().split('').reverse().join('');
-};
+}
 
 /**
  * Check if string is like given query (you can use regexp notation)
  *
+ * @memberof String.prototype
  * @param {string} query Query
  * @returns {boolean} Verdict
  */
-String.prototype.isLike = function(query) {
+function isLike(query) {
   return new RegExp('^' + query + '$').test(this.valueOf());
-};
-
-if(typeof String.prototype.includes !== 'function') {
-  /**
-   * Polyfill for ECMAScript 2015 for String.prototype.includes
-   *
-   * @param {string} search Search for
-   * @param {number} [start=0] Searching start position
-   * @returns {boolean} Verdict
-   */
-  String.prototype.includes = function(search, start) {
-    var _start = typeof start !== 'number' ? 0 : start;
-
-    if (_start + search.length > this.length) {
-      return false;
-    }
-    
-    return this.indexOf(search, _start) !== -1;
-  };
 }
+
+/**
+ * Polyfill for ECMAScript 2015 for String.prototype.includes
+ *
+ * @memberof String.prototype
+ * @param {string} search Search for
+ * @param {number} [start=0] Searching start position
+ * @returns {boolean} Verdict
+ */
+function includes(search, start) {
+  var _start = typeof start !== 'number' ? 0 : start;
+
+  if (_start + search.length > this.length) {
+    return false;
+  }
+
+  return this.indexOf(search, _start) !== -1;
+}
+
+
+module.exports = {
+  static: {
+    editDistance,
+    getSimilarity
+  },
+
+  method: {
+    capitaliseFirstLetter,
+    lowerFirstLetter,
+    noCase,
+    toCamelCase,
+    toPascalCase,
+    toKebabCase,
+    toSnakeCase,
+    toChecksum,
+    toBoolean,
+    reverse,
+    isLike,
+    includes
+  }
+};

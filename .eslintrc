@@ -1,39 +1,43 @@
 {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "node": true,
-        "shared-node-browser": true,
-        "amd": true,
-        "mocha": true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
-    },
-    "globals": {
-        "Promise": true,
-        "FileSize": true
-    },
-    "rules": {
-        "indent": [
-            "error",
-            2
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single",
-            { "avoidEscape": true }
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
-        "no-prototype-builtins": "off"
-    }
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "node": true,
+    "shared-node-browser": true,
+    "amd": true,
+    "mocha": true,
+    "es6": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "globals": {
+    "globalThis": true,
+    "Promise": true,
+    "FileSize": true
+  },
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-prototype-builtins": "off"
+  }
 }

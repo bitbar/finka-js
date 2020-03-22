@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v1.4.0
+                v2.0.0
             
             </span>
         </div>
@@ -108,11 +108,19 @@
 /**
  * Escape given string so it can be safely used in RegExp
  *
+ * @memberof RegExp
  * @param {string} str String to be escaped
  * @returns {string} Escaped string
  */
-RegExp.escapeString = function(str) {
+function escapeString(str) {
   return str.replace(/[-[\]/\\{}()*+?.^$|]/g, '\\$&amp;');
+}
+
+
+module.exports = {
+  static: {
+    escapeString
+  }
 };
 </code></pre>
 </article>
@@ -124,7 +132,7 @@ RegExp.escapeString = function(str) {
         <hr>
         <footer>
             <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
-            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
         </footer>
     </div>
 </div>
