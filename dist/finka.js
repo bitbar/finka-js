@@ -1,4 +1,4 @@
-/* Finka.js v2.0.1 |  Copyright 2020 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.0.2 |  Copyright 2020 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -2040,7 +2040,7 @@
 	  // Enable extensions
 	  for (var extName in extensions) {
 	    var ext = extensions[extName];
-	    var target = commonjsGlobal[extName]; // constant
+	    var target = extName === 'global' ? commonjsGlobal : commonjsGlobal[extName]; // constant
 
 	    if (typeof ext.constant !== 'undefined') {
 	      for (var name in ext.constant) {

@@ -22,7 +22,7 @@ function finka() {
   // Enable extensions
   for (let extName in extensions) {
     let ext = extensions[extName];
-    let target = global[extName];
+    let target = extName === 'global' ? global : global[extName];
 
     // constant
     if (typeof ext.constant !== 'undefined') {
