@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const extensions = {
-  globalThis: require('./globalThis'),
+  global: require('./global'),
   Array: require('./Array'),
   Boolean: require('./Boolean'),
   Date: require('./Date'),
@@ -19,17 +19,10 @@ const libraries = {
 
 
 function finka() {
-  // Check globalThis existance
-  if (typeof globalThis === 'undefined') {
-    // without definition on purpose
-    globalThis = typeof window == 'undefined' ? global : window;
-  }
-
-
   // Enable extensions
   for (let extName in extensions) {
     let ext = extensions[extName];
-    let target = globalThis[extName];
+    let target = global[extName];
 
     // constant
     if (typeof ext.constant !== 'undefined') {
@@ -73,8 +66,8 @@ function finka() {
 
   // Enable libraries
   for (let libName in libraries) {
-    if (typeof globalThis[libName] === 'undefined') {
-      globalThis[libName] = libraries[libName];
+    if (typeof global[libName] === 'undefined') {
+      global[libName] = libraries[libName];
     }
   }
 
