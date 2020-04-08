@@ -4,7 +4,7 @@
  * @global
  * @type {boolean}
  */
-const isNodeJs = globalThis.process && globalThis.process.release && globalThis.process.release.name === 'node';
+const isNodeJs = global.process && global.process.release && global.process.release.name === 'node';
 
 /**
  * Get ISO 639-1 language string
@@ -15,7 +15,7 @@ const isNodeJs = globalThis.process && globalThis.process.release && globalThis.
 function getLanguage() {
   var lang;
 
-  if(globalThis.isNodeJs) {
+  if(global.isNodeJs) {
     lang = process.env.LANGUAGE || process.env.LANG;
   } else {
     lang = navigator.language || navigator.languages && navigator.languages[0];
@@ -33,13 +33,13 @@ function getLanguage() {
  * @returns {(string|null)} Country code or null if couldn't find
  */
 function getCountry() {
-  if(typeof globalThis.userCountry !== 'undefined') {
-    return globalThis.userCountry;
+  if(typeof global.userCountry !== 'undefined') {
+    return global.userCountry;
   }
 
   var country;
 
-  if(globalThis.isNodeJs) {
+  if(global.isNodeJs) {
     country = process.env.LANG;
   } else {
     country = navigator.language;
@@ -87,7 +87,7 @@ function parseValue(value) {
   }
 
   // check if it's number
-  if (globalThis.isNumeric(value)) {
+  if (global.isNumeric(value)) {
     return parseFloat(value);
   }
 

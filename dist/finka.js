@@ -1,4 +1,4 @@
-/* Finka.js v2.0.0 |  Copyright 2020 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.0.1 |  Copyright 2020 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -183,7 +183,7 @@
 	 * @type {boolean}
 	 */
 
-	var isNodeJs = globalThis.process && globalThis.process.release && globalThis.process.release.name === 'node';
+	var isNodeJs = commonjsGlobal.process && commonjsGlobal.process.release && commonjsGlobal.process.release.name === 'node';
 	/**
 	 * Get ISO 639-1 language string
 	 *
@@ -194,7 +194,7 @@
 	function getLanguage() {
 	  var lang;
 
-	  if (globalThis.isNodeJs) {
+	  if (commonjsGlobal.isNodeJs) {
 	    lang = process.env.LANGUAGE || process.env.LANG;
 	  } else {
 	    lang = navigator.language || navigator.languages && navigator.languages[0];
@@ -212,13 +212,13 @@
 
 
 	function getCountry() {
-	  if (typeof globalThis.userCountry !== 'undefined') {
-	    return globalThis.userCountry;
+	  if (typeof commonjsGlobal.userCountry !== 'undefined') {
+	    return commonjsGlobal.userCountry;
 	  }
 
 	  var country;
 
-	  if (globalThis.isNodeJs) {
+	  if (commonjsGlobal.isNodeJs) {
 	    country = process.env.LANG;
 	  } else {
 	    country = navigator.language;
@@ -269,7 +269,7 @@
 	  } // check if it's number
 
 
-	  if (globalThis.isNumeric(value)) {
+	  if (commonjsGlobal.isNumeric(value)) {
 	    return parseFloat(value);
 	  } // check if it's a boolean
 
@@ -294,7 +294,7 @@
 	 */
 
 
-	var globalThis_1 = {
+	var global_1 = {
 	  constant: {
 	    isNodeJs: isNodeJs
 	  },
@@ -314,6 +314,7 @@
 	/**
 	 * Sort array of objects
 	 *
+	 * @memberof Array
 	 * @param {Object[]} arr Array of objects that should be sorted
 	 * @param {string} propertyName Name of property by which sorting will be done
 	 * @param [descending=false] {boolean} Flag to sort in descending order
@@ -347,6 +348,7 @@
 	/**
 	 * Deep clone array of object
 	 *
+	 * @memberof Array
 	 * @param arr Array of objects
 	 * @returns {Object[]} Clone of arr
 	 */
@@ -360,6 +362,7 @@
 	/**
 	 * Wrap in Array if @param is not an Array already
 	 *
+	 * @memberof Array
 	 * @param {(*|Array)} something Something that should be an Array
 	 * @returns {Array}
 	 */
@@ -371,6 +374,7 @@
 	/**
 	 * Empty this Array
 	 *
+	 * @memberof Array.prototype
 	 * @returns {Array} this
 	 */
 
@@ -382,6 +386,7 @@
 	/**
 	 * Absorb (push) every item of given array to this Array
 	 *
+	 * @memberof Array.prototype
 	 * @param {Array} arr Array to be absorbed
 	 * @returns {Array} this
 	 */
@@ -394,6 +399,7 @@
 	/**
 	 * Returns the difference between this Array and given in argument
 	 *
+	 * @memberof Array.prototype
 	 * @param {Array} arr Array to compare
 	 * @returns {Array} Array with elements that are different
 	 */
@@ -407,6 +413,7 @@
 	/**
 	 * Clone this Array
 	 *
+	 * @memberof Array.prototype
 	 * @returns {Array} Clone of this Array
 	 */
 
@@ -417,6 +424,7 @@
 	/**
 	 * Look for index of item matching to query
 	 *
+	 * @memberof Array.prototype
 	 * @param {Object} query Query
 	 * @returns {number} Index of matching index; -1 if not found
 	 */
@@ -434,6 +442,7 @@
 	/**
 	 * Returns the new array based on current one by filtering according to query
 	 *
+	 * @memberof Array.prototype
 	 * @see Object#isLike
 	 * @param {Object} query Query
 	 * @returns {Array} New Array with matching elements
@@ -452,6 +461,7 @@
 	/**
 	 * Unique this Array - remove all duplicate items
 	 *
+	 * @memberof Array.prototype
 	 * @returns {Array} this
 	 */
 
@@ -470,6 +480,7 @@
 	/**
 	 * Shuffle this Array
 	 *
+	 * @memberof Array.prototype
 	 * @returns {Array} this
 	 */
 
@@ -510,6 +521,7 @@
 	/**
 	 * Returns result of logic XOR operation between a and b arguments
 	 *
+	 * @memberof Boolean
 	 * @param {boolean} a A
 	 * @param {boolean} b B
 	 * @returns {boolean} Result
@@ -549,6 +561,7 @@
 	/**
 	 * Second in milliseconds
 	 *
+	 * @memberof Date
 	 * @constant
 	 * @type {number}
 	 */
@@ -557,6 +570,7 @@
 	/**
 	 * Minute in milliseconds
 	 *
+	 * @memberof Date
 	 * @constant
 	 * @type {number}
 	 */
@@ -565,6 +579,7 @@
 	/**
 	 * Hour in milliseconds
 	 *
+	 * @memberof Date
 	 * @constant
 	 * @type {number}
 	 */
@@ -573,6 +588,7 @@
 	/**
 	 * Day in milliseconds
 	 *
+	 * @memberof Date
 	 * @constant
 	 * @type {number}
 	 */
@@ -581,6 +597,7 @@
 	/**
 	 * Week in milliseconds
 	 *
+	 * @memberof Date
 	 * @constant
 	 * @type {number}
 	 */
@@ -589,6 +606,7 @@
 	/**
 	 * Today in milliseconds
 	 *
+	 * @memberof Date
 	 * @constant
 	 * @type {number}
 	 */
@@ -599,6 +617,7 @@
 	/**
 	 * Yesterday in milliseconds
 	 *
+	 * @memberof Date
 	 * @constant
 	 * @type {number}
 	 */
@@ -610,6 +629,7 @@
 	/**
 	 * Tomorrow in milliseconds
 	 *
+	 * @memberof Date
 	 * @constant
 	 * @type {number}
 	 */
@@ -621,6 +641,7 @@
 	/**
 	 * Day after tomorrow in milliseconds
 	 *
+	 * @memberof Date
 	 * @constant
 	 * @type {number}
 	 */
@@ -637,6 +658,7 @@
 	 *
 	 * Feel free to contribute if you think that this method should support even more!
 	 *
+	 * @memberof Date
 	 * @param {*} value Value to be parsed
 	 * @throws Will throw an error if the value is not supported.
 	 * @returns {Date} New Date
@@ -675,6 +697,7 @@
 	/**
 	 * Return timestamp of now + days
 	 *
+	 * @memberof Date
 	 * @param {number} days Number of days difference
 	 * @returns {number} Timestamp
 	 */
@@ -686,6 +709,7 @@
 	/**
 	 * Get local date format
 	 *
+	 * @memberof Date
 	 * @param {boolean} [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
 	 * @returns {string} Local date format
 	 */
@@ -719,6 +743,7 @@
 	/**
 	 * Get timezone name
 	 *
+	 * @memberof Date
 	 * @returns {string} Timezone
 	 */
 
@@ -729,6 +754,7 @@
 	/**
 	 * Returns object with time parts
 	 *
+	 * @memberof Date
 	 * @example
 	 * // returns { h: 0, m: 1, s: 1, ms: 500 }
 	 * Date.getHms(61500)
@@ -759,6 +785,7 @@
 	/**
 	 * Returns given time (in milliseconds) in HMS format
 	 *
+	 * @memberof Date
 	 * @example
 	 * // returns '1m 5s'
 	 * Date.toHmsFormat(61500)
@@ -810,6 +837,7 @@
 	/**
 	 * Returns given time (in milliseconds) in stopwatch format - [HH:]MM:SS.XXX
 	 *
+	 * @memberof Date
 	 * @example
 	 * // returns '01:01.5'
 	 * Date.toStopwatchFormat(61500)
@@ -831,6 +859,7 @@
 	/**
 	 * Returns given time (in milliseconds) in timer format - [HH:]MM:SS
 	 *
+	 * @memberof Date
 	 * @example
 	 * // returns '01:01'
 	 * Date.toStopwatchFormat(61500)
@@ -852,6 +881,7 @@
 	/**
 	 * Return number of days passed between this Date and given in argument
 	 *
+	 * @memberof Date.prototype
 	 * @param {(Date|string|number)} [toDate=now] Proper date
 	 * @returns {number} Number of days passed
 	 */
@@ -875,6 +905,7 @@
 	/**
 	 * Returns this Date in custom date format
 	 *
+	 * @memberof Date.prototype
 	 * @param {string} format String representing date format
 	 * @returns {string} Date string
 	 */
@@ -889,6 +920,7 @@
 	/**
 	 * Returns this Date in UI time string
 	 *
+	 * @memberof Date.prototype
 	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
 	 * @returns {string} Time string
 	 */
@@ -910,6 +942,7 @@
 	/**
 	 * Returns this Date in UI date string
 	 *
+	 * @memberof Date.prototype
 	 * @see Date#getLocalDateFormat
 	 * @returns {string} Date string
 	 */
@@ -921,6 +954,7 @@
 	/**
 	 * Returns this Date in UI datetime string
 	 *
+	 * @memberof Date.prototype
 	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
 	 * @returns {string} Time string
 	 */
@@ -932,6 +966,7 @@
 	/**
 	 * Returns this Date in form inputs time string
 	 *
+	 * @memberof Date.prototype
 	 * @returns {string} Time string
 	 */
 
@@ -942,6 +977,7 @@
 	/**
 	 * Returns this Date in forms input date string
 	 *
+	 * @memberof Date.prototype
 	 * @returns {string} Date string
 	 */
 
@@ -952,6 +988,7 @@
 	/**
 	 * Add time to this Date
 	 *
+	 * @memberof Date.prototype
 	 * @param {number} time Time to add
 	 * @returns {number} New timestamp of this Date
 	 */
@@ -1004,6 +1041,7 @@
 	/**
 	 * Returns verdict if given string is valid JSON or not
 	 *
+	 * @memberof JSON
 	 * @param {string} str JSON string to be checked
 	 * @returns {boolean} Verdict
 	 */
@@ -1129,6 +1167,7 @@
 	/**
 	 * Better alternative to Math.random based on MRG32k2a algorithm
 	 *
+	 * @memberof Math
 	 * @see {@link http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf|PDF paper about it}
 	 * @returns {number} Random float number between 0 and 1
 	 */
@@ -1141,6 +1180,7 @@
 	 * Polyfill for ECMAScript 2015 for Math.log10
 	 * https://www.ecma-international.org/ecma-262/6.0/#sec-math.log10
 	 *
+	 * @memberof Math
 	 * @param {number} x X
 	 * @returns {number} Result
 	 */
@@ -1151,7 +1191,8 @@
 	}
 	/**
 	 * Round given number to given precision
-	 * 
+	 *
+	 * @memberof Math
 	 * @param {number} num Number to be rounded
 	 * @param {number} precision Precision
 	 */
@@ -1164,6 +1205,7 @@
 	/**
 	 * Calculate median of given array of numbers
 	 *
+	 * @memberof Math
 	 * @param {number[]} values Array of numbers
 	 * @returns {number} Median
 	 */
@@ -1183,6 +1225,7 @@
 	/**
 	 * Sum given array of numbers
 	 *
+	 * @memberof Math
 	 * @param {number[]} values Array of numbers
 	 * @returns {number} Sum
 	 */
@@ -1200,6 +1243,7 @@
 	/**
 	 * Calculate average of given array of numbers
 	 *
+	 * @memberof Math
 	 * @param {number[]} values Array of numbers
 	 * @returns {number} Average
 	 */
@@ -1231,6 +1275,7 @@
 	/**
 	 * Check if given number is number
 	 *
+	 * @memberof Number
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
@@ -1239,8 +1284,9 @@
 	}
 	/**
 	 * Check if given number is negative zero (-0)
-	 * 
-	 * @param {number} n Number to check 
+	 *
+	 * @memberof Number
+	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
 
@@ -1251,6 +1297,7 @@
 	/**
 	 * Polyfill for ECMAScript 2015 for Number.isInteger
 	 *
+	 * @memberof Number
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
@@ -1262,6 +1309,7 @@
 	/**
 	 * Check if given number is natural (this function assumes that 0 is also natural)
 	 *
+	 * @memberof Number
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
@@ -1273,6 +1321,7 @@
 	/**
 	 * Check if given number is float
 	 *
+	 * @memberof Number
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
@@ -1284,6 +1333,7 @@
 	/**
 	 * Returns string padded with leading zeros to length equal given length
 	 *
+	 * @memberof Number.prototype
 	 * @param {number} padding Length to which should be number padded
 	 * @returns {string} Padded string
 	 */
@@ -1327,6 +1377,7 @@
 	/**
 	 * Returns verdict if given subject is Object or not
 	 *
+	 * @memberof Object
 	 * @param {*} subject Subject of examination
 	 * @returns {boolean} Verdict
 	 */
@@ -1336,6 +1387,7 @@
 	/**
 	 * Copy key and values from src Object to dst  Object
 	 *
+	 * @memberof Object
 	 * @param {Object} src Source
 	 * @param {Object} dst Destination
 	 * @param {(Array|null)} [what] What should be copied? By default those are all keys and values from source
@@ -1359,6 +1411,7 @@
 	/**
 	 * Returns verdict if subject match query
 	 *
+	 * @memberof Object
 	 * @param {Object} subject Subject of examination
 	 * @param {Object|*} query Query - if object then will compare each key of query with subject,
 	 * otherwise will just use standard comparator
@@ -1388,6 +1441,7 @@
 	/**
 	 * Count number of items in given subject
 	 *
+	 * @memberof Object
 	 * @param {Object} subject Subject of examination
 	 * @returns {number} Number of items
 	 */
@@ -1407,6 +1461,8 @@
 	/**
 	 * Polyfill for ECMAScript 2017 for Object.assign
 	 * https://www.ecma-international.org/ecma-262/8.0/#sec-object.values
+	 *
+	 * @memberof Object
 	 */
 
 
@@ -1423,6 +1479,8 @@
 	/**
 	 * Polyfill for ECMAScript 2015 for Object.assign
 	 * https://www.ecma-international.org/ecma-262/6.0/#sec-object.assign
+	 *
+	 * @memberof Object
 	 */
 
 
@@ -1459,7 +1517,8 @@
 	}
 	/**
 	 * This is similar to Object.assign, but extends also deep nested Objects
-	 * 
+	 *
+	 * @memberof Object
 	 * @returns {object} Object
 	 */
 
@@ -1524,6 +1583,7 @@
 	/**
 	 * Returns verdict if given subject is Promise or not
 	 *
+	 * @memberof Promise
 	 * @param {*} subject Subject of examination
 	 * @returns {boolean} Verdict
 	 */
@@ -1544,6 +1604,7 @@
 	/**
 	 * Escape given string so it can be safely used in RegExp
 	 *
+	 * @memberof RegExp
 	 * @param {string} str String to be escaped
 	 * @returns {string} Escaped string
 	 */
@@ -1564,6 +1625,7 @@
 	/**
 	 * Calculate edit distance between string a and b
 	 *
+	 * @memberof String
 	 * @see {@link https://en.wikipedia.org/wiki/Edit_distance|Article on Wikipedia}
 	 * @param {string} a A
 	 * @param {string} b B
@@ -1614,6 +1676,7 @@
 	/**
 	 * Get similarity ratio based on edit distance
 	 *
+	 * @memberof String
 	 * @see {@link String.editDistance}
 	 * @param {string} a A
 	 * @param {string} b B
@@ -1628,6 +1691,7 @@
 	/**
 	 * Returns string with capitalised first letter
 	 *
+	 * @memberof String.prototype
 	 * @param {boolean} [lower=false] Flag if should lower all letters first
 	 * @returns {string} New string
 	 */
@@ -1647,6 +1711,7 @@
 	/**
 	 * Returns string with lower first letter
 	 *
+	 * @memberof String.prototype
 	 * @returns {string} New string
 	 */
 
@@ -1659,6 +1724,7 @@
 	/**
 	 * Returns string with removed cases
 	 *
+	 * @memberof String.prototype
 	 * @returns {string} New string
 	 */
 
@@ -1693,6 +1759,7 @@
 	/**
 	 * Returns string in camelCase
 	 *
+	 * @memberof String.prototype
 	 * @returns {string} String in camelCase
 	 */
 
@@ -1710,6 +1777,7 @@
 	/**
 	 * Returns string in PascalCase
 	 *
+	 * @memberof String.prototype
 	 * @returns {string} String in PascalCase
 	 */
 
@@ -1720,6 +1788,7 @@
 	/**
 	 * Returns string in kebab-case
 	 *
+	 * @memberof String.prototype
 	 * @returns {string} String in kebab-case
 	 */
 
@@ -1734,6 +1803,8 @@
 	}
 	/**
 	 * Returns string in snake_case
+	 *
+	 * @memberof String.prototype
 	 * @param {boolean} [convertToUpperCase=false] Set this flag to convert to UpperCase
 	 * @returns {string} String in snake_case
 	 */
@@ -1752,6 +1823,7 @@
 	/**
 	 * Returns checksum crc32
 	 *
+	 * @memberof String.prototype
 	 * @author joelpt
 	 * @author schnaader
 	 * @see {@link https://stackoverflow.com/a/3276730|Stack Overflow Answer}
@@ -1773,6 +1845,7 @@
 	/**
 	 * Returns string in boolean
 	 *
+	 * @memberof String.prototype
 	 * @returns {boolean} True if string looks somehow like 'true'
 	 */
 
@@ -1783,6 +1856,7 @@
 	/**
 	 * Returns reversed string
 	 *
+	 * @memberof String.prototype
 	 * @returns {string} Reversed string
 	 */
 
@@ -1793,6 +1867,7 @@
 	/**
 	 * Check if string is like given query (you can use regexp notation)
 	 *
+	 * @memberof String.prototype
 	 * @param {string} query Query
 	 * @returns {boolean} Verdict
 	 */
@@ -1804,6 +1879,7 @@
 	/**
 	 * Polyfill for ECMAScript 2015 for String.prototype.includes
 	 *
+	 * @memberof String.prototype
 	 * @param {string} search Search for
 	 * @param {number} [start=0] Searching start position
 	 * @returns {boolean} Verdict
@@ -1944,7 +2020,7 @@
 	/* eslint-disable no-undef */
 
 	var extensions = {
-	  globalThis: globalThis_1,
+	  global: global_1,
 	  Array: _Array,
 	  Boolean: _Boolean,
 	  Date: _Date,
@@ -1961,16 +2037,10 @@
 	};
 
 	function finka() {
-	  // Check globalThis existance
-	  if (typeof globalThis === 'undefined') {
-	    // without definition on purpose
-	    globalThis = typeof window == 'undefined' ? commonjsGlobal : window;
-	  } // Enable extensions
-
-
+	  // Enable extensions
 	  for (var extName in extensions) {
 	    var ext = extensions[extName];
-	    var target = globalThis[extName]; // constant
+	    var target = commonjsGlobal[extName]; // constant
 
 	    if (typeof ext.constant !== 'undefined') {
 	      for (var name in ext.constant) {
@@ -2012,8 +2082,8 @@
 
 
 	  for (var libName in libraries) {
-	    if (typeof globalThis[libName] === 'undefined') {
-	      globalThis[libName] = libraries[libName];
+	    if (typeof commonjsGlobal[libName] === 'undefined') {
+	      commonjsGlobal[libName] = libraries[libName];
 	    }
 	  }
 	}
