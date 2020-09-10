@@ -1,8 +1,8 @@
-/* Finka.js v2.0.2 |  Copyright 2020 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.1.0 |  Copyright 2020 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(global = global || self, global.finka = factory());
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.finka = factory());
 }(this, (function () { 'use strict';
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -298,7 +298,7 @@
 	  constant: {
 	    isNodeJs: isNodeJs
 	  },
-	  "static": {
+	  static: {
 	    getLanguage: getLanguage,
 	    getCountry: getCountry,
 	    isNumeric: isNumeric,
@@ -497,7 +497,7 @@
 	}
 
 	var _Array = {
-	  "static": {
+	  static: {
 	    sortArrayOfObjects: sortArrayOfObjects,
 	    deepCloneArrayOfObjects: deepCloneArrayOfObjects,
 	    wrap: wrap
@@ -531,7 +531,7 @@
 	}
 
 	var _Boolean = {
-	  "static": {
+	  static: {
 	    xor: xor
 	  }
 	};
@@ -1012,7 +1012,7 @@
 	    TOMORROW: TOMORROW,
 	    DAYAFTERTOMORROW: DAYAFTERTOMORROW
 	  },
-	  "static": {
+	  static: {
 	    parseValue: parseValue$1,
 	    daysFromNow: daysFromNow,
 	    getLocalDateFormat: getLocalDateFormat,
@@ -1056,7 +1056,7 @@
 	}
 
 	var _JSON = {
-	  "static": {
+	  static: {
 	    isJSONString: isJSONString
 	  }
 	};
@@ -1258,7 +1258,7 @@
 	}
 
 	var _Math = {
-	  "static": {
+	  static: {
 	    rand: rand,
 	    log10: log10,
 	    roundTo: roundTo,
@@ -1358,7 +1358,7 @@
 	}
 
 	var _Number = {
-	  "static": {
+	  static: {
 	    isNumber: isNumber,
 	    isNegativeZero: isNegativeZero,
 	    isInteger: isInteger,
@@ -1565,7 +1565,7 @@
 	}
 
 	var _Object = {
-	  "static": {
+	  static: {
 	    isObject: isObject,
 	    copy: copy,
 	    isLike: isLike,
@@ -1592,7 +1592,7 @@
 	}
 
 	var _Promise = {
-	  "static": {
+	  static: {
 	    isPromise: isPromise
 	  }
 	};
@@ -1613,7 +1613,7 @@
 	}
 
 	var _RegExp = {
-	  "static": {
+	  static: {
 	    escapeString: escapeString
 	  }
 	};
@@ -1897,7 +1897,7 @@
 	}
 
 	var _String = {
-	  "static": {
+	  static: {
 	    editDistance: editDistance,
 	    getSimilarity: getSimilarity
 	  },
@@ -2062,10 +2062,10 @@
 	    } // static
 
 
-	    if (typeof ext["static"] !== 'undefined') {
-	      for (var _name2 in ext["static"]) {
+	    if (typeof ext.static !== 'undefined') {
+	      for (var _name2 in ext.static) {
 	        if (typeof target[_name2] === 'undefined') {
-	          target[_name2] = ext["static"][_name2].bind(target);
+	          target[_name2] = ext.static[_name2].bind(target);
 	        }
 	      }
 	    } // method

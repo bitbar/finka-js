@@ -14,9 +14,9 @@ for(let ext of external) {
   globals[ext] = ext;
 }
 
-var output = function(min) {
+var output = function(min, sufix = '') {
   return {
-    file: 'dist/finka' + (min ? '.min' : '') + '.js',
+    file: `dist/finka${sufix}${(min ? '.min' : '')}.js`,
     format: 'umd',
     name:  'finka',
     banner: `/* Finka.js v${$package.version} ` +
@@ -31,7 +31,16 @@ var plugins = [
   cjs(),
   resolve(),
   babel({
-    exclude: 'node_modules/**'
+    presets: [
+      [
+        '@babel/env',
+        {
+          useBuiltIns: 'entry',
+          corejs: '3.6',
+          modules: false
+        }
+      ]
+    ]
   })
 ];
 
@@ -49,6 +58,20 @@ export default [
   {
     input,
     output: output(true),
+    plugins: plugins.concat([
+      uglify({
+        output: {
+          comments: /license/i
+        }
+      })
+    ]),
+    external
+  },
+
+  // Embed
+  {
+    input: 'src/embed.js',
+    output: output(true, '.embed'),
     plugins: plugins.concat([
       uglify({
         output: {
