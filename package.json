@@ -56,7 +56,7 @@
     "istanbul": "^0.4.5",
     "jsdoc": "^3.6.6",
     "jsdoc-rtd": "^1.0.15",
-    "mocha": "^8.1.3",
+    "mocha": "^8.2.1",
     "mocha-lcov-reporter": "^1.3.0",
     "rollup": "^2.33.3",
     "rollup-plugin-babel": "^4.4.0",
