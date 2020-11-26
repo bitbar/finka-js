@@ -8,18 +8,14 @@ blocks:
   - name: Lint and Test
     task:
       jobs:
-        - name: Prepare
+        - name: Lint and test
           commands:
             - checkout
             - sem-version node 12
             - cache restore
             - npm install
             - cache store
-        - name: Lint
-          commands:
-            - npm lint
-        - name: Test
-          commands:
+            - npm run lint
             - npm run test
       epilogue:
         on_pass:
