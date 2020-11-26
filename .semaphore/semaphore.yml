@@ -1,0 +1,27 @@
+version: v1.0
+name: Test MyApp
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Lint and Test
+    task:
+      jobs:
+        - name: Prepare
+          commands:
+            - checkout
+            - sem-version node 12
+            - cache restore
+            - npm install
+            - cache store
+        - name: Lint
+          commands:
+            - npm lint
+        - name: Test
+          commands:
+            - npm run test
+      epilogue:
+        on_pass:
+          commands:
+            - npm run coveralls
