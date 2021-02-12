@@ -153,7 +153,8 @@ describe('Array', function () {
       var test = [1, 2, 3];
       var clone = test.clone();
       expect(clone).to.be.an.instanceof(Array).that.have.length(3);
-      expect(clone).to.be.deep.equal(test);
+      expect(clone).to.not.be.equal(test); // compare references
+      expect(clone).to.be.deep.equal(test); // compare values
     });
 
     it('Clone array of objects', function() {
@@ -161,10 +162,6 @@ describe('Array', function () {
       var clone = test.clone();
       expect(clone).to.be.an.instanceof(Array).that.have.length(2);
       expect(clone).to.be.deep.equal(test);
-
-      // it's not deep copy - reference should be the same
-      clone[0].a = 3;
-      expect(test[0].a).to.be.equal(3);
     });
   });
 

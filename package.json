@@ -1,6 +1,6 @@
 {
   "name": "@bitbar/finka",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.js",
   "types": "types/index.d.ts",

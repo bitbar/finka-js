@@ -60,6 +60,8 @@ function getSimilarity(a, b) {
 
 /**
  * Checks is given value is String and is empty
+ * 
+ * @memberof String
  * @param {string} sth Something to check
  * @returns {boolean} Verdict
  */
@@ -69,6 +71,8 @@ function isEmpty (sth) {
 
 /**
  * Checks is given value is String and is not empty
+ * 
+ * @memberof String
  * @param {string} sth Something to check
  * @returns {boolean} Verdict
  */
@@ -78,6 +82,8 @@ function isNotEmpty (sth) {
 
 /**
  * Checks is given value isn't a String or it is empty
+ * 
+ * @memberof String
  * @param {string} sth Something to check
  * @returns {boolean} Verdict
  */
