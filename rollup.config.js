@@ -2,7 +2,7 @@
 import cjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
-import { uglify } from 'rollup-plugin-uglify';
+import { terser } from 'rollup-plugin-terser';
 
 import $package from './package.json';
 
@@ -14,7 +14,7 @@ for(let ext of external) {
   globals[ext] = ext;
 }
 
-var output = function(min, sufix = '') {
+function getOutput(min, sufix = '') {
   return {
     file: `dist/finka${sufix}${(min ? '.min' : '')}.js`,
     format: 'umd',
@@ -25,12 +25,25 @@ var output = function(min, sufix = '') {
             '*/',
     globals
   };
-};
+}
 
-var plugins = [
-  cjs(),
-  resolve(),
-  babel({
+function getTerserPlugin() {
+  return terser({
+    ecma: 5,
+    output: {
+      comments: (node, comment) => {
+        if (comment.type === 'comment2') {
+          // multiline comment
+          return /LICENSE|\(c\)/.test(comment.value);
+        }
+        return false;
+      }
+    }
+  });
+}
+
+function getBabel() {
+  return babel({
     presets: [
       [
         '@babel/env',
@@ -41,44 +54,47 @@ var plugins = [
         }
       ]
     ]
-  })
-];
+  });
+}
+
 
 // Export
 export default [
   // Uncompressed config
   {
     input,
-    output: output(),
-    plugins,
+    output: getOutput(),
+    plugins: [
+      cjs(),
+      resolve(),
+      getBabel()
+    ],
     external
   },
 
   // Compressed config
   {
     input,
-    output: output(true),
-    plugins: plugins.concat([
-      uglify({
-        output: {
-          comments: /license/i
-        }
-      })
-    ]),
+    output: getOutput(true),
+    plugins: [
+      cjs(),
+      resolve(),
+      getBabel(),
+      getTerserPlugin()
+    ],
     external
   },
 
   // Embed
   {
     input: 'src/embed.js',
-    output: output(true, '.embed'),
-    plugins: plugins.concat([
-      uglify({
-        output: {
-          comments: /license/i
-        }
-      })
-    ]),
+    output: getOutput(true, '.embed'),
+    plugins: [
+      cjs(),
+      resolve(),
+      getBabel(),
+      getTerserPlugin()
+    ],
     external
   }
 ];

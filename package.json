@@ -1,12 +1,12 @@
 {
   "name": "@bitbar/finka",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "test": "npx mocha --file test/_init.js --recursive test",
-    "coveralls": "npx istanbul cover _mocha --report lcovonly -- --file test/_init.js --recursive test && cat ./coverage/lcov.info | npx coveralls && rm -rf ./coverage",
     "docs": "jsdoc -c jsdoc.json",
     "lint": "eslint ."
   },
@@ -53,14 +53,12 @@
     "coveralls": "^3.1.0",
     "eslint": "^7.8.1",
     "husky": "^4.3.0",
-    "istanbul": "^0.4.5",
     "jsdoc": "^3.6.5",
     "jsdoc-rtd": "^1.0.15",
     "mocha": "^8.1.3",
-    "mocha-lcov-reporter": "^1.3.0",
     "rollup": "^2.26.11",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-uglify": "^6.0.4"
+    "rollup-plugin-terser": "^7.0.2"
   },
   "browserslist": [
     "> 4%",

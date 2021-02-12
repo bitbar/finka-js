@@ -7,7 +7,6 @@
 # Finka.js
 
 [![Build Status](https://img.shields.io/travis/com/bitbar/finka-js/master.svg)](https://travis-ci.com/bitbar/finka-js)
-[![Coverage Status](https://img.shields.io/coveralls/github/bitbar/finka-js/master.svg)](https://coveralls.io/github/bitbar/finka-js?branch=master)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/bitbar/finka-js.svg)](https://lgtm.com/projects/g/bitbar/finka-js/context:javascript)
 [![Current Release](https://img.shields.io/github/release/bitbar/finka-js.svg)](releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)

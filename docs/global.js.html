@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Source: Object.js | Finka.js</title>
+    <title>Source: global.js | Finka.js</title>
     <link type="text/css" rel="stylesheet" href="styles/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="styles/main.css">
 
@@ -92,7 +92,7 @@
     <div class="content">
         <ul class="breadcrumbs">
             <li><a href="index.html">Docs</a> »</li>
-            <li>Source: Object.js</li>
+            <li>Source: global.js</li>
         </ul>
         <hr>
         
@@ -102,196 +102,132 @@
     
 <article>
     <pre class="prettyprint source linenums"><code>/**
- * @namespace Object
+ * Flag if environment is Node JS
+ *
+ * @global
+ * @type {boolean}
  */
+const isNodeJs = global.process &amp;&amp; global.process.release &amp;&amp; global.process.release.name === 'node';
 
 /**
- * Returns verdict if given subject is Object or not
+ * Get ISO 639-1 language string
  *
- * @memberof Object
- * @param {*} subject Subject of examination
- * @returns {boolean} Verdict
+ * @global
+ * @returns {string} ISO 639-1 language string
  */
-function isObject(subject) {
-  return subject !== null &amp;&amp; typeof subject === 'object';
-}
+function getLanguage() {
+  var lang;
 
-/**
- * Copy key and values from src Object to dst  Object
- *
- * @memberof Object
- * @param {Object} src Source
- * @param {Object} dst Destination
- * @param {(Array|null)} [what] What should be copied? By default those are all keys and values from source
- * @returns {void}
- */
-function copy(src, dst, what) {
-  var i;
-  if(what == null || what.length == 0) {
-    for(i in src) {
-      dst[i] = src[i];
-    }
+  if(global.isNodeJs) {
+    lang = process.env.LANGUAGE || process.env.LANG;
   } else {
-    for(i = 0; i &lt; what.length; i++) {
-      dst[what[i]] = src[what[i]];
-    }
+    lang = navigator.language || navigator.languages &amp;&amp; navigator.languages[0];
   }
+
+  lang = lang.substr(0, 2);
+
+  return lang;
 }
 
 /**
- * Returns verdict if subject match query
+ * Tries to get country from language
  *
- * @memberof Object
- * @param {Object} subject Subject of examination
- * @param {Object|*} query Query - if object then will compare each key of query with subject,
- * otherwise will just use standard comparator
- * @returns {boolean} Verdict
+ * @global
+ * @returns {(string|null)} Country code or null if couldn't find
  */
-function isLike(subject, query) {
-  var k, v;
-  if(typeof query == 'object' &amp;&amp; typeof subject == 'object') {
-    for(k in query) {
-      v = typeof subject[k] == 'function' ? subject[k]() : subject[k];
-      if(v !== query[k]) {
-        return false;
-      }
-    }
+function getCountry() {
+  if(typeof global.userCountry !== 'undefined') {
+    return global.userCountry;
+  }
+
+  var country;
+
+  if(global.isNodeJs) {
+    country = process.env.LANG;
   } else {
-    if(subject !== query) {
-      return false;
-    }
-  }
-  return true;
-}
+    country = navigator.language;
 
-/**
- * Count number of items in given subject
- *
- * @memberof Object
- * @param {Object} subject Subject of examination
- * @returns {number} Number of items
- */
-function count(subject) {
-  var items = 0;
-  for(var i in subject) {
-    if(subject.hasOwnProperty(i)) {
-      items += 1;
-    }
-  }
-  return items;
-}
-
-/**
- * Polyfill for ECMAScript 2017 for Object.assign
- * https://www.ecma-international.org/ecma-262/8.0/#sec-object.values
- *
- * @memberof Object
- */
-function values(o) {
-  var obj = Object(o);
-  var values = [];
-
-  for(var k in obj) {
-    values.push(obj[k]);
-  }
-
-  return values;
-}
-
-/**
- * Polyfill for ECMAScript 2015 for Object.assign
- * https://www.ecma-international.org/ecma-262/6.0/#sec-object.assign
- *
- * @memberof Object
- */
-function assign() {
-  var args = Array.prototype.slice.call(arguments, 0);
-  var to = Object(args[0]);
-
-  if(args.length !== 1) {
-    var sources = args.slice(1);
-    var nextSource, keys, from, nextKey, propValue;
-
-    for(var i = 0; i &lt; sources.length; i++) {
-      nextSource = sources[i];
-      from = Object(nextSource);
-
-      if(typeof nextSource === 'undefined' || nextSource === null) {
-        keys = [];
-      } else {
-        keys = Object.keys(from);
-      }
-
-      for(var j = 0; j &lt; keys.length; j++) {
-        nextKey = keys[j];
-        propValue = from[nextKey];
-        if(typeof propValue !== 'undefined' &amp;&amp; from.propertyIsEnumerable(nextKey)) {
-          to[nextKey] = propValue;
+    if(country.length &lt; 3 &amp;&amp; navigator.languages) {
+      for(var i = 0; i &lt; navigator.languages.length; i++) {
+        if(navigator.languages[i].length > 2) {
+          country = navigator.languages[i];
+          break;
         }
       }
     }
   }
 
-  return to;
+  var countryMatch = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
+  if(countryMatch !== null) {
+    country = countryMatch[1];
+  }
+
+  return country;
 }
 
 /**
- * This is similar to Object.assign, but extends also deep nested Objects
+ * Check if given argument is numeric
  *
- * @memberof Object
- * @returns {object} Object
+ * @global
+ * @param {*} n Subject of examination
+ * @returns {boolean} Verdict
  */
-function deepAssign() {
-  var args = Array.prototype.slice.call(arguments, 0);
-  var to = Object(args[0]);
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) &amp;&amp; isFinite(n);
+}
 
-  if(args.length !== 1) {
-    var sources = args.slice(1);
-    var nextSource, keys, from, nextKey, propValue;
-
-    for(var i = 0; i &lt; sources.length; i++) {
-      nextSource = sources[i];
-      from = Object(nextSource);
-
-      if(typeof nextSource === 'undefined' || nextSource === null) {
-        keys = [];
-      } else {
-        keys = Object.keys(from);
-      }
-
-      for(var j = 0; j &lt; keys.length; j++) {
-        nextKey = keys[j];
-        propValue = from[nextKey];
-        if(typeof propValue !== 'undefined' &amp;&amp; from.propertyIsEnumerable(nextKey)) {
-          if(typeof to[nextKey] === 'object' &amp;&amp; typeof propValue === 'object') {
-            var areArrays = Array.isArray(to[nextKey]) &amp;&amp; Array.isArray(propValue);
-
-            to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
-
-            if(areArrays) {
-              to[nextKey] = Object.values(to[nextKey]);
-            }
-          } else {
-            to[nextKey] = propValue;
-          }
-        }
-      }
-    }
+/**
+ * Parse value to proper type
+ *
+ * @global
+ * @param {*} value Value to be parsed
+ * @returns {*} Parsed value
+ */
+function parseValue(value) {
+  // check if it's even a string
+  if(typeof value !== 'string') {
+    return value;
   }
 
-  return to;
+  // check if it's number
+  if (global.isNumeric(value)) {
+    return parseFloat(value);
+  }
+
+  // check if it's a boolean
+  var _value = value.toLowerCase();
+  if (_value === 'true' || _value === 'false') {
+    return _value === 'true';
+  }
+
+  // add more check here if you want
+
+  // return not parsed value in the end
+  return value;
 }
+
+/**
+ * MD5
+ *
+ * @global
+ * @method
+ * @param {string} String to be hashed
+ * @returns {string} Hash
+ */
+const md5 = require('./md5');
 
 
 module.exports = {
+  constant: {
+    isNodeJs
+  },
+
   static: {
-    isObject,
-    copy,
-    isLike,
-    count,
-    values,
-    assign,
-    deepAssign
+    getLanguage,
+    getCountry,
+    isNumeric,
+    parseValue,
+    md5
   }
 };
 </code></pre>
