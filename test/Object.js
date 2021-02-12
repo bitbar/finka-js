@@ -292,4 +292,13 @@ describe('Object', function () {
       });
     });
   });
+
+  describe('#clone', function () {
+    it('Clone Object', function() {
+      var test = { a: 1, b: 2 };
+      var clone = Object.clone(test);
+      expect(clone).to.not.be.equal(test); // compare references
+      expect(clone).to.be.deep.equal(test); // compare values
+    });
+  });
 });

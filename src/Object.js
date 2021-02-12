@@ -179,6 +179,14 @@ function deepAssign() {
   return to;
 }
 
+/**
+ * Clone an Object
+ * @param {Object} o Object to clone
+ */
+function clone(o) {
+  return JSON.parse(JSON.stringify(o));
+}
+
 
 module.exports = {
   static: {
@@ -188,6 +196,7 @@ module.exports = {
     count,
     values,
     assign,
-    deepAssign
+    deepAssign,
+    clone
   }
 };

@@ -6,7 +6,8 @@ declare global {
     count(subject: Object): number,
     values(o: Object): Array<T>,
     assign(to: Object, ...args: Object): Object,
-    deepAssign(to: Object, ...args: Object): Object
+    deepAssign(to: Object, ...args: Object): Object,
+    clone(o: Object): Object;
   }
 }
 

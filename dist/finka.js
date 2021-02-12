@@ -1,4 +1,4 @@
-/* Finka.js v2.2.0 |  Copyright 2021 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.3.0 |  Copyright 2021 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -373,6 +373,8 @@
 	}
 	/**
 	 * Checks is given value is Array and is empty
+	 * 
+	 * @memberof Array
 	 * @param {Array} arr Something to check
 	 * @returns {boolean} Verdict
 	 */
@@ -383,6 +385,8 @@
 	}
 	/**
 	 * Checks is given value is Array and is non-empty
+	 * 
+	 * @memberof Array
 	 * @param {Array} arr Something to check
 	 * @returns {boolean} Verdict
 	 */
@@ -393,6 +397,8 @@
 	}
 	/**
 	 * Checks is given value isn't Array or is empty
+	 * 
+	 * @memberof Array
 	 * @param {Array} arr Something to check
 	 * @returns {boolean} Verdict
 	 */
@@ -449,7 +455,7 @@
 
 
 	function clone() {
-	  return this.slice(0);
+	  return Object.clone(this);
 	}
 	/**
 	 * Look for index of item matching to query
@@ -1596,6 +1602,15 @@
 
 	  return to;
 	}
+	/**
+	 * Clone an Object
+	 * @param {Object} o Object to clone
+	 */
+
+
+	function clone$1(o) {
+	  return JSON.parse(JSON.stringify(o));
+	}
 
 	var _Object = {
 	  static: {
@@ -1605,7 +1620,8 @@
 	    count: count,
 	    values: values,
 	    assign: assign,
-	    deepAssign: deepAssign
+	    deepAssign: deepAssign,
+	    clone: clone$1
 	  }
 	};
 
@@ -1723,6 +1739,8 @@
 	}
 	/**
 	 * Checks is given value is String and is empty
+	 * 
+	 * @memberof String
 	 * @param {string} sth Something to check
 	 * @returns {boolean} Verdict
 	 */
@@ -1733,6 +1751,8 @@
 	}
 	/**
 	 * Checks is given value is String and is not empty
+	 * 
+	 * @memberof String
 	 * @param {string} sth Something to check
 	 * @returns {boolean} Verdict
 	 */
@@ -1743,6 +1763,8 @@
 	}
 	/**
 	 * Checks is given value isn't a String or it is empty
+	 * 
+	 * @memberof String
 	 * @param {string} sth Something to check
 	 * @returns {boolean} Verdict
 	 */

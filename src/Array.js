@@ -60,6 +60,8 @@ function wrap(something) {
 
 /**
  * Checks is given value is Array and is empty
+ * 
+ * @memberof Array
  * @param {Array} arr Something to check
  * @returns {boolean} Verdict
  */
@@ -69,6 +71,8 @@ function isEmpty (arr) {
 
 /**
  * Checks is given value is Array and is non-empty
+ * 
+ * @memberof Array
  * @param {Array} arr Something to check
  * @returns {boolean} Verdict
  */
@@ -78,6 +82,8 @@ function isNotEmpty (arr) {
 
 /**
  * Checks is given value isn't Array or is empty
+ * 
+ * @memberof Array
  * @param {Array} arr Something to check
  * @returns {boolean} Verdict
  */
@@ -126,7 +132,7 @@ function diff(arr) {
  * @returns {Array} Clone of this Array
  */
 function clone() {
-  return this.slice(0);
+  return Object.clone(this);
 }
 
 /**
