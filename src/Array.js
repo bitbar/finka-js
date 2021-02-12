@@ -59,6 +59,33 @@ function wrap(something) {
 }
 
 /**
+ * Checks is given value is Array and is empty
+ * @param {Array} arr Something to check
+ * @returns {boolean} Verdict
+ */
+function isEmpty (arr) {
+  return Array.isArray(arr) && arr.length === 0;
+}
+
+/**
+ * Checks is given value is Array and is non-empty
+ * @param {Array} arr Something to check
+ * @returns {boolean} Verdict
+ */
+function isNotEmpty (arr) {
+  return Array.isArray(arr) && arr.length > 0;
+}
+
+/**
+ * Checks is given value isn't Array or is empty
+ * @param {Array} arr Something to check
+ * @returns {boolean} Verdict
+ */
+function isInvalidOrEmpty (arr) {
+  return !Array.isArray(arr) || arr.length === 0;
+}
+
+/**
  * Empty this Array
  *
  * @memberof Array.prototype
@@ -177,7 +204,10 @@ module.exports = {
   static: {
     sortArrayOfObjects,
     deepCloneArrayOfObjects,
-    wrap
+    wrap,
+    isEmpty,
+    isNotEmpty,
+    isInvalidOrEmpty
   },
 
   method: {

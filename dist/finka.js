@@ -1,4 +1,4 @@
-/* Finka.js v2.1.0 |  Copyright 2020 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.2.0 |  Copyright 2021 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -372,6 +372,36 @@
 	  return Array.isArray(something) ? something : [something];
 	}
 	/**
+	 * Checks is given value is Array and is empty
+	 * @param {Array} arr Something to check
+	 * @returns {boolean} Verdict
+	 */
+
+
+	function isEmpty(arr) {
+	  return Array.isArray(arr) && arr.length === 0;
+	}
+	/**
+	 * Checks is given value is Array and is non-empty
+	 * @param {Array} arr Something to check
+	 * @returns {boolean} Verdict
+	 */
+
+
+	function isNotEmpty(arr) {
+	  return Array.isArray(arr) && arr.length > 0;
+	}
+	/**
+	 * Checks is given value isn't Array or is empty
+	 * @param {Array} arr Something to check
+	 * @returns {boolean} Verdict
+	 */
+
+
+	function isInvalidOrEmpty(arr) {
+	  return !Array.isArray(arr) || arr.length === 0;
+	}
+	/**
 	 * Empty this Array
 	 *
 	 * @memberof Array.prototype
@@ -500,7 +530,10 @@
 	  static: {
 	    sortArrayOfObjects: sortArrayOfObjects,
 	    deepCloneArrayOfObjects: deepCloneArrayOfObjects,
-	    wrap: wrap
+	    wrap: wrap,
+	    isEmpty: isEmpty,
+	    isNotEmpty: isNotEmpty,
+	    isInvalidOrEmpty: isInvalidOrEmpty
 	  },
 	  method: {
 	    empty: empty,
@@ -1689,6 +1722,36 @@
 	  return (l - String.editDistance(a, b)) / l;
 	}
 	/**
+	 * Checks is given value is String and is empty
+	 * @param {string} sth Something to check
+	 * @returns {boolean} Verdict
+	 */
+
+
+	function isEmpty$1(sth) {
+	  return typeof sth === 'string' && sth.length === 0;
+	}
+	/**
+	 * Checks is given value is String and is not empty
+	 * @param {string} sth Something to check
+	 * @returns {boolean} Verdict
+	 */
+
+
+	function isNotEmpty$1(sth) {
+	  return typeof sth === 'string' && sth.length > 0;
+	}
+	/**
+	 * Checks is given value isn't a String or it is empty
+	 * @param {string} sth Something to check
+	 * @returns {boolean} Verdict
+	 */
+
+
+	function isInvalidOrEmpty$1(sth) {
+	  return typeof sth !== 'string' || sth.length === 0;
+	}
+	/**
 	 * Returns string with capitalised first letter
 	 *
 	 * @memberof String.prototype
@@ -1826,8 +1889,8 @@
 	 * @memberof String.prototype
 	 * @author joelpt
 	 * @author schnaader
-	 * @see {@link https://stackoverflow.com/a/3276730|Stack Overflow Answer}
-	 * @returns {number} Checksum
+	 * @see {@link https://stackoverflow.com/a/3276730 | Stack Overflow Answer}
+	 * @returns {string} Checksum
 	 */
 
 
@@ -1899,7 +1962,10 @@
 	var _String = {
 	  static: {
 	    editDistance: editDistance,
-	    getSimilarity: getSimilarity
+	    getSimilarity: getSimilarity,
+	    isEmpty: isEmpty$1,
+	    isNotEmpty: isNotEmpty$1,
+	    isInvalidOrEmpty: isInvalidOrEmpty$1
 	  },
 	  method: {
 	    capitaliseFirstLetter: capitaliseFirstLetter,

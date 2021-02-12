@@ -59,6 +59,33 @@ function getSimilarity(a, b) {
 }
 
 /**
+ * Checks is given value is String and is empty
+ * @param {string} sth Something to check
+ * @returns {boolean} Verdict
+ */
+function isEmpty (sth) {
+  return typeof sth === 'string' && sth.length === 0;
+}
+
+/**
+ * Checks is given value is String and is not empty
+ * @param {string} sth Something to check
+ * @returns {boolean} Verdict
+ */
+function isNotEmpty (sth) {
+  return typeof sth === 'string' && sth.length > 0;
+}
+
+/**
+ * Checks is given value isn't a String or it is empty
+ * @param {string} sth Something to check
+ * @returns {boolean} Verdict
+ */
+function isInvalidOrEmpty (sth) {
+  return typeof sth !== 'string' || sth.length === 0;
+}
+
+/**
  * Returns string with capitalised first letter
  *
  * @memberof String.prototype
@@ -195,8 +222,8 @@ function toSnakeCase(convertToUpperCase) {
  * @memberof String.prototype
  * @author joelpt
  * @author schnaader
- * @see {@link https://stackoverflow.com/a/3276730|Stack Overflow Answer}
- * @returns {number} Checksum
+ * @see {@link https://stackoverflow.com/a/3276730 | Stack Overflow Answer}
+ * @returns {string} Checksum
  */
 function toChecksum() {
   var value, i, chk;
@@ -264,7 +291,10 @@ function includes(search, start) {
 module.exports = {
   static: {
     editDistance,
-    getSimilarity
+    getSimilarity,
+    isEmpty,
+    isNotEmpty,
+    isInvalidOrEmpty
   },
 
   method: {

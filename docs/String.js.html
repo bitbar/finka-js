@@ -33,7 +33,7 @@
             <h1><a href="index.html" class="link">Finka.js</a></h1>
             <span class="version">
             
-                v2.0.0
+                v2.2.0
             
             </span>
         </div>
@@ -41,7 +41,7 @@
         
 
         <div class="scroll">
-        <div class="nav-api hidden"><h3>Global</h3><ul><li class="nav-item"><a href="global.html#getCountry">getCountry</a></li><li class="nav-item"><a href="global.html#getLanguage">getLanguage</a></li><li class="nav-item"><a href="global.html#isNodeJs">isNodeJs</a></li><li class="nav-item"><a href="global.html#isNumeric">isNumeric</a></li><li class="nav-item"><a href="global.html#md5">md5</a></li><li class="nav-item"><a href="global.html#parseValue">parseValue</a></li></ul></div><div class="nav-api hidden"><h3>Namespaces</h3><ul class="nav-items"><li class="nav-item">
+        <div class="nav-api hidden"><h3>Global</h3><ul><li class="nav-item"><a href="global.html#getCountry">getCountry</a></li><li class="nav-item"><a href="global.html#getLanguage">getLanguage</a></li><li class="nav-item"><a href="global.html#isEmpty">isEmpty</a></li><li class="nav-item"><a href="global.html#isInvalidOrEmpty">isInvalidOrEmpty</a></li><li class="nav-item"><a href="global.html#isNodeJs">isNodeJs</a></li><li class="nav-item"><a href="global.html#isNotEmpty">isNotEmpty</a></li><li class="nav-item"><a href="global.html#isNumeric">isNumeric</a></li><li class="nav-item"><a href="global.html#md5">md5</a></li><li class="nav-item"><a href="global.html#parseValue">parseValue</a></li></ul></div><div class="nav-api hidden"><h3>Namespaces</h3><ul class="nav-items"><li class="nav-item">
                 <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
                 <a href="Array.html">Array</a>
                 <div class="nav-item-sub hidden" id="Array_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Array.html#.deepCloneArrayOfObjects">deepCloneArrayOfObjects</a></a></li><li class="sub-nav-item"><a href="Array.html#.sortArrayOfObjects">sortArrayOfObjects</a></a></li><li class="sub-nav-item"><a href="Array.html#.wrap">wrap</a></a></li><li class="sub-nav-item"><a href="Array.html#absorb">absorb</a></a></li><li class="sub-nav-item"><a href="Array.html#clone">clone</a></a></li><li class="sub-nav-item"><a href="Array.html#diff">diff</a></a></li><li class="sub-nav-item"><a href="Array.html#empty">empty</a></a></li><li class="sub-nav-item"><a href="Array.html#filterLike">filterLike</a></a></li><li class="sub-nav-item"><a href="Array.html#lookFor">lookFor</a></a></li><li class="sub-nav-item"><a href="Array.html#shuffle">shuffle</a></a></li><li class="sub-nav-item"><a href="Array.html#unique">unique</a></a></li></ul></div>
@@ -159,6 +159,33 @@ function editDistance(a, b) {
 function getSimilarity(a, b) {
   var l = Math.max(a.length, b.length);
   return (l - String.editDistance(a, b)) / l;
+}
+
+/**
+ * Checks is given value is String and is empty
+ * @param {string} sth Something to check
+ * @returns {boolean} Verdict
+ */
+function isEmpty (sth) {
+  return typeof sth === 'string' &amp;&amp; sth.length === 0;
+}
+
+/**
+ * Checks is given value is String and is not empty
+ * @param {string} sth Something to check
+ * @returns {boolean} Verdict
+ */
+function isNotEmpty (sth) {
+  return typeof sth === 'string' &amp;&amp; sth.length > 0;
+}
+
+/**
+ * Checks is given value isn't a String or it is empty
+ * @param {string} sth Something to check
+ * @returns {boolean} Verdict
+ */
+function isInvalidOrEmpty (sth) {
+  return typeof sth !== 'string' || sth.length === 0;
 }
 
 /**
@@ -298,8 +325,8 @@ function toSnakeCase(convertToUpperCase) {
  * @memberof String.prototype
  * @author joelpt
  * @author schnaader
- * @see {@link https://stackoverflow.com/a/3276730|Stack Overflow Answer}
- * @returns {number} Checksum
+ * @see {@link https://stackoverflow.com/a/3276730 | Stack Overflow Answer}
+ * @returns {string} Checksum
  */
 function toChecksum() {
   var value, i, chk;
@@ -367,7 +394,10 @@ function includes(search, start) {
 module.exports = {
   static: {
     editDistance,
-    getSimilarity
+    getSimilarity,
+    isEmpty,
+    isNotEmpty,
+    isInvalidOrEmpty
   },
 
   method: {
@@ -395,7 +425,7 @@ module.exports = {
         <hr>
         <footer>
             <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
-            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a>
         </footer>
     </div>
 </div>
