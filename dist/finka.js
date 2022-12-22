@@ -1,4 +1,4 @@
-/* Finka.js v2.3.0 |  Copyright 2021 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.3.1 |  Copyright 2022 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -262,7 +262,7 @@
 	 */
 
 
-	function parseValue(value) {
+	function parseValue$1(value) {
 	  // check if it's even a string
 	  if (typeof value !== 'string') {
 	    return value;
@@ -302,7 +302,7 @@
 	    getLanguage: getLanguage,
 	    getCountry: getCountry,
 	    isNumeric: isNumeric,
-	    parseValue: parseValue,
+	    parseValue: parseValue$1,
 	    md5: md5_1
 	  }
 	};
@@ -380,7 +380,7 @@
 	 */
 
 
-	function isEmpty(arr) {
+	function isEmpty$1(arr) {
 	  return Array.isArray(arr) && arr.length === 0;
 	}
 	/**
@@ -392,7 +392,7 @@
 	 */
 
 
-	function isNotEmpty(arr) {
+	function isNotEmpty$1(arr) {
 	  return Array.isArray(arr) && arr.length > 0;
 	}
 	/**
@@ -404,7 +404,7 @@
 	 */
 
 
-	function isInvalidOrEmpty(arr) {
+	function isInvalidOrEmpty$1(arr) {
 	  return !Array.isArray(arr) || arr.length === 0;
 	}
 	/**
@@ -454,7 +454,7 @@
 	 */
 
 
-	function clone() {
+	function clone$1() {
 	  return Object.clone(this);
 	}
 	/**
@@ -537,15 +537,15 @@
 	    sortArrayOfObjects: sortArrayOfObjects,
 	    deepCloneArrayOfObjects: deepCloneArrayOfObjects,
 	    wrap: wrap,
-	    isEmpty: isEmpty,
-	    isNotEmpty: isNotEmpty,
-	    isInvalidOrEmpty: isInvalidOrEmpty
+	    isEmpty: isEmpty$1,
+	    isNotEmpty: isNotEmpty$1,
+	    isInvalidOrEmpty: isInvalidOrEmpty$1
 	  },
 	  method: {
 	    empty: empty,
 	    absorb: absorb,
 	    diff: diff,
-	    clone: clone,
+	    clone: clone$1,
 	    lookFor: lookFor,
 	    filterLike: filterLike,
 	    unique: unique,
@@ -704,7 +704,7 @@
 	 */
 
 
-	function parseValue$1(value) {
+	function parseValue(value) {
 	  var type = _typeof(value);
 
 	  if (type === 'string') {
@@ -1052,7 +1052,7 @@
 	    DAYAFTERTOMORROW: DAYAFTERTOMORROW
 	  },
 	  static: {
-	    parseValue: parseValue$1,
+	    parseValue: parseValue,
 	    daysFromNow: daysFromNow,
 	    getLocalDateFormat: getLocalDateFormat,
 	    getTimezoneName: getTimezoneName,
@@ -1458,7 +1458,7 @@
 	 */
 
 
-	function isLike(subject, query) {
+	function isLike$1(subject, query) {
 	  var k, v;
 
 	  if (_typeof(query) == 'object' && _typeof(subject) == 'object') {
@@ -1608,7 +1608,7 @@
 	 */
 
 
-	function clone$1(o) {
+	function clone(o) {
 	  return JSON.parse(JSON.stringify(o));
 	}
 
@@ -1616,12 +1616,12 @@
 	  static: {
 	    isObject: isObject,
 	    copy: copy,
-	    isLike: isLike,
+	    isLike: isLike$1,
 	    count: count,
 	    values: values,
 	    assign: assign,
 	    deepAssign: deepAssign,
-	    clone: clone$1
+	    clone: clone
 	  }
 	};
 
@@ -1746,7 +1746,7 @@
 	 */
 
 
-	function isEmpty$1(sth) {
+	function isEmpty(sth) {
 	  return typeof sth === 'string' && sth.length === 0;
 	}
 	/**
@@ -1758,7 +1758,7 @@
 	 */
 
 
-	function isNotEmpty$1(sth) {
+	function isNotEmpty(sth) {
 	  return typeof sth === 'string' && sth.length > 0;
 	}
 	/**
@@ -1770,7 +1770,7 @@
 	 */
 
 
-	function isInvalidOrEmpty$1(sth) {
+	function isInvalidOrEmpty(sth) {
 	  return typeof sth !== 'string' || sth.length === 0;
 	}
 	/**
@@ -1958,7 +1958,7 @@
 	 */
 
 
-	function isLike$1(query) {
+	function isLike(query) {
 	  return new RegExp('^' + query + '$').test(this.valueOf());
 	}
 	/**
@@ -1985,9 +1985,9 @@
 	  static: {
 	    editDistance: editDistance,
 	    getSimilarity: getSimilarity,
-	    isEmpty: isEmpty$1,
-	    isNotEmpty: isNotEmpty$1,
-	    isInvalidOrEmpty: isInvalidOrEmpty$1
+	    isEmpty: isEmpty,
+	    isNotEmpty: isNotEmpty,
+	    isInvalidOrEmpty: isInvalidOrEmpty
 	  },
 	  method: {
 	    capitaliseFirstLetter: capitaliseFirstLetter,
@@ -2000,7 +2000,7 @@
 	    toChecksum: toChecksum,
 	    toBoolean: toBoolean,
 	    reverse: reverse,
-	    isLike: isLike$1,
+	    isLike: isLike,
 	    includes: includes
 	  }
 	};
