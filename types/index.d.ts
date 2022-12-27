@@ -9,6 +9,7 @@ import './Object';
 import './Promise';
 import './RegExp';
 import './String';
+import './FileSize';
 
 declare function finka(): void;
 
