@@ -1,17 +1,17 @@
-/* Finka.js v2.3.1 |  Copyright 2022 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.4.0 |  Copyright 2023 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
 	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.finka = factory());
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 	function md5cycle(x, k) {
 	  var a = x[0],
-	      b = x[1],
-	      c = x[2],
-	      d = x[3];
+	    b = x[1],
+	    c = x[2],
+	    d = x[3];
 	  a = ff(a, b, c, d, k[0], 7, -680876936);
 	  d = ff(d, a, b, c, k[1], 12, -389564586);
 	  c = ff(c, d, a, b, k[2], 17, 606105819);
@@ -81,100 +81,75 @@
 	  x[2] = add32(c, x[2]);
 	  x[3] = add32(d, x[3]);
 	}
-
 	function cmn(q, a, b, x, s, t) {
 	  a = add32(add32(a, q), add32(x, t));
 	  return add32(a << s | a >>> 32 - s, b);
 	}
-
 	function ff(a, b, c, d, x, s, t) {
 	  return cmn(b & c | ~b & d, a, b, x, s, t);
 	}
-
 	function gg(a, b, c, d, x, s, t) {
 	  return cmn(b & d | c & ~d, a, b, x, s, t);
 	}
-
 	function hh(a, b, c, d, x, s, t) {
 	  return cmn(b ^ c ^ d, a, b, x, s, t);
 	}
-
 	function ii(a, b, c, d, x, s, t) {
 	  return cmn(c ^ (b | ~d), a, b, x, s, t);
 	}
-
 	function md51(s) {
 	  var n = s.length,
-	      state = [1732584193, -271733879, -1732584194, 271733878],
-	      i;
-
+	    state = [1732584193, -271733879, -1732584194, 271733878],
+	    i;
 	  for (i = 64; i <= n; i += 64) {
 	    md5cycle(state, md5blk(s.substring(i - 64, i)));
 	  }
-
 	  s = s.substring(i - 64);
 	  var tail = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
 	  for (i = 0; i < s.length; i++) {
 	    tail[i >> 2] |= s.charCodeAt(i) << (i % 4 << 3);
 	  }
-
 	  tail[i >> 2] |= 0x80 << (i % 4 << 3);
-
 	  if (i > 55) {
 	    md5cycle(state, tail);
-
 	    for (i = 0; i < 16; i++) {
 	      tail[i] = 0;
 	    }
 	  }
-
 	  tail[14] = n * 8;
 	  md5cycle(state, tail);
 	  return state;
 	}
-
 	function md5blk(s) {
 	  var md5blks = [],
-	      i;
-
+	    i;
 	  for (i = 0; i < 64; i += 4) {
 	    md5blks[i >> 2] = s.charCodeAt(i) + (s.charCodeAt(i + 1) << 8) + (s.charCodeAt(i + 2) << 16) + (s.charCodeAt(i + 3) << 24);
 	  }
-
 	  return md5blks;
 	}
-
 	var hex_chr = '0123456789abcdef'.split('');
-
 	function rhex(n) {
 	  var s = '',
-	      j = 0;
-
+	    j = 0;
 	  for (; j < 4; j++) {
 	    s += hex_chr[n >> j * 8 + 4 & 0x0F] + hex_chr[n >> j * 8 & 0x0F];
 	  }
-
 	  return s;
 	}
-
 	function hex(x) {
 	  for (var i = 0; i < x.length; i++) {
 	    x[i] = rhex(x[i]);
 	  }
-
 	  return x.join('');
 	}
-
-	function md5(s) {
+	function md5$1(s) {
 	  return hex(md51(s));
 	}
-
 	var add32 = function add32(a, b) {
 	  return a + b & 0xFFFFFFFF;
 	};
-
-	var md5_1 = md5;
+	var md5_1 = md5$1;
 
 	/**
 	 * Flag if environment is Node JS
@@ -182,47 +157,40 @@
 	 * @global
 	 * @type {boolean}
 	 */
-
 	var isNodeJs = commonjsGlobal.process && commonjsGlobal.process.release && commonjsGlobal.process.release.name === 'node';
+
 	/**
 	 * Get ISO 639-1 language string
 	 *
 	 * @global
 	 * @returns {string} ISO 639-1 language string
 	 */
-
 	function getLanguage() {
 	  var lang;
-
 	  if (commonjsGlobal.isNodeJs) {
 	    lang = process.env.LANGUAGE || process.env.LANG;
 	  } else {
 	    lang = navigator.language || navigator.languages && navigator.languages[0];
 	  }
-
 	  lang = lang.substr(0, 2);
 	  return lang;
 	}
+
 	/**
 	 * Tries to get country from language
 	 *
 	 * @global
 	 * @returns {(string|null)} Country code or null if couldn't find
 	 */
-
-
 	function getCountry() {
 	  if (typeof commonjsGlobal.userCountry !== 'undefined') {
 	    return commonjsGlobal.userCountry;
 	  }
-
 	  var country;
-
 	  if (commonjsGlobal.isNodeJs) {
 	    country = process.env.LANG;
 	  } else {
 	    country = navigator.language;
-
 	    if (country.length < 3 && navigator.languages) {
 	      for (var i = 0; i < navigator.languages.length; i++) {
 	        if (navigator.languages[i].length > 2) {
@@ -232,15 +200,13 @@
 	      }
 	    }
 	  }
-
 	  var countryMatch = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
-
 	  if (countryMatch !== null) {
 	    country = countryMatch[1];
 	  }
-
 	  return country;
 	}
+
 	/**
 	 * Check if given argument is numeric
 	 *
@@ -248,11 +214,10 @@
 	 * @param {*} n Subject of examination
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isNumeric(n) {
 	  return !isNaN(parseFloat(n)) && isFinite(n);
 	}
+
 	/**
 	 * Parse value to proper type
 	 *
@@ -260,30 +225,29 @@
 	 * @param {*} value Value to be parsed
 	 * @returns {*} Parsed value
 	 */
-
-
 	function parseValue$1(value) {
 	  // check if it's even a string
 	  if (typeof value !== 'string') {
 	    return value;
-	  } // check if it's number
+	  }
 
-
+	  // check if it's number
 	  if (commonjsGlobal.isNumeric(value)) {
 	    return parseFloat(value);
-	  } // check if it's a boolean
+	  }
 
-
+	  // check if it's a boolean
 	  var _value = value.toLowerCase();
-
 	  if (_value === 'true' || _value === 'false') {
 	    return _value === 'true';
-	  } // add more check here if you want
+	  }
+
+	  // add more check here if you want
+
 	  // return not parsed value in the end
-
-
 	  return value;
 	}
+
 	/**
 	 * MD5
 	 *
@@ -292,9 +256,8 @@
 	 * @param {string} String to be hashed
 	 * @returns {string} Hash
 	 */
-
-
-	var global_1 = {
+	var md5 = md5_1;
+	var global$1 = {
 	  constant: {
 	    isNodeJs: isNodeJs
 	  },
@@ -303,7 +266,7 @@
 	    getCountry: getCountry,
 	    isNumeric: isNumeric,
 	    parseValue: parseValue$1,
-	    md5: md5_1
+	    md5: md5
 	  }
 	};
 
@@ -321,30 +284,25 @@
 	 */
 	function sortArrayOfObjects(arr, propertyName, descending) {
 	  var order = descending ? -1 : 1;
-
 	  var _a, _b;
-
 	  arr.sort(function (a, b) {
 	    _a = a[propertyName];
 	    _b = b[propertyName];
-
 	    if (typeof _a === 'string') {
 	      _a = _a.toLowerCase();
 	    }
-
 	    if (typeof _b === 'string') {
 	      _b = _b.toLowerCase();
 	    }
-
 	    if (_a > _b) {
 	      return order * 1;
 	    } else if (_a < _b) {
 	      return order * -1;
 	    }
-
 	    return 0;
 	  });
 	}
+
 	/**
 	 * Deep clone array of object
 	 *
@@ -352,13 +310,12 @@
 	 * @param arr Array of objects
 	 * @returns {Object[]} Clone of arr
 	 */
-
-
 	function deepCloneArrayOfObjects(arr) {
 	  return arr.map(function (obj) {
 	    return Object.assign({}, obj);
 	  });
 	}
+
 	/**
 	 * Wrap in Array if @param is not an Array already
 	 *
@@ -366,11 +323,10 @@
 	 * @param {(*|Array)} something Something that should be an Array
 	 * @returns {Array}
 	 */
-
-
 	function wrap(something) {
 	  return Array.isArray(something) ? something : [something];
 	}
+
 	/**
 	 * Checks is given value is Array and is empty
 	 * 
@@ -378,11 +334,10 @@
 	 * @param {Array} arr Something to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isEmpty$1(arr) {
 	  return Array.isArray(arr) && arr.length === 0;
 	}
+
 	/**
 	 * Checks is given value is Array and is non-empty
 	 * 
@@ -390,11 +345,10 @@
 	 * @param {Array} arr Something to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isNotEmpty$1(arr) {
 	  return Array.isArray(arr) && arr.length > 0;
 	}
+
 	/**
 	 * Checks is given value isn't Array or is empty
 	 * 
@@ -402,23 +356,21 @@
 	 * @param {Array} arr Something to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isInvalidOrEmpty$1(arr) {
 	  return !Array.isArray(arr) || arr.length === 0;
 	}
+
 	/**
 	 * Empty this Array
 	 *
 	 * @memberof Array.prototype
 	 * @returns {Array} this
 	 */
-
-
 	function empty() {
 	  this.length = 0;
 	  return this;
 	}
+
 	/**
 	 * Absorb (push) every item of given array to this Array
 	 *
@@ -426,12 +378,11 @@
 	 * @param {Array} arr Array to be absorbed
 	 * @returns {Array} this
 	 */
-
-
 	function absorb(arr) {
 	  this.push.apply(this, arr);
 	  return this;
 	}
+
 	/**
 	 * Returns the difference between this Array and given in argument
 	 *
@@ -439,24 +390,22 @@
 	 * @param {Array} arr Array to compare
 	 * @returns {Array} Array with elements that are different
 	 */
-
-
 	function diff(arr) {
 	  return this.filter(function (i) {
 	    return arr.indexOf(i) < 0;
 	  });
 	}
+
 	/**
 	 * Clone this Array
 	 *
 	 * @memberof Array.prototype
 	 * @returns {Array} Clone of this Array
 	 */
-
-
 	function clone$1() {
 	  return Object.clone(this);
 	}
+
 	/**
 	 * Look for index of item matching to query
 	 *
@@ -464,17 +413,15 @@
 	 * @param {Object} query Query
 	 * @returns {number} Index of matching index; -1 if not found
 	 */
-
-
 	function lookFor(query) {
 	  for (var i = 0; i < this.length; i++) {
 	    if (Object.isLike(this[i], query)) {
 	      return i;
 	    }
 	  }
-
 	  return -1;
 	}
+
 	/**
 	 * Returns the new array based on current one by filtering according to query
 	 *
@@ -483,25 +430,21 @@
 	 * @param {Object} query Query
 	 * @returns {Array} New Array with matching elements
 	 */
-
-
 	function filterLike(query) {
 	  if (typeof query === 'undefined') {
 	    return [];
 	  }
-
 	  return this.filter(function (item) {
 	    return Object.isLike(item, query);
 	  });
 	}
+
 	/**
 	 * Unique this Array - remove all duplicate items
 	 *
 	 * @memberof Array.prototype
 	 * @returns {Array} this
 	 */
-
-
 	function unique() {
 	  for (var i = 0; i < this.length; ++i) {
 	    for (var j = i + 1; j < this.length; ++j) {
@@ -510,17 +453,15 @@
 	      }
 	    }
 	  }
-
 	  return this;
 	}
+
 	/**
 	 * Shuffle this Array
 	 *
 	 * @memberof Array.prototype
 	 * @returns {Array} this
 	 */
-
-
 	function shuffle() {
 	  for (var i = this.length - 1; i > 0; i--) {
 	    var j = Math.floor(Math.rand() * (i + 1));
@@ -528,10 +469,8 @@
 	    this[i] = this[j];
 	    this[j] = temp;
 	  }
-
 	  return this;
 	}
-
 	var _Array = {
 	  static: {
 	    sortArrayOfObjects: sortArrayOfObjects,
@@ -568,7 +507,6 @@
 	function xor(a, b) {
 	  return !a !== !b;
 	}
-
 	var _Boolean = {
 	  static: {
 	    xor: xor
@@ -578,25 +516,16 @@
 	function _typeof(obj) {
 	  "@babel/helpers - typeof";
 
-	  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-	    _typeof = function (obj) {
-	      return typeof obj;
-	    };
-	  } else {
-	    _typeof = function (obj) {
-	      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	    };
-	  }
-
-	  return _typeof(obj);
+	  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+	    return typeof obj;
+	  } : function (obj) {
+	    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	  }, _typeof(obj);
 	}
-
-	/**
-	 * @namespace Date
-	 */
 
 	var LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
 	var LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
+
 	/**
 	 * Second in milliseconds
 	 *
@@ -604,8 +533,8 @@
 	 * @constant
 	 * @type {number}
 	 */
-
 	var SECOND = 1000;
+
 	/**
 	 * Minute in milliseconds
 	 *
@@ -613,8 +542,8 @@
 	 * @constant
 	 * @type {number}
 	 */
-
 	var MINUTE = 60 * SECOND;
+
 	/**
 	 * Hour in milliseconds
 	 *
@@ -622,8 +551,8 @@
 	 * @constant
 	 * @type {number}
 	 */
-
 	var HOUR = 60 * MINUTE;
+
 	/**
 	 * Day in milliseconds
 	 *
@@ -631,8 +560,8 @@
 	 * @constant
 	 * @type {number}
 	 */
-
 	var DAY = 24 * HOUR;
+
 	/**
 	 * Week in milliseconds
 	 *
@@ -640,8 +569,8 @@
 	 * @constant
 	 * @type {number}
 	 */
-
 	var WEEK = 7 * DAY;
+
 	/**
 	 * Today in milliseconds
 	 *
@@ -649,10 +578,10 @@
 	 * @constant
 	 * @type {number}
 	 */
-
 	function TODAY() {
 	  return DAY * Math.floor(Date.now() / DAY);
 	}
+
 	/**
 	 * Yesterday in milliseconds
 	 *
@@ -660,11 +589,10 @@
 	 * @constant
 	 * @type {number}
 	 */
-
-
 	function YESTERDAY() {
 	  return Date.TODAY - DAY;
 	}
+
 	/**
 	 * Tomorrow in milliseconds
 	 *
@@ -672,11 +600,10 @@
 	 * @constant
 	 * @type {number}
 	 */
-
-
 	function TOMORROW() {
 	  return Date.TODAY + DAY;
 	}
+
 	/**
 	 * Day after tomorrow in milliseconds
 	 *
@@ -684,11 +611,10 @@
 	 * @constant
 	 * @type {number}
 	 */
-
-
 	function DAYAFTERTOMORROW() {
 	  return Date.TOMORROW + DAY;
 	}
+
 	/**
 	 * Return new Date instance from given value
 	 *
@@ -702,28 +628,20 @@
 	 * @throws Will throw an error if the value is not supported.
 	 * @returns {Date} New Date
 	 */
-
-
 	function parseValue(value) {
 	  var type = _typeof(value);
-
 	  if (type === 'string') {
 	    switch (value.toLowerCase()) {
 	      case 'today':
 	        return new Date(Date.TODAY);
-
 	      case 'yesterday':
 	        return new Date(Date.YESTERDAY);
-
 	      case 'tomorrow':
 	        return new Date(Date.TOMORROW);
-
 	      case 'dayaftertomorrow':
 	        return new Date(Date.DAYAFTERTOMORROW);
-
 	      case 'now':
 	        return new Date();
-
 	      default:
 	        throw new Error('Unsupported string: ' + value);
 	    }
@@ -733,6 +651,7 @@
 	    throw new TypeError('Unsupported value type');
 	  }
 	}
+
 	/**
 	 * Return timestamp of now + days
 	 *
@@ -740,11 +659,10 @@
 	 * @param {number} days Number of days difference
 	 * @returns {number} Timestamp
 	 */
-
-
 	function daysFromNow(days) {
 	  return Date.now() + Date.DAY * days;
 	}
+
 	/**
 	 * Get local date format
 	 *
@@ -752,17 +670,12 @@
 	 * @param {boolean} [fullFormat=true] Flag if it should be full date format like dd.mm.yyyy instead d.m.y
 	 * @returns {string} Local date format
 	 */
-
-
 	function getLocalDateFormat(fullFormat) {
 	  var countryCode, format;
-
 	  if (typeof fullFormat === 'undefined') {
 	    fullFormat = true;
 	  }
-
 	  countryCode = commonjsGlobal.getCountry() || 'US';
-
 	  if (LOCAL_FORMAT_YMD.indexOf(countryCode) >= 0) {
 	    format = 'y-m-d';
 	  } else if (LOCAL_FORMAT_MDY.indexOf(countryCode) >= 0) {
@@ -770,26 +683,24 @@
 	  } else {
 	    format = 'd.m.y';
 	  }
-
 	  if (fullFormat) {
 	    format = format.replace('d', 'dd');
 	    format = format.replace('m', 'mm');
 	    format = format.replace('y', 'yyyy');
 	  }
-
 	  return format;
 	}
+
 	/**
 	 * Get timezone name
 	 *
 	 * @memberof Date
 	 * @returns {string} Timezone
 	 */
-
-
 	function getTimezoneName() {
 	  return new this().toString().match(/\(([^)]+)\)$/)[1];
 	}
+
 	/**
 	 * Returns object with time parts
 	 *
@@ -800,8 +711,6 @@
 	 * @param {number} time Time to be used
 	 * @returns {Object} Time in stopwatch format
 	 */
-
-
 	function getHms(time) {
 	  var obj = {
 	    h: 0,
@@ -821,6 +730,7 @@
 	  obj.h = Math.max(0, time);
 	  return obj;
 	}
+
 	/**
 	 * Returns given time (in milliseconds) in HMS format
 	 *
@@ -832,47 +742,37 @@
 	 * @param {string} [accuracy=seconds] Accuracy
 	 * @returns {string} Time in HMS format
 	 */
-
-
 	function toHmsFormat(time, accuracy) {
 	  if (typeof accuracy === 'undefined') {
 	    accuracy = 'seconds';
 	  }
-
 	  var obj = Date.getHms(time);
 	  var ret = [];
-
 	  switch (accuracy) {
 	    case 'hours':
 	      ret.push(obj.h + 'h');
 	      break;
-
 	    case 'minutes':
 	      if (obj.h > 0) {
 	        ret.push(obj.h + 'h');
 	      }
-
 	      ret.push(obj.m + 'm');
 	      break;
-
 	    case 'seconds':
 	      if (obj.h > 0) {
 	        ret.push(obj.h + 'h');
 	      }
-
 	      if (obj.m > 0) {
 	        ret.push(obj.m + 'm');
 	      }
-
 	      ret.push(obj.s + 's');
 	      break;
-
 	    default:
 	      throw new TypeError('Unknown accuracy');
 	  }
-
 	  return ret.join(' ');
 	}
+
 	/**
 	 * Returns given time (in milliseconds) in stopwatch format - [HH:]MM:SS.XXX
 	 *
@@ -883,18 +783,15 @@
 	 * @param {number} time Time to be converted
 	 * @returns {string} Time in stopwatch format
 	 */
-
-
 	function toStopwatchFormat(time) {
 	  var obj = Date.getHms(time);
 	  var ret = obj.m.pad(2) + ':' + obj.s.pad(2) + '.' + Math.floor(obj.ms / 100);
-
 	  if (obj.h > 0) {
 	    ret = obj.h.pad(2) + ':' + ret;
 	  }
-
 	  return ret;
 	}
+
 	/**
 	 * Returns given time (in milliseconds) in timer format - [HH:]MM:SS
 	 *
@@ -905,18 +802,15 @@
 	 * @param {number} time Time to be converted
 	 * @returns {string} Time in timer format
 	 */
-
-
 	function toTimerFormat(time) {
 	  var obj = Date.getHms(time);
 	  var ret = obj.m.pad(2) + ':' + obj.s.pad(2);
-
 	  if (obj.h > 0) {
 	    ret = obj.h.pad(2) + ':' + ret;
 	  }
-
 	  return ret;
 	}
+
 	/**
 	 * Return number of days passed between this Date and given in argument
 	 *
@@ -924,23 +818,19 @@
 	 * @param {(Date|string|number)} [toDate=now] Proper date
 	 * @returns {number} Number of days passed
 	 */
-
-
 	function daysPassed(toDate) {
 	  var toDateType = _typeof(toDate);
-
 	  if (toDateType === 'undefined') {
 	    toDate = new Date();
 	  } else if (toDateType === 'number' || toDateType === 'string') {
 	    toDate = new Date(toDate);
 	  }
-
 	  if (!(toDate instanceof Date)) {
 	    throw new TypeError('toDate is not instance of Date');
 	  }
-
 	  return Math.floor(Math.abs((this.getTime() - toDate.getTime()) / Date.DAY));
 	}
+
 	/**
 	 * Returns this Date in custom date format
 	 *
@@ -948,14 +838,13 @@
 	 * @param {string} format String representing date format
 	 * @returns {string} Date string
 	 */
-
-
 	function toCustomDate(format) {
 	  format = format.replace('d', this.getDate().pad(2));
 	  format = format.replace('m', (this.getMonth() + 1).pad(2));
 	  format = format.replace('y', this.getFullYear());
 	  return format;
 	}
+
 	/**
 	 * Returns this Date in UI time string
 	 *
@@ -963,21 +852,18 @@
 	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
 	 * @returns {string} Time string
 	 */
-
-
 	function toUiTime(showSeconds) {
 	  if (typeof showSeconds === 'undefined') {
 	    showSeconds = true;
 	  }
-
 	  if (showSeconds) {
 	    showSeconds = ':' + this.getSeconds().pad(2);
 	  } else {
 	    showSeconds = '';
 	  }
-
 	  return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + showSeconds;
 	}
+
 	/**
 	 * Returns this Date in UI date string
 	 *
@@ -985,11 +871,10 @@
 	 * @see Date#getLocalDateFormat
 	 * @returns {string} Date string
 	 */
-
-
 	function toUiDate() {
 	  return this.toCustomDate(Date.getLocalDateFormat(false));
 	}
+
 	/**
 	 * Returns this Date in UI datetime string
 	 *
@@ -997,33 +882,30 @@
 	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
 	 * @returns {string} Time string
 	 */
-
-
 	function toUiDateTime(showSeconds) {
 	  return this.toUiDate() + ' ' + this.toUiTime(showSeconds);
 	}
+
 	/**
 	 * Returns this Date in form inputs time string
 	 *
 	 * @memberof Date.prototype
 	 * @returns {string} Time string
 	 */
-
-
 	function toInputTimeFormat() {
 	  return this.toUiTime(false);
 	}
+
 	/**
 	 * Returns this Date in forms input date string
 	 *
 	 * @memberof Date.prototype
 	 * @returns {string} Date string
 	 */
-
-
 	function toInputDateFormat() {
 	  return this.toCustomDate('y-m-d');
 	}
+
 	/**
 	 * Add time to this Date
 	 *
@@ -1031,12 +913,9 @@
 	 * @param {number} time Time to add
 	 * @returns {number} New timestamp of this Date
 	 */
-
-
 	function addTime(time) {
 	  return this.setTime(this.getTime() + time);
 	}
-
 	var _Date = {
 	  constant: {
 	    SECOND: SECOND,
@@ -1090,10 +969,8 @@
 	  } catch (e) {
 	    return false;
 	  }
-
 	  return true;
 	}
-
 	var _JSON = {
 	  static: {
 	    isJSONString: isJSONString
@@ -1102,10 +979,8 @@
 
 	function Mash() {
 	  var n = 0xefc8249d;
-
 	  var mash = function mash(data) {
 	    data = data.toString();
-
 	    for (var i = 0; i < data.length; i++) {
 	      n += data.charCodeAt(i);
 	      var h = 0.02519603282416938 * n;
@@ -1122,34 +997,28 @@
 
 	  return mash;
 	}
-
-	function MRG32k3a() {
+	function MRG32k3a$1() {
 	  var args = Array.prototype.slice.call(arguments);
 	  var m1 = 4294967087;
 	  var m2 = 4294944443;
 	  var s10 = 12345,
-	      s11 = 12345,
-	      s12 = 123,
-	      s20 = 12345,
-	      s21 = 12345,
-	      s22 = 123;
-
+	    s11 = 12345,
+	    s12 = 123,
+	    s20 = 12345,
+	    s21 = 12345,
+	    s22 = 123;
 	  if (args.length === 0) {
 	    args = [+new Date()];
 	  }
-
 	  var mash = Mash();
-
 	  for (var i = 0; i < args.length; i++) {
 	    s10 += mash(args[i]) * 0x100000000; // 2 ^ 32
-
 	    s11 += mash(args[i]) * 0x100000000;
 	    s12 += mash(args[i]) * 0x100000000;
 	    s20 += mash(args[i]) * 0x100000000;
 	    s21 += mash(args[i]) * 0x100000000;
 	    s22 += mash(args[i]) * 0x100000000;
 	  }
-
 	  s10 %= m1;
 	  s11 %= m1;
 	  s12 %= m1;
@@ -1157,7 +1026,6 @@
 	  s21 %= m2;
 	  s22 %= m2;
 	  mash = null;
-
 	  var uint32 = function uint32() {
 	    var m1 = 4294967087;
 	    var m2 = 4294944443;
@@ -1182,27 +1050,27 @@
 	    s22 = p2;
 	    if (p1 <= p2) return p1 - p2 + m1;else return p1 - p2;
 	  };
-
 	  var random = function random() {
 	    return uint32() * 2.3283064365386963e-10; // 2^-32
-	  }; // random.uint32 = uint32;
+	  };
+
+	  // random.uint32 = uint32;
 	  // random.fract53 = function() {
 	  //   return random() +
 	  //     (uint32() & 0x1fffff) * 1.1102230246251565e-16; // 2^-53
 	  // };
 	  // random.args = args;
 
-
 	  return random;
 	}
-
-	var MRG32k3a_1 = MRG32k3a;
+	var MRG32k3a_1 = MRG32k3a$1;
 
 	/**
 	 * @namespace Math
 	 */
+	var MRG32k3a = MRG32k3a_1;
+	var _MRG32k3a = new MRG32k3a();
 
-	var _MRG32k3a = new MRG32k3a_1();
 	/**
 	 * Better alternative to Math.random based on MRG32k2a algorithm
 	 *
@@ -1210,11 +1078,10 @@
 	 * @see {@link http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf|PDF paper about it}
 	 * @returns {number} Random float number between 0 and 1
 	 */
-
-
 	function rand() {
 	  return _MRG32k3a();
 	}
+
 	/**
 	 * Polyfill for ECMAScript 2015 for Math.log10
 	 * https://www.ecma-international.org/ecma-262/6.0/#sec-math.log10
@@ -1223,11 +1090,10 @@
 	 * @param {number} x X
 	 * @returns {number} Result
 	 */
-
-
 	function log10(x) {
 	  return Math.log(x) * Math.LOG10E;
 	}
+
 	/**
 	 * Round given number to given precision
 	 *
@@ -1235,12 +1101,11 @@
 	 * @param {number} num Number to be rounded
 	 * @param {number} precision Precision
 	 */
-
-
 	function roundTo(num, precision) {
 	  var magnitude = Math.pow(10, precision);
 	  return Math.round(num * magnitude) / magnitude;
 	}
+
 	/**
 	 * Calculate median of given array of numbers
 	 *
@@ -1248,19 +1113,17 @@
 	 * @param {number[]} values Array of numbers
 	 * @returns {number} Median
 	 */
-
-
 	function median(values) {
 	  if (values.length === 0) {
 	    return 0;
 	  }
-
 	  values.sort(function (a, b) {
 	    return a - b;
 	  });
 	  var half = Math.floor(values.length / 2);
 	  return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2;
 	}
+
 	/**
 	 * Sum given array of numbers
 	 *
@@ -1268,17 +1131,15 @@
 	 * @param {number[]} values Array of numbers
 	 * @returns {number} Sum
 	 */
-
-
 	function sum(values) {
 	  if (values.length === 0) {
 	    return 0;
 	  }
-
 	  return values.reduce(function (a, b) {
 	    return a + b;
 	  });
 	}
+
 	/**
 	 * Calculate average of given array of numbers
 	 *
@@ -1286,16 +1147,12 @@
 	 * @param {number[]} values Array of numbers
 	 * @returns {number} Average
 	 */
-
-
 	function avg(values) {
 	  if (values.length === 0) {
 	    return 0;
 	  }
-
 	  return Math.sum(values) / values.length;
 	}
-
 	var _Math = {
 	  static: {
 	    rand: rand,
@@ -1321,6 +1178,7 @@
 	function isNumber(n) {
 	  return n === Number(n);
 	}
+
 	/**
 	 * Check if given number is negative zero (-0)
 	 *
@@ -1328,11 +1186,10 @@
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isNegativeZero(n) {
 	  return 1 / n === -Infinity;
 	}
+
 	/**
 	 * Polyfill for ECMAScript 2015 for Number.isInteger
 	 *
@@ -1340,11 +1197,10 @@
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isInteger(n) {
 	  return Number.isNumber(n) && n % 1 === 0;
 	}
+
 	/**
 	 * Check if given number is natural (this function assumes that 0 is also natural)
 	 *
@@ -1352,11 +1208,10 @@
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isNatural(n) {
 	  return Number.isInteger(n) && n >= 0 && !Number.isNegativeZero(n);
 	}
+
 	/**
 	 * Check if given number is float
 	 *
@@ -1364,11 +1219,10 @@
 	 * @param {number} n Number to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isFloat(n) {
 	  return Number.isNumber(n) && n % 1 !== 0;
 	}
+
 	/**
 	 * Returns string padded with leading zeros to length equal given length
 	 *
@@ -1376,26 +1230,20 @@
 	 * @param {number} padding Length to which should be number padded
 	 * @returns {string} Padded string
 	 */
-
-
 	function pad(padding) {
 	  var value = this.toString();
 	  var pointIndex = value.indexOf('.');
 	  var toAdd = padding;
-
 	  if (pointIndex > -1) {
 	    toAdd -= pointIndex;
 	  } else {
 	    toAdd -= value.length;
 	  }
-
 	  for (var i = 0; i < toAdd; i++) {
 	    value = '0' + value;
 	  }
-
 	  return value;
 	}
-
 	var _Number = {
 	  static: {
 	    isNumber: isNumber,
@@ -1410,10 +1258,6 @@
 	};
 
 	/**
-	 * @namespace Object
-	 */
-
-	/**
 	 * Returns verdict if given subject is Object or not
 	 *
 	 * @memberof Object
@@ -1423,6 +1267,7 @@
 	function isObject(subject) {
 	  return subject !== null && _typeof(subject) === 'object';
 	}
+
 	/**
 	 * Copy key and values from src Object to dst  Object
 	 *
@@ -1432,11 +1277,8 @@
 	 * @param {(Array|null)} [what] What should be copied? By default those are all keys and values from source
 	 * @returns {void}
 	 */
-
-
 	function copy(src, dst, what) {
 	  var i;
-
 	  if (what == null || what.length == 0) {
 	    for (i in src) {
 	      dst[i] = src[i];
@@ -1447,6 +1289,7 @@
 	    }
 	  }
 	}
+
 	/**
 	 * Returns verdict if subject match query
 	 *
@@ -1456,15 +1299,11 @@
 	 * otherwise will just use standard comparator
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isLike$1(subject, query) {
 	  var k, v;
-
 	  if (_typeof(query) == 'object' && _typeof(subject) == 'object') {
 	    for (k in query) {
 	      v = typeof subject[k] == 'function' ? subject[k]() : subject[k];
-
 	      if (v !== query[k]) {
 	        return false;
 	      }
@@ -1474,9 +1313,9 @@
 	      return false;
 	    }
 	  }
-
 	  return true;
 	}
+
 	/**
 	 * Count number of items in given subject
 	 *
@@ -1484,111 +1323,90 @@
 	 * @param {Object} subject Subject of examination
 	 * @returns {number} Number of items
 	 */
-
-
 	function count(subject) {
 	  var items = 0;
-
 	  for (var i in subject) {
 	    if (subject.hasOwnProperty(i)) {
 	      items += 1;
 	    }
 	  }
-
 	  return items;
 	}
+
 	/**
 	 * Polyfill for ECMAScript 2017 for Object.assign
 	 * https://www.ecma-international.org/ecma-262/8.0/#sec-object.values
 	 *
 	 * @memberof Object
 	 */
-
-
 	function values(o) {
 	  var obj = Object(o);
 	  var values = [];
-
 	  for (var k in obj) {
 	    values.push(obj[k]);
 	  }
-
 	  return values;
 	}
+
 	/**
 	 * Polyfill for ECMAScript 2015 for Object.assign
 	 * https://www.ecma-international.org/ecma-262/6.0/#sec-object.assign
 	 *
 	 * @memberof Object
 	 */
-
-
 	function assign() {
 	  var args = Array.prototype.slice.call(arguments, 0);
 	  var to = Object(args[0]);
-
 	  if (args.length !== 1) {
 	    var sources = args.slice(1);
 	    var nextSource, keys, from, nextKey, propValue;
-
 	    for (var i = 0; i < sources.length; i++) {
 	      nextSource = sources[i];
 	      from = Object(nextSource);
-
 	      if (typeof nextSource === 'undefined' || nextSource === null) {
 	        keys = [];
 	      } else {
 	        keys = Object.keys(from);
 	      }
-
 	      for (var j = 0; j < keys.length; j++) {
 	        nextKey = keys[j];
 	        propValue = from[nextKey];
-
 	        if (typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
 	          to[nextKey] = propValue;
 	        }
 	      }
 	    }
 	  }
-
 	  return to;
 	}
+
 	/**
 	 * This is similar to Object.assign, but extends also deep nested Objects
 	 *
 	 * @memberof Object
 	 * @returns {object} Object
 	 */
-
-
 	function deepAssign() {
 	  var args = Array.prototype.slice.call(arguments, 0);
 	  var to = Object(args[0]);
-
 	  if (args.length !== 1) {
 	    var sources = args.slice(1);
 	    var nextSource, keys, from, nextKey, propValue;
-
 	    for (var i = 0; i < sources.length; i++) {
 	      nextSource = sources[i];
 	      from = Object(nextSource);
-
 	      if (typeof nextSource === 'undefined' || nextSource === null) {
 	        keys = [];
 	      } else {
 	        keys = Object.keys(from);
 	      }
-
 	      for (var j = 0; j < keys.length; j++) {
 	        nextKey = keys[j];
 	        propValue = from[nextKey];
-
 	        if (typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
 	          if (_typeof(to[nextKey]) === 'object' && _typeof(propValue) === 'object') {
 	            var areArrays = Array.isArray(to[nextKey]) && Array.isArray(propValue);
 	            to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
-
 	            if (areArrays) {
 	              to[nextKey] = Object.values(to[nextKey]);
 	            }
@@ -1599,19 +1417,16 @@
 	      }
 	    }
 	  }
-
 	  return to;
 	}
+
 	/**
 	 * Clone an Object
 	 * @param {Object} o Object to clone
 	 */
-
-
 	function clone(o) {
 	  return JSON.parse(JSON.stringify(o));
 	}
-
 	var _Object = {
 	  static: {
 	    isObject: isObject,
@@ -1639,7 +1454,6 @@
 	function isPromise(subject) {
 	  return Object.isObject(subject) && (subject instanceof Promise || typeof subject.then === 'function');
 	}
-
 	var _Promise = {
 	  static: {
 	    isPromise: isPromise
@@ -1660,7 +1474,6 @@
 	function escapeString(str) {
 	  return str.replace(/[-[\]/\\{}()*+?.^$|]/g, '\\$&');
 	}
-
 	var _RegExp = {
 	  static: {
 	    escapeString: escapeString
@@ -1682,39 +1495,38 @@
 	 */
 	function editDistance(a, b) {
 	  var matrix = [],
-	      i,
-	      j;
-
+	    i,
+	    j;
 	  if (a.length === 0) {
 	    return b.length;
 	  }
-
 	  if (b.length === 0) {
 	    return a.length;
 	  }
-
 	  if (a === b) {
 	    return 0;
-	  } // increment along the first column of each row
+	  }
 
-
+	  // increment along the first column of each row
 	  for (i = 0; i <= b.length; i++) {
 	    matrix[i] = [i];
-	  } // increment each column in the first row
+	  }
 
-
+	  // increment each column in the first row
 	  for (j = 0; j <= a.length; j++) {
 	    matrix[0][j] = j;
-	  } // Fill in the rest of the matrix
+	  }
 
-
+	  // Fill in the rest of the matrix
 	  for (i = 1; i <= b.length; i++) {
 	    for (j = 1; j <= a.length; j++) {
 	      if (b.charAt(i - 1) === a.charAt(j - 1)) {
 	        matrix[i][j] = matrix[i - 1][j - 1];
 	      } else {
-	        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, // substitution
-	        Math.min(matrix[i][j - 1] + 1, // insertion
+	        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1,
+	        // substitution
+	        Math.min(matrix[i][j - 1] + 1,
+	        // insertion
 	        matrix[i - 1][j] + 1)); // deletion
 	      }
 	    }
@@ -1722,6 +1534,7 @@
 
 	  return matrix[b.length][a.length];
 	}
+
 	/**
 	 * Get similarity ratio based on edit distance
 	 *
@@ -1731,12 +1544,11 @@
 	 * @param {string} b B
 	 * @returns {number} Ratio
 	 */
-
-
 	function getSimilarity(a, b) {
 	  var l = Math.max(a.length, b.length);
 	  return (l - String.editDistance(a, b)) / l;
 	}
+
 	/**
 	 * Checks is given value is String and is empty
 	 * 
@@ -1744,11 +1556,10 @@
 	 * @param {string} sth Something to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isEmpty(sth) {
 	  return typeof sth === 'string' && sth.length === 0;
 	}
+
 	/**
 	 * Checks is given value is String and is not empty
 	 * 
@@ -1756,11 +1567,10 @@
 	 * @param {string} sth Something to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isNotEmpty(sth) {
 	  return typeof sth === 'string' && sth.length > 0;
 	}
+
 	/**
 	 * Checks is given value isn't a String or it is empty
 	 * 
@@ -1768,11 +1578,10 @@
 	 * @param {string} sth Something to check
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isInvalidOrEmpty(sth) {
 	  return typeof sth !== 'string' || sth.length === 0;
 	}
+
 	/**
 	 * Returns string with capitalised first letter
 	 *
@@ -1780,54 +1589,52 @@
 	 * @param {boolean} [lower=false] Flag if should lower all letters first
 	 * @returns {string} New string
 	 */
-
-
 	function capitaliseFirstLetter(lower) {
 	  var value = this.valueOf();
-
 	  if (lower) {
 	    value = value.toLowerCase();
 	  }
-
 	  return value.replace(/[a-z]/i, function (m) {
 	    return m.toUpperCase();
 	  });
 	}
+
 	/**
 	 * Returns string with lower first letter
 	 *
 	 * @memberof String.prototype
 	 * @returns {string} New string
 	 */
-
-
 	function lowerFirstLetter() {
 	  return this.valueOf().replace(/[a-z]/i, function (m) {
 	    return m.toLowerCase();
 	  });
 	}
+
 	/**
 	 * Returns string with removed cases
 	 *
 	 * @memberof String.prototype
 	 * @returns {string} New string
 	 */
-
-
 	function noCase() {
-	  var value = this.valueOf(); // detect capitalized snake case
+	  var value = this.valueOf();
 
+	  // detect capitalized snake case
 	  if (/^[A-Z0-9_]+$/.test(value)) {
 	    return value.replace(/_/g, ' ').toLowerCase();
-	  } // clean kebab and snake case
+	  }
 
+	  // clean kebab and snake case
+	  value = value.replace(/[-_]/g, ' ');
 
-	  value = value.replace(/[-_]/g, ' '); // clean special characters
+	  // clean special characters
+	  value = value.replace(/[^a-z0-9 ]/gi, '');
 
-	  value = value.replace(/[^a-z0-9 ]/gi, ''); // clean pascal case
+	  // clean pascal case
+	  value = value.lowerFirstLetter();
 
-	  value = value.lowerFirstLetter(); // clean camel case
-
+	  // clean camel case
 	  value = value.replace(/([A-Za-z])([0-9])/g, function (m, m1, m2) {
 	    return m1 + ' ' + m2;
 	  });
@@ -1836,56 +1643,59 @@
 	  });
 	  value = value.replace(/([a-z0-9])([A-Z])/g, function (m, m1, m2) {
 	    return m1 + ' ' + m2;
-	  }); // minimize white spaces
+	  });
 
+	  // minimize white spaces
 	  value = value.trim().replace(/\s{2,}/g, ' ');
 	  return value;
 	}
+
 	/**
 	 * Returns string in camelCase
 	 *
 	 * @memberof String.prototype
 	 * @returns {string} String in camelCase
 	 */
-
-
 	function toCamelCase() {
-	  var value = this.valueOf(); // normalize
+	  var value = this.valueOf();
 
-	  value = value.noCase(); // replace
+	  // normalize
+	  value = value.noCase();
 
+	  // replace
 	  value = value.replace(/ [a-z0-9]/gi, function (m) {
 	    return m[1].toUpperCase();
 	  });
 	  return value;
 	}
+
 	/**
 	 * Returns string in PascalCase
 	 *
 	 * @memberof String.prototype
 	 * @returns {string} String in PascalCase
 	 */
-
-
 	function toPascalCase() {
 	  return this.toCamelCase().capitaliseFirstLetter();
 	}
+
 	/**
 	 * Returns string in kebab-case
 	 *
 	 * @memberof String.prototype
 	 * @returns {string} String in kebab-case
 	 */
-
-
 	function toKebabCase() {
-	  var value = this.valueOf(); // normalize
+	  var value = this.valueOf();
 
-	  value = value.noCase(); // replace
+	  // normalize
+	  value = value.noCase();
 
+	  // replace
 	  value = value.replace(/\s/g, '-');
 	  return value;
 	}
+
 	/**
 	 * Returns string in snake_case
 	 *
@@ -1893,18 +1703,19 @@
 	 * @param {boolean} [convertToUpperCase=false] Set this flag to convert to UpperCase
 	 * @returns {string} String in snake_case
 	 */
-
-
 	function toSnakeCase(convertToUpperCase) {
 	  var toUpperCase = convertToUpperCase || false;
-	  var value = this.valueOf(); // normalize
+	  var value = this.valueOf();
 
-	  value = value.noCase(); // replace
+	  // normalize
+	  value = value.noCase();
 
+	  // replace
 	  value = value.replace(/\s/g, '_');
 	  if (toUpperCase) return value.toUpperCase();
 	  return value;
 	}
+
 	/**
 	 * Returns checksum crc32
 	 *
@@ -1914,41 +1725,36 @@
 	 * @see {@link https://stackoverflow.com/a/3276730 | Stack Overflow Answer}
 	 * @returns {string} Checksum
 	 */
-
-
 	function toChecksum() {
 	  var value, i, chk;
 	  value = this.valueOf();
 	  chk = 0x12345678;
-
 	  for (i = 0; i < value.length; i++) {
 	    chk += value.charCodeAt(i) * (i + 1);
 	  }
-
 	  return chk;
 	}
+
 	/**
 	 * Returns string in boolean
 	 *
 	 * @memberof String.prototype
 	 * @returns {boolean} True if string looks somehow like 'true'
 	 */
-
-
 	function toBoolean() {
 	  return this.valueOf().toLowerCase() === 'true';
 	}
+
 	/**
 	 * Returns reversed string
 	 *
 	 * @memberof String.prototype
 	 * @returns {string} Reversed string
 	 */
-
-
 	function reverse() {
 	  return this.valueOf().split('').reverse().join('');
 	}
+
 	/**
 	 * Check if string is like given query (you can use regexp notation)
 	 *
@@ -1956,11 +1762,10 @@
 	 * @param {string} query Query
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function isLike(query) {
 	  return new RegExp('^' + query + '$').test(this.valueOf());
 	}
+
 	/**
 	 * Polyfill for ECMAScript 2015 for String.prototype.includes
 	 *
@@ -1969,18 +1774,13 @@
 	 * @param {number} [start=0] Searching start position
 	 * @returns {boolean} Verdict
 	 */
-
-
 	function includes(search, start) {
 	  var _start = typeof start !== 'number' ? 0 : start;
-
 	  if (_start + search.length > this.length) {
 	    return false;
 	  }
-
 	  return this.indexOf(search, _start) !== -1;
 	}
-
 	var _String = {
 	  static: {
 	    editDistance: editDistance,
@@ -2017,98 +1817,93 @@
 	   * @type {number}
 	   */
 	  this.bytes = bytes;
+
 	  /**
 	   * Returns this.bytes as human-readable file size string
 	   *
 	   * @returns {string} Human-readable file size string
 	   */
-
 	  this.toReadableString = function () {
 	    return FileSize.getReadableString(this.bytes);
 	  };
 	}
+
 	/**
 	 * List of available size units
 	 *
 	 * @constant
 	 * @type {string[]}
 	 */
-
-
 	FileSize.UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB'];
+
 	/**
 	 * 1B in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-
 	FileSize.B = 1;
+
 	/**
 	 * 1KB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-
 	FileSize.KB = 1024 * FileSize.B;
+
 	/**
 	 * 1MB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-
 	FileSize.MB = 1024 * FileSize.KB;
+
 	/**
 	 * 1GB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-
 	FileSize.GB = 1024 * FileSize.MB;
+
 	/**
 	 * 1TB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-
 	FileSize.TB = 1024 * FileSize.GB;
+
 	/**
 	 * 1EB in bytes
 	 *
 	 * @constant
 	 * @type {number}
 	 */
-
 	FileSize.EB = 1024 * FileSize.TB;
+
 	/**
 	 * Returns human-readable file size string from given number of bytes
 	 *
 	 * @param {number} bytes Number of bytes
 	 * @returns {string} Human-readable file size string
 	 */
-
 	FileSize.getReadableString = function (bytes) {
 	  var i;
 	  var val = bytes;
-
 	  for (i = 0; i < FileSize.UNITS.length; i++) {
 	    if (val < 1000) break;
 	    val /= 1024;
 	  }
-
 	  return (i === 0 ? val : val.toFixed(1)) + FileSize.UNITS[i];
 	};
-
 	var FileSize_1 = FileSize;
 
 	/* eslint-disable no-undef */
-
 	var extensions = {
-	  global: global_1,
+	  global: global$1,
 	  Array: _Array,
 	  Boolean: _Boolean,
 	  Date: _Date,
@@ -2123,22 +1918,22 @@
 	var libraries = {
 	  FileSize: FileSize_1
 	};
-
 	function finka() {
 	  // Enable extensions
 	  for (var extName in extensions) {
 	    var ext = extensions[extName];
-	    var target = extName === 'global' ? commonjsGlobal : commonjsGlobal[extName]; // constant
+	    var target = extName === 'global' ? commonjsGlobal : commonjsGlobal[extName];
 
+	    // constant
 	    if (typeof ext.constant !== 'undefined') {
 	      for (var name in ext.constant) {
 	        if (typeof target[name] === 'undefined') {
 	          target[name] = ext.constant[name];
 	        }
 	      }
-	    } // getter
+	    }
 
-
+	    // getter
 	    if (typeof ext.getter !== 'undefined') {
 	      for (var _name in ext.getter) {
 	        if (typeof target[_name] === 'undefined') {
@@ -2147,18 +1942,18 @@
 	          });
 	        }
 	      }
-	    } // static
+	    }
 
-
+	    // static
 	    if (typeof ext.static !== 'undefined') {
 	      for (var _name2 in ext.static) {
 	        if (typeof target[_name2] === 'undefined') {
 	          target[_name2] = ext.static[_name2].bind(target);
 	        }
 	      }
-	    } // method
+	    }
 
-
+	    // method
 	    if (typeof ext.method !== 'undefined') {
 	      for (var _name3 in ext.method) {
 	        if (typeof target.prototype[_name3] === 'undefined') {
@@ -2166,18 +1961,17 @@
 	        }
 	      }
 	    }
-	  } // Enable libraries
+	  }
 
-
+	  // Enable libraries
 	  for (var libName in libraries) {
 	    if (typeof commonjsGlobal[libName] === 'undefined') {
 	      commonjsGlobal[libName] = libraries[libName];
 	    }
 	  }
 	}
-
 	var src = finka;
 
 	return src;
 
-})));
+}));
