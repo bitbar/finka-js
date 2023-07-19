@@ -2,9 +2,9 @@ declare global {
   interface StringConstructor {
     editDistance(a: string, b: string): number,
     getSimilarity(a: string, b: string): number,
-    isEmpty: (sth: unknown) => boolean;
-    isNotEmpty: (sth: unknown) => boolean;
-    isInvalidOrEmpty: (sth: unknown) => boolean;
+    isEmpty(sth: unknown): boolean;
+    isNotEmpty(sth: unknown): boolean;
+    isInvalidOrEmpty(sth: unknown): boolean;
   }
 
   interface String {

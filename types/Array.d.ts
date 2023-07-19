@@ -3,9 +3,9 @@ declare global {
     sortArrayOfObjects(arr: Object[], propertyName: string, descending?: boolean): void;
     deepCloneArrayOfObjects(arr: Object[]): Object[];
     wrap(arr: Array<any> | any): Array<any>;
-    isEmpty: (arr: unknown) => boolean;
-    isNotEmpty: (arr: unknown) => boolean;
-    isInvalidOrEmpty: (arr: unknown) => boolean;
+    isEmpty(arr: unknown): boolean;
+    isNotEmpty(arr: unknown): boolean;
+    isInvalidOrEmpty(arr: unknown): boolean;
   }
 
   interface Array<T> {
@@ -14,7 +14,7 @@ declare global {
     diff(arr: Array<T>): Array<T>,
     clone(): Array<T>,
     lookFor(query: Object): number,
-    filterLike: Array<T>,
+    filterLike(query: Partial<T>): Array<T>,
     unique(): this,
     shuffle(): this,
   }
