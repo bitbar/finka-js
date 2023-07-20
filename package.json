@@ -1,11 +1,11 @@
 {
   "name": "@bitbar/finka",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Handy tool in nowadays JavaScript jungle",
   "main": "dist/finka.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
+    "preinstall": "node lockfile-exists.js && npx npm-force-resolutions || echo 'Lockfile not found'",
     "build": "rollup -c --bundleConfigAsCjs",
     "test": "npx mocha --file test/_init.js --recursive test",
     "docs": "jsdoc -c jsdoc.json",
