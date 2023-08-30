@@ -34,7 +34,7 @@ declare global {
     toCustomDate(format: string): string,
     toUiTime(showSeconds: boolean): string,
     toUiDate(): string,
-    toUiDateTime(showSeconds: boolean): string,
+    toUiDateTime(showSeconds?: boolean): string,
     toInputTimeFormat(): string,
     toInputDateFormat(): string,
     addTime(time: number): number

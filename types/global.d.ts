@@ -7,6 +7,9 @@ declare global {
     parseValue(value: any): any,
     md5(str: string): string
   }
+
+  interface Window extends globalThis {
+  }
 }
 
 export { };

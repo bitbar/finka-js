@@ -361,18 +361,10 @@ function toCustomDate(format) {
  * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
  * @returns {string} Time string
  */
-function toUiTime(showSeconds) {
-  if(typeof showSeconds === 'undefined') {
-    showSeconds = true;
-  }
+function toUiTime(showSeconds = true) {
+  const seconds = showSeconds ? `:${this.getSeconds().pad(2)}` : '';
 
-  if(showSeconds) {
-    showSeconds = ':' + this.getSeconds().pad(2);
-  } else {
-    showSeconds = '';
-  }
-
-  return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + showSeconds;
+  return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + seconds;
 }
 
 /**
@@ -393,7 +385,7 @@ function toUiDate() {
  * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
  * @returns {string} Time string
  */
-function toUiDateTime(showSeconds) {
+function toUiDateTime(showSeconds = true) {
   return this.toUiDate() + ' ' + this.toUiTime(showSeconds);
 }
 

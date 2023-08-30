@@ -1,4 +1,4 @@
-/* Finka.js v2.4.1 |  Copyright 2023 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.4.3 |  Copyright 2023 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -852,16 +852,10 @@
 	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
 	 * @returns {string} Time string
 	 */
-	function toUiTime(showSeconds) {
-	  if (typeof showSeconds === 'undefined') {
-	    showSeconds = true;
-	  }
-	  if (showSeconds) {
-	    showSeconds = ':' + this.getSeconds().pad(2);
-	  } else {
-	    showSeconds = '';
-	  }
-	  return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + showSeconds;
+	function toUiTime() {
+	  var showSeconds = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+	  var seconds = showSeconds ? ":".concat(this.getSeconds().pad(2)) : '';
+	  return this.getHours().pad(2) + ':' + this.getMinutes().pad(2) + seconds;
 	}
 
 	/**
@@ -882,7 +876,8 @@
 	 * @param {boolean} [showSeconds=true] Flag if seconds also should be returned
 	 * @returns {string} Time string
 	 */
-	function toUiDateTime(showSeconds) {
+	function toUiDateTime() {
+	  var showSeconds = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 	  return this.toUiDate() + ' ' + this.toUiTime(showSeconds);
 	}
 
