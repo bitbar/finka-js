@@ -1,4 +1,4 @@
-/* Finka.js v2.4.3 |  Copyright 2023 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v2.4.4 |  Copyright 2024 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -513,14 +513,14 @@
 	  }
 	};
 
-	function _typeof(obj) {
+	function _typeof(o) {
 	  "@babel/helpers - typeof";
 
-	  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-	    return typeof obj;
-	  } : function (obj) {
-	    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	  }, _typeof(obj);
+	  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+	    return typeof o;
+	  } : function (o) {
+	    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+	  }, _typeof(o);
 	}
 
 	var LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
@@ -986,10 +986,8 @@
 	      h -= n;
 	      n += h * 0x100000000; // 2^32
 	    }
-
 	    return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
 	  };
-
 	  return mash;
 	}
 	function MRG32k3a$1() {
@@ -1526,7 +1524,6 @@
 	      }
 	    }
 	  }
-
 	  return matrix[b.length][a.length];
 	}
 
