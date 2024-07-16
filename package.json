@@ -55,7 +55,7 @@
   },
   "homepage": "https://github.com/bitbar/finka-js#readme",
   "devDependencies": {
-    "@babel/core": "^7.23.9",
+    "@babel/core": "^7.24.9",
     "@babel/preset-env": "^7.23.9",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.2",
