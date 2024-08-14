@@ -1,6 +1,5 @@
 // Prepare chai
-const chai = require('chai');
-const expect = chai.expect;
+import {expect} from 'chai';
 
 describe('FileSize', function () {
 
@@ -57,7 +56,7 @@ describe('FileSize', function () {
   });
 
   describe('constructor', function () {
-    var test = new FileSize(2222);
+    const test = new FileSize(2222);
 
     it('Returns instance', function() {
       expect(test).to.be.instanceOf(FileSize);
@@ -67,7 +66,7 @@ describe('FileSize', function () {
       it('Has property bytes', function() {
         expect(test).to.have.property('bytes', 2222);
       });
-  
+
       it('Has method toReadableString', function() {
         expect(test).to.have.property('toReadableString');
         expect(test.toReadableString()).to.be.equal('2.2KB');

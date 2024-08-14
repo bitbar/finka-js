@@ -87,8 +87,8 @@ FileSize.EB = 1024 * FileSize.TB;
  * @returns {string} Human-readable file size string
  */
 FileSize.getReadableString = function(bytes) {
-  var i;
-  var val = bytes;
+  let i;
+  let val = bytes;
 
   for (i = 0; i < FileSize.UNITS.length; i++) {
     if(val < 1000) break;
@@ -99,4 +99,4 @@ FileSize.getReadableString = function(bytes) {
 };
 
 
-module.exports = FileSize;
+export default FileSize;

@@ -1,112 +1,58 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Source: RegExp.js | Finka.js</title>
-    <link type="text/css" rel="stylesheet" href="styles/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="styles/main.css">
-
+    <title>RegExp.js - Documentation</title>
     
-        
-            <link type="text/css" rel="stylesheet" href="style.css">
-        
     
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<div class="main-container">
-    <input type="checkbox" id="nav-trigger" class="nav-trigger">
-    <label for="nav-trigger" class="navicon-button x">
-      <div class="navicon"></div>
-    </label>
-    <label for="nav-trigger" class="overlay"></label>
-    <nav class="lnb" id="lnb">
-        <div class="nav-search js-search">
-            <div class="logo" style="">
-                <img src="logo.png" width="100%" height="100%">
-            </div>
-            <input type="text" placeholder="Search docs">
-            <ul class="searched-list"></ul>
-        </div>
 
-        <div class="nav-main">
-            <h1><a href="index.html" class="link">Finka.js</a></h1>
-            <span class="version">
-            
-                v2.4.0
-            
-            </span>
-        </div>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-        
+<label for="nav-trigger" class="overlay"></label>
 
-        <div class="scroll">
-        <div class="nav-api hidden"><h3>Global</h3><ul><li class="nav-item"><a href="global.html#clone">clone</a></li><li class="nav-item"><a href="global.html#getCountry">getCountry</a></li><li class="nav-item"><a href="global.html#getLanguage">getLanguage</a></li><li class="nav-item"><a href="global.html#isNodeJs">isNodeJs</a></li><li class="nav-item"><a href="global.html#isNumeric">isNumeric</a></li><li class="nav-item"><a href="global.html#md5">md5</a></li><li class="nav-item"><a href="global.html#parseValue">parseValue</a></li></ul></div><div class="nav-api hidden"><h3>Namespaces</h3><ul class="nav-items"><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="Array.html">Array</a>
-                <div class="nav-item-sub hidden" id="Array_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Array.html#absorb">absorb</a></a></li><li class="sub-nav-item"><a href="Array.html#clone">clone</a></a></li><li class="sub-nav-item"><a href="Array.html#diff">diff</a></a></li><li class="sub-nav-item"><a href="Array.html#empty">empty</a></a></li><li class="sub-nav-item"><a href="Array.html#filterLike">filterLike</a></a></li><li class="sub-nav-item"><a href="Array.html#lookFor">lookFor</a></a></li><li class="sub-nav-item"><a href="Array.html#shuffle">shuffle</a></a></li><li class="sub-nav-item"><a href="Array.html#unique">unique</a></a></li><li class="sub-nav-item"><a href="Array.html#.deepCloneArrayOfObjects">deepCloneArrayOfObjects</a></a></li><li class="sub-nav-item"><a href="Array.html#.isEmpty">isEmpty</a></a></li><li class="sub-nav-item"><a href="Array.html#.isInvalidOrEmpty">isInvalidOrEmpty</a></a></li><li class="sub-nav-item"><a href="Array.html#.isNotEmpty">isNotEmpty</a></a></li><li class="sub-nav-item"><a href="Array.html#.sortArrayOfObjects">sortArrayOfObjects</a></a></li><li class="sub-nav-item"><a href="Array.html#.wrap">wrap</a></a></li></ul></div>
-            </li><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="Boolean.html">Boolean</a>
-                <div class="nav-item-sub hidden" id="Boolean_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Boolean.html#.xor">xor</a></a></li></ul></div>
-            </li><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="Date.html">Date</a>
-                <div class="nav-item-sub hidden" id="Date_sub"><div class="member-type">Members</div><ul class="inner"><li class="sub-nav-item"><a href="Date.html#.DAY">DAY</a></a></li><li class="sub-nav-item"><a href="Date.html#.DAYAFTERTOMORROW">DAYAFTERTOMORROW</a></a></li><li class="sub-nav-item"><a href="Date.html#.HOUR">HOUR</a></a></li><li class="sub-nav-item"><a href="Date.html#.MINUTE">MINUTE</a></a></li><li class="sub-nav-item"><a href="Date.html#.SECOND">SECOND</a></a></li><li class="sub-nav-item"><a href="Date.html#.TODAY">TODAY</a></a></li><li class="sub-nav-item"><a href="Date.html#.TOMORROW">TOMORROW</a></a></li><li class="sub-nav-item"><a href="Date.html#.WEEK">WEEK</a></a></li><li class="sub-nav-item"><a href="Date.html#.YESTERDAY">YESTERDAY</a></a></li></ul><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Date.html#addTime">addTime</a></a></li><li class="sub-nav-item"><a href="Date.html#daysPassed">daysPassed</a></a></li><li class="sub-nav-item"><a href="Date.html#toCustomDate">toCustomDate</a></a></li><li class="sub-nav-item"><a href="Date.html#toInputDateFormat">toInputDateFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#toInputTimeFormat">toInputTimeFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiDate">toUiDate</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiDateTime">toUiDateTime</a></a></li><li class="sub-nav-item"><a href="Date.html#toUiTime">toUiTime</a></a></li><li class="sub-nav-item"><a href="Date.html#.daysFromNow">daysFromNow</a></a></li><li class="sub-nav-item"><a href="Date.html#.getHms">getHms</a></a></li><li class="sub-nav-item"><a href="Date.html#.getLocalDateFormat">getLocalDateFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.getTimezoneName">getTimezoneName</a></a></li><li class="sub-nav-item"><a href="Date.html#.parseValue">parseValue</a></a></li><li class="sub-nav-item"><a href="Date.html#.toHmsFormat">toHmsFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.toStopwatchFormat">toStopwatchFormat</a></a></li><li class="sub-nav-item"><a href="Date.html#.toTimerFormat">toTimerFormat</a></a></li></ul></div>
-            </li><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="JSON.html">JSON</a>
-                <div class="nav-item-sub hidden" id="JSON_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="JSON.html#.isJSONString">isJSONString</a></a></li></ul></div>
-            </li><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="Math.html">Math</a>
-                <div class="nav-item-sub hidden" id="Math_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Math.html#.avg">avg</a></a></li><li class="sub-nav-item"><a href="Math.html#.log10">log10</a></a></li><li class="sub-nav-item"><a href="Math.html#.median">median</a></a></li><li class="sub-nav-item"><a href="Math.html#.rand">rand</a></a></li><li class="sub-nav-item"><a href="Math.html#.roundTo">roundTo</a></a></li><li class="sub-nav-item"><a href="Math.html#.sum">sum</a></a></li></ul></div>
-            </li><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="Number.html">Number</a>
-                <div class="nav-item-sub hidden" id="Number_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Number.html#pad">pad</a></a></li><li class="sub-nav-item"><a href="Number.html#.isFloat">isFloat</a></a></li><li class="sub-nav-item"><a href="Number.html#.isInteger">isInteger</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNatural">isNatural</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNegativeZero">isNegativeZero</a></a></li><li class="sub-nav-item"><a href="Number.html#.isNumber">isNumber</a></a></li></ul></div>
-            </li><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="Object.html">Object</a>
-                <div class="nav-item-sub hidden" id="Object_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Object.html#.assign">assign</a></a></li><li class="sub-nav-item"><a href="Object.html#.copy">copy</a></a></li><li class="sub-nav-item"><a href="Object.html#.count">count</a></a></li><li class="sub-nav-item"><a href="Object.html#.deepAssign">deepAssign</a></a></li><li class="sub-nav-item"><a href="Object.html#.isLike">isLike</a></a></li><li class="sub-nav-item"><a href="Object.html#.isObject">isObject</a></a></li><li class="sub-nav-item"><a href="Object.html#.values">values</a></a></li></ul></div>
-            </li><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="Promise.html">Promise</a>
-                <div class="nav-item-sub hidden" id="Promise_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="Promise.html#.isPromise">isPromise</a></a></li></ul></div>
-            </li><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="RegExp.html">RegExp</a>
-                <div class="nav-item-sub hidden" id="RegExp_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="RegExp.html#.escapeString">escapeString</a></a></li></ul></div>
-            </li><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="String.html">String</a>
-                <div class="nav-item-sub hidden" id="String_sub"><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="String.html#capitaliseFirstLetter">capitaliseFirstLetter</a></a></li><li class="sub-nav-item"><a href="String.html#includes">includes</a></a></li><li class="sub-nav-item"><a href="String.html#isLike">isLike</a></a></li><li class="sub-nav-item"><a href="String.html#lowerFirstLetter">lowerFirstLetter</a></a></li><li class="sub-nav-item"><a href="String.html#noCase">noCase</a></a></li><li class="sub-nav-item"><a href="String.html#reverse">reverse</a></a></li><li class="sub-nav-item"><a href="String.html#toBoolean">toBoolean</a></a></li><li class="sub-nav-item"><a href="String.html#toCamelCase">toCamelCase</a></a></li><li class="sub-nav-item"><a href="String.html#toChecksum">toChecksum</a></a></li><li class="sub-nav-item"><a href="String.html#toKebabCase">toKebabCase</a></a></li><li class="sub-nav-item"><a href="String.html#toPascalCase">toPascalCase</a></a></li><li class="sub-nav-item"><a href="String.html#toSnakeCase">toSnakeCase</a></a></li><li class="sub-nav-item"><a href="String.html#.editDistance">editDistance</a></a></li><li class="sub-nav-item"><a href="String.html#.getSimilarity">getSimilarity</a></a></li><li class="sub-nav-item"><a href="String.html#.isEmpty">isEmpty</a></a></li><li class="sub-nav-item"><a href="String.html#.isInvalidOrEmpty">isInvalidOrEmpty</a></a></li><li class="sub-nav-item"><a href="String.html#.isNotEmpty">isNotEmpty</a></a></li></ul></div>
-            </li></ul></div><div class="nav-api hidden"><h3>Classes</h3><ul class="nav-items"><li class="nav-item">
-                <span class="toggle-subnav invisible btn btn-link fa fa-plus"></span>
-                <a href="FileSize.html">FileSize</a>
-                <div class="nav-item-sub hidden" id="FileSize_sub"><div class="member-type">Members</div><ul class="inner"><li class="sub-nav-item"><a href="FileSize.html#bytes">bytes</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.B">B</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.EB">EB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.GB">GB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.KB">KB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.MB">MB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.TB">TB</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.UNITS">UNITS</a></a></li></ul><div class="member-type">Methods</div><ul class="inner"><li class="sub-nav-item"><a href="FileSize.html#toReadableString">toReadableString</a></a></li><li class="sub-nav-item"><a href="FileSize.html#.getReadableString">getReadableString</a></a></li></ul></div>
-            </li></ul></div>
-        </div>
-    </nav>
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/bitbar/finka-js" target="_blank" class="menu-item" id="website_link" >Github</a></h2><h2><a href="https://www.npmjs.com/package/@bitbar/finka" target="_blank" class="menu-item" id="forum_link" >NPM</a></h2><h3>Global</h3><ul><li><a href="global.html#clone">clone</a></li><li><a href="global.html#getCountry">getCountry</a></li><li><a href="global.html#getLanguage">getLanguage</a></li><li><a href="global.html#isNodeJs">isNodeJs</a></li><li><a href="global.html#isNumeric">isNumeric</a></li><li><a href="global.html#parseValue">parseValue</a></li></ul><h3>Namespaces</h3><ul><li><a href="Array.html">Array</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Array.html#absorb">absorb</a></li><li data-type='method' style='display: none;'><a href="Array.html#clone">clone</a></li><li data-type='method' style='display: none;'><a href="Array.html#diff">diff</a></li><li data-type='method' style='display: none;'><a href="Array.html#empty">empty</a></li><li data-type='method' style='display: none;'><a href="Array.html#filterLike">filterLike</a></li><li data-type='method' style='display: none;'><a href="Array.html#lookFor">lookFor</a></li><li data-type='method' style='display: none;'><a href="Array.html#shuffle">shuffle</a></li><li data-type='method' style='display: none;'><a href="Array.html#unique">unique</a></li><li data-type='method' style='display: none;'><a href="Array.html#.deepCloneArrayOfObjects">deepCloneArrayOfObjects</a></li><li data-type='method' style='display: none;'><a href="Array.html#.isEmpty">isEmpty</a></li><li data-type='method' style='display: none;'><a href="Array.html#.isInvalidOrEmpty">isInvalidOrEmpty</a></li><li data-type='method' style='display: none;'><a href="Array.html#.isNotEmpty">isNotEmpty</a></li><li data-type='method' style='display: none;'><a href="Array.html#.sortArrayOfObjects">sortArrayOfObjects</a></li><li data-type='method' style='display: none;'><a href="Array.html#.wrap">wrap</a></li></ul></li><li><a href="Boolean.html">Boolean</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Boolean.html#.xor">xor</a></li></ul></li><li><a href="Date.html">Date</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Date.html#addTime">addTime</a></li><li data-type='method' style='display: none;'><a href="Date.html#daysPassed">daysPassed</a></li><li data-type='method' style='display: none;'><a href="Date.html#toCustomDate">toCustomDate</a></li><li data-type='method' style='display: none;'><a href="Date.html#toInputDateFormat">toInputDateFormat</a></li><li data-type='method' style='display: none;'><a href="Date.html#toInputTimeFormat">toInputTimeFormat</a></li><li data-type='method' style='display: none;'><a href="Date.html#toUiDate">toUiDate</a></li><li data-type='method' style='display: none;'><a href="Date.html#toUiDateTime">toUiDateTime</a></li><li data-type='method' style='display: none;'><a href="Date.html#toUiTime">toUiTime</a></li><li data-type='method' style='display: none;'><a href="Date.html#.daysFromNow">daysFromNow</a></li><li data-type='method' style='display: none;'><a href="Date.html#.getHms">getHms</a></li><li data-type='method' style='display: none;'><a href="Date.html#.getLocalDateFormat">getLocalDateFormat</a></li><li data-type='method' style='display: none;'><a href="Date.html#.getTimezoneName">getTimezoneName</a></li><li data-type='method' style='display: none;'><a href="Date.html#.parseValue">parseValue</a></li><li data-type='method' style='display: none;'><a href="Date.html#.toHmsFormat">toHmsFormat</a></li><li data-type='method' style='display: none;'><a href="Date.html#.toStopwatchFormat">toStopwatchFormat</a></li><li data-type='method' style='display: none;'><a href="Date.html#.toTimerFormat">toTimerFormat</a></li></ul></li><li><a href="JSON.html">JSON</a><ul class='methods'><li data-type='method' style='display: none;'><a href="JSON.html#.isJSONString">isJSONString</a></li></ul></li><li><a href="Math.html">Math</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Math.html#.avg">avg</a></li><li data-type='method' style='display: none;'><a href="Math.html#.log10">log10</a></li><li data-type='method' style='display: none;'><a href="Math.html#.median">median</a></li><li data-type='method' style='display: none;'><a href="Math.html#.rand">rand</a></li><li data-type='method' style='display: none;'><a href="Math.html#.roundTo">roundTo</a></li><li data-type='method' style='display: none;'><a href="Math.html#.sum">sum</a></li></ul></li><li><a href="Number.html">Number</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Number.html#pad">pad</a></li><li data-type='method' style='display: none;'><a href="Number.html#.isFloat">isFloat</a></li><li data-type='method' style='display: none;'><a href="Number.html#.isInteger">isInteger</a></li><li data-type='method' style='display: none;'><a href="Number.html#.isNatural">isNatural</a></li><li data-type='method' style='display: none;'><a href="Number.html#.isNegativeZero">isNegativeZero</a></li><li data-type='method' style='display: none;'><a href="Number.html#.isNumber">isNumber</a></li></ul></li><li><a href="Object.html">Object</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Object.html#.assign">assign</a></li><li data-type='method' style='display: none;'><a href="Object.html#.copy">copy</a></li><li data-type='method' style='display: none;'><a href="Object.html#.count">count</a></li><li data-type='method' style='display: none;'><a href="Object.html#.deepAssign">deepAssign</a></li><li data-type='method' style='display: none;'><a href="Object.html#.isLike">isLike</a></li><li data-type='method' style='display: none;'><a href="Object.html#.isObject">isObject</a></li><li data-type='method' style='display: none;'><a href="Object.html#.values">values</a></li></ul></li><li><a href="Promise.html">Promise</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Promise.html#.isPromise">isPromise</a></li></ul></li><li><a href="RegExp.html">RegExp</a><ul class='methods'><li data-type='method' style='display: none;'><a href="RegExp.html#.escapeString">escapeString</a></li></ul></li><li><a href="String.html">String</a><ul class='methods'><li data-type='method' style='display: none;'><a href="String.html#capitaliseFirstLetter">capitaliseFirstLetter</a></li><li data-type='method' style='display: none;'><a href="String.html#includes">includes</a></li><li data-type='method' style='display: none;'><a href="String.html#isLike">isLike</a></li><li data-type='method' style='display: none;'><a href="String.html#lowerFirstLetter">lowerFirstLetter</a></li><li data-type='method' style='display: none;'><a href="String.html#noCase">noCase</a></li><li data-type='method' style='display: none;'><a href="String.html#reverse">reverse</a></li><li data-type='method' style='display: none;'><a href="String.html#toBoolean">toBoolean</a></li><li data-type='method' style='display: none;'><a href="String.html#toCamelCase">toCamelCase</a></li><li data-type='method' style='display: none;'><a href="String.html#toChecksum">toChecksum</a></li><li data-type='method' style='display: none;'><a href="String.html#toKebabCase">toKebabCase</a></li><li data-type='method' style='display: none;'><a href="String.html#toPascalCase">toPascalCase</a></li><li data-type='method' style='display: none;'><a href="String.html#toSnakeCase">toSnakeCase</a></li><li data-type='method' style='display: none;'><a href="String.html#.editDistance">editDistance</a></li><li data-type='method' style='display: none;'><a href="String.html#.getSimilarity">getSimilarity</a></li><li data-type='method' style='display: none;'><a href="String.html#.isEmpty">isEmpty</a></li><li data-type='method' style='display: none;'><a href="String.html#.isInvalidOrEmpty">isInvalidOrEmpty</a></li><li data-type='method' style='display: none;'><a href="String.html#.isNotEmpty">isNotEmpty</a></li></ul></li></ul><h3>Classes</h3><ul><li><a href="FileSize.html">FileSize</a><ul class='methods'><li data-type='method' style='display: none;'><a href="FileSize.html#toReadableString">toReadableString</a></li><li data-type='method' style='display: none;'><a href="FileSize.html#.getReadableString">getReadableString</a></li></ul></li></ul>
+    
+</nav>
 
-    <div class="content">
-        <ul class="breadcrumbs">
-            <li><a href="index.html">Docs</a> »</li>
-            <li>Source: RegExp.js</li>
-        </ul>
-        <hr>
-        
+<div id="main">
+    
+    <h1 class="page-title">RegExp.js</h1>
+    
+
+    
 
 
 
     
-<article>
-    <pre class="prettyprint source linenums"><code>/**
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @namespace RegExp
  */
 
 /**
- * Escape given string so it can be safely used in RegExp
+ * Escape given string, so it can be safely used in RegExp
  *
  * @memberof RegExp
  * @param {string} str String to be escaped
@@ -117,39 +63,39 @@ function escapeString(str) {
 }
 
 
-module.exports = {
+export default {
   static: {
     escapeString
   }
 };
 </code></pre>
-</article>
+        </article>
+    </section>
 
 
 
 
-
-        <hr>
-        <footer>
-            <strong>Copyright 2018 &copy; Bitbar Technologies</strong><br/>
-            Documented with <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a>
-        </footer>
-    </div>
+    
+    
 </div>
 
-<script src="js/jquery.min.js"></script>
-<script>
+<br class="clear">
 
-window.isApi = true
-window.isManual = false
-window.doc = {
-    name: '',
-    longname: '',
-}
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Wed Aug 21 2024 16:34:13 GMT+0200 (Central European Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
 
-if (!doc.name) isApi = false
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
 
-</script>
-<script src="js/rtd.js"></script>
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+    <link type="text/css" rel="stylesheet" href="style.css">
+    
 </body>
 </html>

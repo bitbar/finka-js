@@ -1,6 +1,6 @@
 declare global {
   interface NumberConstructor {
-    isNumber(n: number): boolean,
+    isNumber<T = unknown>(n: T): boolean,
     isNegativeZero(n: number): boolean,
     isInteger(n: number): boolean,
     isNatural(n: number): boolean,

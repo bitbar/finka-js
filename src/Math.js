@@ -2,8 +2,9 @@
  * @namespace Math
  */
 
-var MRG32k3a = require('./MRG32k3a');
-var _MRG32k3a = new MRG32k3a();
+import MRG32k3a from './MRG32k3a';
+
+const _MRG32k3a = new MRG32k3a();
 
 /**
  * Better alternative to Math.random based on MRG32k2a algorithm
@@ -36,7 +37,7 @@ function log10(x) {
  * @param {number} precision Precision
  */
 function roundTo(num, precision) {
-  var magnitude = Math.pow(10, precision);
+  const magnitude = Math.pow(10, precision);
   return Math.round(num * magnitude) / magnitude;
 }
 
@@ -54,7 +55,7 @@ function median(values) {
 
   values.sort(function(a, b) { return a - b; });
 
-  var half = Math.floor(values.length / 2);
+  const half = Math.floor(values.length / 2);
   return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2;
 }
 
@@ -89,7 +90,7 @@ function avg(values) {
 }
 
 
-module.exports = {
+export default {
   static: {
     rand,
     log10,

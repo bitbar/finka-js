@@ -8,13 +8,13 @@ declare global {
   }
 
   interface String {
-    capitaliseFirstLetter(lower: boolean): string,
+    capitaliseFirstLetter(lower?: boolean): string,
     lowerFirstLetter(): string,
     noCase(): string,
     toCamelCase(): string,
     toPascalCase(): string,
     toKebabCase(): string,
-    toSnakeCase(convertToUpperCase: boolean): string,
+    toSnakeCase(convertToUpperCase?: boolean): string,
     toChecksum(): string,
     toBoolean(): string,
     reverse(): string,

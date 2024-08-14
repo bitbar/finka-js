@@ -1,6 +1,7 @@
 declare global {
+  // @ts-expect-error - Ignore TS2428 error
   interface Promise {
-    isPromise(subject: any): boolean
+    isPromise<T = unknown>(subject: T): boolean
   }
 }
 

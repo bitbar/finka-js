@@ -1,6 +1,5 @@
 // Prepare chai
-const chai = require('chai');
-const expect = chai.expect;
+import {expect} from 'chai';
 
 describe('Object', function () {
   describe('#isObject', function () {
@@ -20,14 +19,14 @@ describe('Object', function () {
   });
 
   describe('#copy', function() {
-    var src = {
+    const src = {
       a: 1,
       b: '2',
       c: null
     };
 
     it('Copies all elements from source to destination', function() {
-      var dst = {
+      const dst = {
         c: '#yolo',
         d: -1
       };
@@ -42,7 +41,7 @@ describe('Object', function () {
     });
 
     it('Copies only listed elements from source to destination', function() {
-      var dst = {
+      const dst = {
         c: '#yolo',
         d: -1
       };
@@ -58,7 +57,7 @@ describe('Object', function () {
   });
 
   describe('#isLike', function () {
-    var subject = {
+    const subject = {
       a: 1,
       b: '2',
       c: null,
@@ -66,7 +65,7 @@ describe('Object', function () {
     };
 
     it('Returns `false` when given subject doesn\'t match given query', function() {
-      var query = {
+      const query = {
         a: 1,
         e: null,
         c: null
@@ -76,7 +75,7 @@ describe('Object', function () {
     });
 
     it('Returns `true` when given subject matches given query', function() {
-      var query = {
+      const query = {
         a: 1,
         c: null,
         d: -1
@@ -86,7 +85,7 @@ describe('Object', function () {
     });
 
     it('Returns `true` when given subject object matches given query and one of subjects params is function', function() {
-      var query = {
+      const query = {
         a: 1,
         c: null,
         d: -1,
@@ -103,7 +102,7 @@ describe('Object', function () {
   });
 
   describe('#count', function () {
-    var test = {
+    const test = {
       a: 1,
       b: 3
     };
@@ -113,7 +112,7 @@ describe('Object', function () {
     });
 
     it('Returns proper number of own properties for Object that is inheriting some properties', function() {
-      var test2 = Object.create(test);
+      const test2 = Object.create(test);
       test2.a = 2;
 
       expect(Object.count(test2)).to.be.equal(1);
@@ -122,7 +121,7 @@ describe('Object', function () {
 
   describe('#values', function () {
     it('Returns array of values generated from given object values', function() {
-      var test = {
+      const test = {
         a: 1,
         b: 2,
         c: 3
@@ -134,13 +133,13 @@ describe('Object', function () {
 
   describe('#assign', function () {
     it('Extends existing object with given couple', function() {
-      var test = {
+      const test = {
         a: 1
       };
-      var ext1 = {
+      const ext1 = {
         b: 3
       };
-      var ext2 = {
+      const ext2 = {
         a: 3,
         c: 7
       };
@@ -154,7 +153,7 @@ describe('Object', function () {
     });
 
     it('Overwrites nested non-primitive properties', function() {
-      var test = {
+      const test = {
         a: {
           say: 'yolo'
         },
@@ -162,10 +161,10 @@ describe('Object', function () {
           test: true
         }
       };
-      var ext1 = {
+      const ext1 = {
         b: [0]
       };
-      var ext2 = {
+      const ext2 = {
         a: {
           say: 'hello'
         },
@@ -185,13 +184,13 @@ describe('Object', function () {
     });
 
     it('Executes correctly if one of given arguments is null or undefined', function() {
-      var test = {
+      const test = {
         a: 0
       };
-      var ext1 = {
+      const ext1 = {
         a: 1
       };
-      var ext2 = {
+      const ext2 = {
         b: 2
       };
 
@@ -205,13 +204,13 @@ describe('Object', function () {
 
   describe('#deepAssign', function () {
     it('Extends existing object with given couple', function() {
-      var test = {
+      const test = {
         a: 1
       };
-      var ext1 = {
+      const ext1 = {
         b: 3
       };
-      var ext2 = {
+      const ext2 = {
         a: 3,
         c: 7
       };
@@ -225,7 +224,7 @@ describe('Object', function () {
     });
 
     it('Extends nested non-primitive properties', function() {
-      var test = {
+      const test = {
         a: {
           say: 'yolo',
           test: true
@@ -234,13 +233,13 @@ describe('Object', function () {
           test: true
         }
       };
-      var ext1 = {
+      const ext1 = {
         b: [0, -1, 3],
         c: {
           extra: 'stuff'
         }
       };
-      var ext2 = {
+      const ext2 = {
         a: {
           say: 'hello'
         },
@@ -262,19 +261,19 @@ describe('Object', function () {
     });
 
     it('Executes correctly if one of given arguments is null or undefined', function() {
-      var test = {
+      const test = {
         a: 0,
         x: {
           a: 0
         }
       };
-      var ext1 = {
+      const ext1 = {
         a: 1,
         x: {
           a: 1
         }
       };
-      var ext2 = {
+      const ext2 = {
         b: 2,
         x: {
           b: 2
@@ -295,8 +294,8 @@ describe('Object', function () {
 
   describe('#clone', function () {
     it('Clone Object', function() {
-      var test = { a: 1, b: 2 };
-      var clone = Object.clone(test);
+      const test = {a: 1, b: 2};
+      const clone = Object.clone(test);
       expect(clone).to.not.be.equal(test); // compare references
       expect(clone).to.be.deep.equal(test); // compare values
     });

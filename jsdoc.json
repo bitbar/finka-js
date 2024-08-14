@@ -1,28 +1,52 @@
 {
   "source": {
-    "include": ["src"]
+    "include": [
+      "src"
+    ]
   },
   "opts": {
-    "template": "node_modules/jsdoc-rtd",
+    "template": "node_modules/docdash",
     "encoding": "utf8",
     "destination": "docs",
     "recurse": true,
     "readme": "README.md",
-    "package": "package.json"
+    "package": ""
   },
-  "templates": {
-    "default": {
-      "staticFiles": {
-        "include": ["_static/"]
-      }
-    },
-    "css": [
+  "docdash": {
+    "search": true,
+    "sectionOrder": [
+      "Global",
+      "Namespaces",
+      "Classes"
+    ],
+    "collapse": true,
+    "scripts": [
       "style.css"
     ],
-    "logo": {
-      "url": "logo.png"
-    },
+    "menu": {
+      "Github": {
+        "href": "https://github.com/bitbar/finka-js",
+        "target": "_blank",
+        "class": "menu-item",
+        "id": "website_link"
+      },
+      "NPM": {
+        "href": "https://www.npmjs.com/package/@bitbar/finka",
+        "target": "_blank",
+        "class": "menu-item",
+        "id": "forum_link"
+      }
+    }
+  },
+  "templates": {
     "name": "Finka.js",
-    "footerText": "Copyright 2018 &copy; Bitbar Technologies"
+    "footerText": "Copyright 2024 &copy; SmartBear Software",
+    "default": {
+      "staticFiles": {
+        "include": [
+          "./_static/style.css"
+        ]
+      }
+    }
   }
 }

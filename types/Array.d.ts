@@ -1,8 +1,8 @@
 declare global {
   interface ArrayConstructor {
-    sortArrayOfObjects(arr: Object[], propertyName: string, descending?: boolean): void;
-    deepCloneArrayOfObjects(arr: Object[]): Object[];
-    wrap(arr: Array<any> | any): Array<any>;
+    sortArrayOfObjects(arr: object[], propertyName: string, descending?: boolean): void;
+    deepCloneArrayOfObjects(arr: object[]): object[];
+    wrap<T = unknown>(arr: Array<T> | T): Array<T>;
     isEmpty(arr: unknown): boolean;
     isNotEmpty(arr: unknown): boolean;
     isInvalidOrEmpty(arr: unknown): boolean;
@@ -13,7 +13,7 @@ declare global {
     absorb(arr: Array<T>): this,
     diff(arr: Array<T>): Array<T>,
     clone(): Array<T>,
-    lookFor(query: Object): number,
+    lookFor(query: object): number,
     filterLike(query: Partial<T>): Array<T>,
     unique(): this,
     shuffle(): this,

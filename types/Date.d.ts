@@ -19,12 +19,12 @@ declare global {
     TOMORROW: number,
     DAYAFTERTOMORROW: number,
 
-    parseValue(value: any): Date,
+    parseValue(value: string | number | Date): Date,
     daysFromNow(days: number): number,
-    getLocalDateFormat(fullFormat: boolean): string,
+    getLocalDateFormat(fullFormat?: boolean): string,
     getTimezoneName(): string,
     getHms(time: number): DateHMSFormat,
-    toHmsFormat(time: number, accuracy: DateAccuracy): string,
+    toHmsFormat(time: number, accuracy?: DateAccuracy): string,
     toStopwatchFormat(time: number): string,
     toTimerFormat(time: number): string
   }

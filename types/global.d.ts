@@ -3,8 +3,8 @@ declare global {
     isNodeJs: boolean;
     getLanguage(): string;
     getCountry(): string | null,
-    isNumeric(n: any): boolean,
-    parseValue(value: any): any,
+    isNumeric<T = unknown>(n: T): boolean,
+    parseValue<T = unknown>(value: T): T | number | boolean,
     md5(str: string): string
   }
 

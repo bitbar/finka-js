@@ -1,8 +1,7 @@
-// Imports
 import cjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
-import { terser } from 'rollup-plugin-terser';
+import {babel} from '@rollup/plugin-babel';
+import terser from '@rollup/plugin-terser';
 
 import $package from './package.json';
 
@@ -20,7 +19,7 @@ function getOutput(min, sufix = '') {
     format: 'umd',
     name:  'finka',
     banner: `/* Finka.js v${$package.version} ` +
-            `|  Copyright ${new Date().getFullYear()} (c) Bitbar Technologies and contributors ` +
+            `|  Copyright ${new Date().getFullYear()} (c) Smartbear Software and contributors ` +
             '| https://github.com/bitbar/finka-js/blob/master/LICENSE.md ' +
             '*/',
     globals
@@ -29,7 +28,7 @@ function getOutput(min, sufix = '') {
 
 function getTerserPlugin() {
   return terser({
-    ecma: 5,
+    ecma: 2020,
     output: {
       comments: (node, comment) => {
         if (comment.type === 'comment2') {
@@ -44,13 +43,13 @@ function getTerserPlugin() {
 
 function getBabel() {
   return babel({
+    babelHelpers: 'bundled',
     presets: [
       [
         '@babel/env',
         {
           useBuiltIns: 'entry',
-          corejs: '3.6',
-          modules: false
+          corejs: '3.6'
         }
       ]
     ]

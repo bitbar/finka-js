@@ -1,6 +1,5 @@
 // Prepare chai
-const chai = require('chai');
-const expect = chai.expect;
+import {expect} from 'chai';
 
 describe('Promise', function () {
   describe('#isPromise', function () {
@@ -15,7 +14,7 @@ describe('Promise', function () {
     });
 
     it('Returns `true` when it is proper Promise', function() {
-      var test = new Promise(function(resolve) {
+      const test = new Promise(function (resolve) {
         resolve();
       });
 

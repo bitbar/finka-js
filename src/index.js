@@ -1,20 +1,32 @@
-/* eslint-disable no-undef */
+import globalExt from './global';
+import ArrayExt from './Array';
+import BooleanExt from './Boolean';
+import DateExt from './Date';
+import JSONExt from './JSON';
+import MathExt from './Math';
+import NumberExt from './Number';
+import ObjectExt from './Object';
+import PromiseExt from './Promise';
+import RegExpExt from './RegExp';
+import StringExt from './String';
+import FileSizeExt from './FileSize';
+
 const extensions = {
-  global: require('./global'),
-  Array: require('./Array'),
-  Boolean: require('./Boolean'),
-  Date: require('./Date'),
-  JSON: require('./JSON'),
-  Math: require('./Math'),
-  Number: require('./Number'),
-  Object: require('./Object'),
-  Promise: require('./Promise'),
-  RegExp: require('./RegExp'),
-  String: require('./String'),
+  global: globalExt,
+  Array: ArrayExt,
+  Boolean: BooleanExt,
+  Date: DateExt,
+  JSON: JSONExt,
+  Math: MathExt,
+  Number: NumberExt,
+  Object: ObjectExt,
+  Promise: PromiseExt,
+  RegExp: RegExpExt,
+  String: StringExt
 };
 
 const libraries = {
-  FileSize: require('./FileSize'),
+  FileSize: FileSizeExt
 };
 
 
@@ -73,4 +85,4 @@ function finka() {
 
 }
 
-module.exports = finka;
+export default finka;

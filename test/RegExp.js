@@ -1,12 +1,11 @@
 // Prepare chai
-const chai = require('chai');
-const expect = chai.expect;
+import {expect} from 'chai';
 
 describe('RegExp', function () {
 
   describe('#escapeString', function () {
     it('Returns properly escaped string', function() {
-      var test = '-\\/[]{}()*+?.^$|';
+      const test = '-\\/[]{}()*+?.^$|';
       expect(RegExp.escapeString(test)).to.be.equal('\\-\\\\\\/\\[\\]\\{\\}\\(\\)\\*\\+\\?\\.\\^\\$\\|');
     });
   });

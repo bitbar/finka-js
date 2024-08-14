@@ -14,7 +14,7 @@ function isPromise(subject) {
 }
 
 
-module.exports = {
+export default {
   static: {
     isPromise
   }

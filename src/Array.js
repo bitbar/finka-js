@@ -11,23 +11,23 @@
  * @param [descending=false] {boolean} Flag to sort in descending order
  */
 function sortArrayOfObjects(arr, propertyName, descending) {
-  var order = descending ? -1 : 1;
-  var _a, _b;
+  const order = descending ? -1 : 1;
+  let _a, _b;
 
-  arr.sort(function(a, b) {
+  arr.sort(function (a, b) {
     _a = a[propertyName];
     _b = b[propertyName];
 
-    if(typeof _a === 'string') {
+    if (typeof _a === 'string') {
       _a = _a.toLowerCase();
     }
-    if(typeof _b === 'string') {
+    if (typeof _b === 'string') {
       _b = _b.toLowerCase();
     }
 
-    if(_a > _b) {
+    if (_a > _b) {
       return order * 1;
-    } else if(_a < _b) {
+    } else if (_a < _b) {
       return order * -1;
     }
     return 0;
@@ -42,7 +42,7 @@ function sortArrayOfObjects(arr, propertyName, descending) {
  * @returns {Object[]} Clone of arr
  */
 function deepCloneArrayOfObjects(arr) {
-  return arr.map(function(obj) {
+  return arr.map(function (obj) {
     return Object.assign({}, obj);
   });
 }
@@ -60,34 +60,34 @@ function wrap(something) {
 
 /**
  * Checks is given value is Array and is empty
- * 
+ *
  * @memberof Array
  * @param {Array} arr Something to check
  * @returns {boolean} Verdict
  */
-function isEmpty (arr) {
+function isEmpty(arr) {
   return Array.isArray(arr) && arr.length === 0;
 }
 
 /**
  * Checks is given value is Array and is non-empty
- * 
+ *
  * @memberof Array
  * @param {Array} arr Something to check
  * @returns {boolean} Verdict
  */
-function isNotEmpty (arr) {
+function isNotEmpty(arr) {
   return Array.isArray(arr) && arr.length > 0;
 }
 
 /**
  * Checks is given value isn't Array or is empty
- * 
+ *
  * @memberof Array
  * @param {Array} arr Something to check
  * @returns {boolean} Verdict
  */
-function isInvalidOrEmpty (arr) {
+function isInvalidOrEmpty(arr) {
   return !Array.isArray(arr) || arr.length === 0;
 }
 
@@ -122,7 +122,9 @@ function absorb(arr) {
  * @returns {Array} Array with elements that are different
  */
 function diff(arr) {
-  return this.filter(function(i) { return arr.indexOf(i) < 0; });
+  return this.filter(function (i) {
+    return arr.indexOf(i) < 0;
+  });
 }
 
 /**
@@ -143,8 +145,8 @@ function clone() {
  * @returns {number} Index of matching index; -1 if not found
  */
 function lookFor(query) {
-  for(var i = 0; i < this.length; i++) {
-    if(Object.isLike(this[i], query)) {
+  for (let i = 0; i < this.length; i++) {
+    if (Object.isLike(this[i], query)) {
       return i;
     }
   }
@@ -161,11 +163,11 @@ function lookFor(query) {
  * @returns {Array} New Array with matching elements
  */
 function filterLike(query) {
-  if(typeof query === 'undefined') {
+  if (typeof query === 'undefined') {
     return [];
   }
 
-  return this.filter(function(item) {
+  return this.filter(function (item) {
     return Object.isLike(item, query);
   });
 }
@@ -177,9 +179,9 @@ function filterLike(query) {
  * @returns {Array} this
  */
 function unique() {
-  for(var i = 0; i < this.length; ++i) {
-    for(var j = i + 1; j < this.length; ++j) {
-      if(this[i] === this[j]) {
+  for (let i = 0; i < this.length; ++i) {
+    for (let j = i + 1; j < this.length; ++j) {
+      if (this[i] === this[j]) {
         this.splice(j--, 1);
       }
     }
@@ -195,9 +197,9 @@ function unique() {
  * @returns {Array} this
  */
 function shuffle() {
-  for (var i = this.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.rand() * (i + 1));
-    var temp = this[i];
+  for (let i = this.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.rand() * (i + 1));
+    const temp = this[i];
     this[i] = this[j];
     this[j] = temp;
   }
@@ -206,7 +208,7 @@ function shuffle() {
 }
 
 
-module.exports = {
+export default {
   static: {
     sortArrayOfObjects,
     deepCloneArrayOfObjects,

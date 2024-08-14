@@ -15,7 +15,7 @@ function xor(a, b) {
 }
 
 
-module.exports = {
+export default {
   static: {
     xor
   }
