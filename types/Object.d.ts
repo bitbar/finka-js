@@ -1,13 +1,13 @@
 declare global {
   interface ObjectConstructor {
-    isObject(subject: any): boolean,
-    copy(src: Object, dst: Object, what?: Readonly<Array<string>|null>): void,
-    isLike(subject: Object, query: Object|any): boolean,
-    count(subject: Object): number,
-    values<T = any>(o: Object): Array<T>,
-    assign(to: Object, ...args: Object): Object,
-    deepAssign(to: Object, ...args: Object): Object,
-    clone(o: Object): Object;
+    isObject<T = unknown>(subject: T): boolean,
+    copy(src: object, dst: object, what?: Readonly<Array<string>|null>): void,
+    isLike<T = unknown>(subject: object, query: object|T): boolean,
+    count(subject: object): number,
+    values<T = unknown>(o: object): Array<T>,
+    assign(to: object, ...args: Array<object>): object,
+    deepAssign(to: object, ...args: Array<object>): object,
+    clone(o: object): object;
   }
 }
 

@@ -1,9 +1,8 @@
 /**
  * @namespace Date
  */
-
-var LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
-var LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
+const LOCAL_FORMAT_YMD = ['AF', 'CN', 'HU', 'JP', 'KP', 'KR', 'LT', 'MN', 'TW'];
+const LOCAL_FORMAT_MDY = ['BZ', 'FM', 'US'];
 
 /**
  * Second in milliseconds
@@ -103,7 +102,7 @@ function DAYAFTERTOMORROW() {
  * Feel free to contribute if you think that this method should support even more!
  *
  * @memberof Date
- * @param {*} value Value to be parsed
+ * @param {string|number|Date} value Value to be parsed
  * @throws Will throw an error if the value is not supported.
  * @returns {Date} New Date
  */
@@ -155,7 +154,7 @@ function daysFromNow(days) {
  * @returns {string} Local date format
  */
 function getLocalDateFormat(fullFormat) {
-  var countryCode, format;
+  let countryCode, format;
 
   if(typeof fullFormat === 'undefined') {
     fullFormat = true;
@@ -421,7 +420,7 @@ function addTime(time) {
 }
 
 
-module.exports = {
+export default  {
   constant: {
     SECOND,
     MINUTE,

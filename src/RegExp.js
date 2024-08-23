@@ -3,7 +3,7 @@
  */
 
 /**
- * Escape given string so it can be safely used in RegExp
+ * Escape given string, so it can be safely used in RegExp
  *
  * @memberof RegExp
  * @param {string} str String to be escaped
@@ -14,7 +14,7 @@ function escapeString(str) {
 }
 
 
-module.exports = {
+export default {
   static: {
     escapeString
   }

@@ -19,12 +19,12 @@ function isObject(subject) {
  * @memberof Object
  * @param {Object} src Source
  * @param {Object} dst Destination
- * @param {(Array|null)} [what] What should be copied? By default those are all keys and values from source
+ * @param {(Array|null)} [what] What should be copied? By default, those are all keys and values from source
  * @returns {void}
  */
 function copy(src, dst, what) {
-  var i;
-  if(what == null || what.length == 0) {
+  let i;
+  if(what == null || what.length === 0) {
     for(i in src) {
       dst[i] = src[i];
     }
@@ -45,7 +45,7 @@ function copy(src, dst, what) {
  * @returns {boolean} Verdict
  */
 function isLike(subject, query) {
-  var k, v;
+  let k, v;
   if(typeof query == 'object' && typeof subject == 'object') {
     for(k in query) {
       v = typeof subject[k] == 'function' ? subject[k]() : subject[k];
@@ -69,8 +69,8 @@ function isLike(subject, query) {
  * @returns {number} Number of items
  */
 function count(subject) {
-  var items = 0;
-  for(var i in subject) {
+  let items = 0;
+  for(const i in subject) {
     if(subject.hasOwnProperty(i)) {
       items += 1;
     }
@@ -79,16 +79,16 @@ function count(subject) {
 }
 
 /**
- * Polyfill for ECMAScript 2017 for Object.assign
+ * Polyfill for ECMAScript 2017 for Object.values
  * https://www.ecma-international.org/ecma-262/8.0/#sec-object.values
  *
  * @memberof Object
  */
 function values(o) {
-  var obj = Object(o);
-  var values = [];
+  const obj = Object(o);
+  const values = [];
 
-  for(var k in obj) {
+  for(const k in obj) {
     values.push(obj[k]);
   }
 
@@ -102,14 +102,14 @@ function values(o) {
  * @memberof Object
  */
 function assign() {
-  var args = Array.prototype.slice.call(arguments, 0);
-  var to = Object(args[0]);
+  const args = Array.prototype.slice.call(arguments, 0);
+  const to = Object(args[0]);
 
   if(args.length !== 1) {
-    var sources = args.slice(1);
-    var nextSource, keys, from, nextKey, propValue;
+    const sources = args.slice(1);
+    let nextSource, keys, from, nextKey, propValue;
 
-    for(var i = 0; i < sources.length; i++) {
+    for(let i = 0; i < sources.length; i++) {
       nextSource = sources[i];
       from = Object(nextSource);
 
@@ -119,7 +119,7 @@ function assign() {
         keys = Object.keys(from);
       }
 
-      for(var j = 0; j < keys.length; j++) {
+      for(let j = 0; j < keys.length; j++) {
         nextKey = keys[j];
         propValue = from[nextKey];
         if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
@@ -139,14 +139,14 @@ function assign() {
  * @returns {object} Object
  */
 function deepAssign() {
-  var args = Array.prototype.slice.call(arguments, 0);
-  var to = Object(args[0]);
+  const args = Array.prototype.slice.call(arguments, 0);
+  const to = Object(args[0]);
 
   if(args.length !== 1) {
-    var sources = args.slice(1);
-    var nextSource, keys, from, nextKey, propValue;
+    const sources = args.slice(1);
+    let nextSource, keys, from, nextKey, propValue;
 
-    for(var i = 0; i < sources.length; i++) {
+    for(let i = 0; i < sources.length; i++) {
       nextSource = sources[i];
       from = Object(nextSource);
 
@@ -156,12 +156,12 @@ function deepAssign() {
         keys = Object.keys(from);
       }
 
-      for(var j = 0; j < keys.length; j++) {
+      for(let j = 0; j < keys.length; j++) {
         nextKey = keys[j];
         propValue = from[nextKey];
         if(typeof propValue !== 'undefined' && from.propertyIsEnumerable(nextKey)) {
           if(typeof to[nextKey] === 'object' && typeof propValue === 'object') {
-            var areArrays = Array.isArray(to[nextKey]) && Array.isArray(propValue);
+            const areArrays = Array.isArray(to[nextKey]) && Array.isArray(propValue);
 
             to[nextKey] = Object.deepAssign({}, to[nextKey], propValue);
 
@@ -188,7 +188,7 @@ function clone(o) {
 }
 
 
-module.exports = {
+export default {
   static: {
     isObject,
     copy,

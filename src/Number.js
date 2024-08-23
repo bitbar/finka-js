@@ -6,7 +6,7 @@
  * Check if given number is number
  *
  * @memberof Number
- * @param {number} n Number to check
+ * @param {*} n Number to check
  * @returns {boolean} Verdict
  */
 function isNumber(n) {
@@ -61,13 +61,13 @@ function isFloat(n){
  * Returns string padded with leading zeros to length equal given length
  *
  * @memberof Number.prototype
- * @param {number} padding Length to which should be number padded
+ * @param {number} padding Length to which number should be padded
  * @returns {string} Padded string
  */
 function pad(padding) {
-  var value = this.toString();
-  var pointIndex = value.indexOf('.');
-  var toAdd = padding;
+  let value = this.toString();
+  const pointIndex = value.indexOf('.');
+  let toAdd = padding;
 
   if(pointIndex > -1) {
     toAdd -= pointIndex;
@@ -75,7 +75,7 @@ function pad(padding) {
     toAdd -= value.length;
   }
 
-  for(var i = 0; i < toAdd; i++) {
+  for(let i = 0; i < toAdd; i++) {
     value = '0' + value;
   }
 
@@ -83,7 +83,7 @@ function pad(padding) {
 }
 
 
-module.exports = {
+export default {
   static: {
     isNumber,
     isNegativeZero,

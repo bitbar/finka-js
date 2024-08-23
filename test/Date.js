@@ -1,9 +1,8 @@
 // Prepare chai
-const chai = require('chai');
-const expect = chai.expect;
+import {expect} from 'chai';
 
 describe('Date', function () {
-  var day = 24 * 60 * 60 * 1000;
+  const day = 24 * 60 * 60 * 1000;
 
   describe('static constants', function () {
     it('SECOND', function() {
@@ -28,8 +27,8 @@ describe('Date', function () {
   });
 
   describe('static getters', function () {
-    var now = Date.now();
-    var today = day * Math.floor(now / day);
+    const now = Date.now();
+    const today = day * Math.floor(now / day);
 
     it('TODAY', function() {
       expect(Date.TODAY).to.be.equal(today);
@@ -50,58 +49,58 @@ describe('Date', function () {
 
   describe('#parseValue', function () {
     it('Supports "today" string', function() {
-      var test = Date.parseValue('today');
+      const test = Date.parseValue('today');
       expect(test.getTime()).to.be.equal(Date.TODAY);
     });
 
     it('Supports "yesterday" string', function() {
-      var test = Date.parseValue('yesterday');
+      const test = Date.parseValue('yesterday');
       expect(test.getTime()).to.be.equal(Date.YESTERDAY);
     });
 
     it('Supports "tomorrow" string', function() {
-      var test = Date.parseValue('tomorrow');
+      const test = Date.parseValue('tomorrow');
       expect(test.getTime()).to.be.equal(Date.TOMORROW);
     });
 
     it('Supports "dayaftertomorrow" string', function() {
-      var test = Date.parseValue('dayaftertomorrow');
+      const test = Date.parseValue('dayaftertomorrow');
       expect(test.getTime()).to.be.equal(Date.DAYAFTERTOMORROW);
     });
 
     it('Supports "now" string', function() {
-      var expected = Date.now();
-      var test = Date.parseValue('now');
+      const expected = Date.now();
+      const test = Date.parseValue('now');
       expect(test.getTime()).to.be.within(expected, expected + 1);
     });
 
     it('Throws error when unsupported string', function() {
-      var str = 'my birthday';
+      const str = 'my birthday';
       expect(Date.parseValue.bind(Date, str)).to.throw('Unsupported string: ' + str);
     });
 
     it('Supports numbers', function() {
-      var test = Date.parseValue(612622800000);
+      const test = Date.parseValue(612622800000);
       expect(test.getTime()).to.be.equal(612622800000);
     });
 
     it('Supports Date (clones it)', function() {
-      var expected = new Date();
-      var test = Date.parseValue(expected);
+      const expected = new Date();
+      const test = Date.parseValue(expected);
       expect(test.getTime()).to.be.equal(expected.getTime());
       expect(test).to.not.be.equal(expected);
     });
 
     it('Throws error when unsupported value', function() {
-      var test = [];
+      const test = [];
       expect(Date.parseValue.bind(Date, test)).to.throw(TypeError, 'Unsupported value type');
     });
   });
 
   describe('#daysFromNow', function () {
     it('Returns proper timestamp', function() {
-      var expected = Date.now() + day;
-      var test = Date.daysFromNow(1);
+      const expected = Date.now() + day;
+      const test = Date.daysFromNow(1);
       expect(test).to.be.within(expected, expected + 1);
     });
   });
@@ -133,7 +132,7 @@ describe('Date', function () {
 
   describe('#getTimezoneName', function () {
     it('Returns proper timezone', function() {
-      var timezone = new Date().toString().match(/\(([^)]+)\)$/)[1];
+      const timezone = new Date().toString().match(/\(([^)]+)\)$/)[1];
       expect(Date.getTimezoneName()).to.be.equal(timezone);
     });
   });
@@ -176,7 +175,7 @@ describe('Date', function () {
       expect(Date.toStopwatchFormat(3723004)).to.be.equal('01:02:03.0');
     });
   });
-  
+
   describe('#toTimerFormat', function () {
     it('Returns proper string', function() {
       expect(Date.toTimerFormat(3723004)).to.be.equal('01:02:03');
@@ -184,20 +183,20 @@ describe('Date', function () {
   });
 
   describe('.daysPassed', function () {
-    var date1 = new Date(612622800000);
+    const date1 = new Date(612622800000);
 
     it('Supports comparison to Date instance', function() {
-      var date2 = new Date(1307224800000);
+      const date2 = new Date(1307224800000);
       expect(date1.daysPassed(date2)).to.be.equal(8039);
     });
 
     it('Supports comparison to Number (Timestamp)', function() {
-      var date2 = 1307224800000;
+      const date2 = 1307224800000;
       expect(date1.daysPassed(date2)).to.be.equal(8039);
     });
 
     it('Supports comparison to String', function() {
-      var date2 = '2011-06-04T22:00:00.000Z';
+      const date2 = '2011-06-04T22:00:00.000Z';
       expect(date1.daysPassed(date2)).to.be.equal(8039);
     });
 
@@ -209,17 +208,17 @@ describe('Date', function () {
       expect(date1.daysPassed.bind(date1, [])).to.throw(TypeError, 'toDate is not instance of Date');
     });
   });
-  
+
   describe('.toCustomDate', function () {
     it('Returns proper string', function() {
-      var test = new Date(612622800000);
+      const test = new Date(612622800000);
       expect(test.toCustomDate('d~m~y')).to.be.equal('31~05~1989');
     });
   });
 
   describe('.toUiTime', function () {
     it('Returns proper string', function() {
-      var test = new Date(1989, 4, 31, 21, 11, 1);
+      const test = new Date(1989, 4, 31, 21, 11, 1);
       expect(test.toUiTime()).to.be.equal('21:11:01');
     });
   });
@@ -227,7 +226,7 @@ describe('Date', function () {
   describe('.toUiDate', function () {
     it('Returns proper string', function() {
       global.userCountry = 'PL';
-      var test = new Date(1989, 4, 31, 21, 11, 1);
+      const test = new Date(1989, 4, 31, 21, 11, 1);
       expect(test.toUiDate()).to.be.equal('31.05.1989');
       global.userCountry = undefined;
     });
@@ -236,7 +235,7 @@ describe('Date', function () {
   describe('.toUiDateTime', function () {
     it('Returns proper string', function() {
       global.userCountry = 'PL';
-      var test = new Date(1989, 4, 31, 21, 11, 1);
+      const test = new Date(1989, 4, 31, 21, 11, 1);
       expect(test.toUiDateTime()).to.be.equal('31.05.1989 21:11:01');
       global.userCountry = undefined;
     });
@@ -244,23 +243,23 @@ describe('Date', function () {
 
   describe('.toInputTimeFormat', function () {
     it('Returns proper string', function() {
-      var test = new Date(1989, 4, 31, 21, 11, 1);
+      const test = new Date(1989, 4, 31, 21, 11, 1);
       expect(test.toInputTimeFormat()).to.be.equal('21:11');
     });
   });
 
   describe('.toInputDateFormat', function () {
     it('Returns proper string', function() {
-      var test = new Date(1989, 4, 31, 21, 11, 1);
+      const test = new Date(1989, 4, 31, 21, 11, 1);
       expect(test.toInputDateFormat()).to.be.equal('1989-05-31');
     });
   });
-  
+
   describe('.addTime', function () {
     it('Returns proper timestamp', function() {
-      var test = new Date(612622800000);
+      const test = new Date(612622800000);
       expect(test.addTime(694602000000)).to.be.equal(1307224800000);
     });
   });
-  
+
 });

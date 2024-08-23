@@ -1,2 +1,2 @@
-const finka = require('./index');
+import finka from './index';
 finka();

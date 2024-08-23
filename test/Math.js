@@ -1,10 +1,9 @@
 // Prepare chai
-const chai = require('chai');
-const expect = chai.expect;
+import {expect} from 'chai';
 
 describe('Math', function () {
   describe('#rand', function () {
-    var test = [];
+    const test = [];
     for(let i = 0; i < 1000; i++) {
       test.push(Math.rand());
     }
@@ -19,7 +18,7 @@ describe('Math', function () {
   });
 
   describe('#log10', function() {
-    var tests = [
+    const tests = [
       [NaN, NaN],
       [-1, NaN],
       [+0, -Infinity],
@@ -38,8 +37,8 @@ describe('Math', function () {
   });
 
   describe('#roundTo', function() {
-    var num = 1.01299016289;
-    var tests = [
+    const num = 1.01299016289;
+    const tests = [
       [0, 1],
       [1, 1],
       [2, 1.01],
@@ -63,12 +62,13 @@ describe('Math', function () {
 
   describe('#median', function() {
     it('Returns properly calculated median for odd number of numbers', function() {
-      var numbers = [1, 2, 3, 4, 5, 6, 7];
+      const numbers = [1, 2, 3, 4, 5, 6, 7];
+
       expect(Math.median(numbers)).to.be.equal(4);
     });
 
     it('Returns properly calculated median for even number of numbers', function() {
-      var numbers = [1, 2, 3, 4, 5, 6];
+      const numbers = [1, 2, 3, 4, 5, 6];
       expect(Math.median(numbers)).to.be.equal(3.5);
     });
 
@@ -79,7 +79,7 @@ describe('Math', function () {
 
   describe('#sum', function() {
     it('Returns properly calculated sum of numbers', function() {
-      var numbers = [1, 2, 3, 4, 5, 6, 7];
+      const numbers = [1, 2, 3, 4, 5, 6, 7];
       expect(Math.sum(numbers)).to.be.equal(28);
     });
 
@@ -89,8 +89,8 @@ describe('Math', function () {
   });
 
   describe('#avg', function() {
-    it('Returns properly calculated avarage of numbers', function() {
-      var numbers = [1, 2, 3, 4, 5, 6, 7];
+    it('Returns properly calculated average of numbers', function() {
+      const numbers = [1, 2, 3, 4, 5, 6, 7];
       expect(Math.avg(numbers)).to.be.equal(4);
     });
 

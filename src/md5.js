@@ -1,3 +1,7 @@
+const add32 = function (a, b) {
+  return a + b & 0xFFFFFFFF;
+};
+
 function md5cycle(x, k) {
   var a = x[0], b = x[1], c = x[2], d = x[3];
 
@@ -125,7 +129,7 @@ function md51(s) {
 }
 
 function md5blk(s) {
-  var md5blks = [], i;
+  let md5blks = [], i;
   for (i = 0; i < 64; i += 4) {
     md5blks[i >> 2] = s.charCodeAt(i)
       + (s.charCodeAt(i + 1) << 8)
@@ -135,10 +139,10 @@ function md5blk(s) {
   return md5blks;
 }
 
-var hex_chr = '0123456789abcdef'.split('');
+const hex_chr = '0123456789abcdef'.split('');
 
 function rhex(n) {
-  var s = '', j = 0;
+  let s = '', j = 0;
   for (; j < 4; j++) {
     s += hex_chr[n >> j * 8 + 4 & 0x0F]
     + hex_chr[n >> j * 8 & 0x0F];
@@ -147,7 +151,7 @@ function rhex(n) {
 }
 
 function hex(x) {
-  for (var i = 0; i < x.length; i++) { x[i] = rhex(x[i]); }
+  for (let i = 0; i < x.length; i++) { x[i] = rhex(x[i]); }
   return x.join('');
 }
 
@@ -155,9 +159,5 @@ function md5(s) {
   return hex(md51(s));
 }
 
-var add32 = function (a, b) {
-  return a + b & 0xFFFFFFFF;
-};
 
-
-module.exports = md5;
+export default md5;

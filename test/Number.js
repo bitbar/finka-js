@@ -1,6 +1,5 @@
 // Prepare chai
-const chai = require('chai');
-const expect = chai.expect;
+import {expect} from 'chai';
 
 describe('Number', function() {
   describe('#isNumber', function() {
@@ -87,24 +86,24 @@ describe('Number', function() {
 
   describe('.pad', function() {
     describe('Working with integers', function() {
-      var test = 10;
+      const test = 10;
 
-      it('Shoud not add any padding', function() {
+      it('Should not add any padding', function() {
         expect(test.pad(2)).to.be.equal('10');
       });
-  
+
       it('Should add 2 leading zeros', function() {
         expect(test.pad(4)).to.be.equal('0010');
       });
     });
 
     describe('Working with floats', function() {
-      var test = 10.0101;
+      const test = 10.0101;
 
-      it('Shoud not add any padding', function() {
+      it('Should not add any padding', function() {
         expect(test.pad(2)).to.be.equal('10.0101');
       });
-  
+
       it('Should add 2 leading zeros', function() {
         expect(test.pad(4)).to.be.equal('0010.0101');
       });

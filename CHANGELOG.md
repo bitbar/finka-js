@@ -1,3 +1,17 @@
+#### 3.0.0 (2024-08-21)
+
+* updating all dependencies to the latest versions
+* updating `README.md` file
+* updating `LICENSE` file
+* updating build process
+
+
+#### 2.4.4 (2024-05-06)
+
+* `Object`
+  * fixed typings
+
+
 #### 1.4.0 (2018-10-23)
 
 * `Date`

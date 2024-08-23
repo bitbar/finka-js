@@ -12,7 +12,7 @@
  * @returns {number} Distance
  */
 function editDistance(a, b) {
-  var matrix = [], i, j;
+  let matrix = [], i, j;
 
   if(a.length === 0) { return b.length; }
   if(b.length === 0) { return a.length; }
@@ -54,13 +54,13 @@ function editDistance(a, b) {
  * @returns {number} Ratio
  */
 function getSimilarity(a, b) {
-  var l = Math.max(a.length, b.length);
+  const l = Math.max(a.length, b.length);
   return (l - String.editDistance(a, b)) / l;
 }
 
 /**
  * Checks is given value is String and is empty
- * 
+ *
  * @memberof String
  * @param {string} sth Something to check
  * @returns {boolean} Verdict
@@ -71,7 +71,7 @@ function isEmpty (sth) {
 
 /**
  * Checks is given value is String and is not empty
- * 
+ *
  * @memberof String
  * @param {string} sth Something to check
  * @returns {boolean} Verdict
@@ -81,8 +81,8 @@ function isNotEmpty (sth) {
 }
 
 /**
- * Checks is given value isn't a String or it is empty
- * 
+ * Checks is given value isn't a String, or it is empty
+ *
  * @memberof String
  * @param {string} sth Something to check
  * @returns {boolean} Verdict
@@ -95,11 +95,11 @@ function isInvalidOrEmpty (sth) {
  * Returns string with capitalised first letter
  *
  * @memberof String.prototype
- * @param {boolean} [lower=false] Flag if should lower all letters first
+ * @param {boolean} [lower=false] Flag if it should lower all letters first
  * @returns {string} New string
  */
 function capitaliseFirstLetter(lower) {
-  var value = this.valueOf();
+  let value = this.valueOf();
 
   if(lower) {
     value = value.toLowerCase();
@@ -125,7 +125,7 @@ function lowerFirstLetter() {
  * @returns {string} New string
  */
 function noCase() {
-  var value = this.valueOf();
+  let value = this.valueOf();
 
   // detect capitalized snake case
   if(/^[A-Z0-9_]+$/.test(value)) {
@@ -159,7 +159,7 @@ function noCase() {
  * @returns {string} String in camelCase
  */
 function toCamelCase() {
-  var value = this.valueOf();
+  let value = this.valueOf();
 
   // normalize
   value = value.noCase();
@@ -177,7 +177,7 @@ function toCamelCase() {
  * @returns {string} String in PascalCase
  */
 function toPascalCase() {
-  return this.toCamelCase().capitaliseFirstLetter();
+  return this.toCamelCase().capitaliseFirstLetter(false);
 }
 
 /**
@@ -187,7 +187,7 @@ function toPascalCase() {
  * @returns {string} String in kebab-case
  */
 function toKebabCase() {
-  var value = this.valueOf();
+  let value = this.valueOf();
 
   // normalize
   value = value.noCase();
@@ -207,9 +207,9 @@ function toKebabCase() {
  */
 function toSnakeCase(convertToUpperCase) {
 
-  var toUpperCase = convertToUpperCase || false;
+  const toUpperCase = convertToUpperCase || false;
 
-  var value = this.valueOf();
+  let value = this.valueOf();
 
   // normalize
   value = value.noCase();
@@ -232,7 +232,7 @@ function toSnakeCase(convertToUpperCase) {
  * @returns {string} Checksum
  */
 function toChecksum() {
-  var value, i, chk;
+  let value, i, chk;
 
   value = this.valueOf();
   chk = 0x12345678;
@@ -284,7 +284,7 @@ function isLike(query) {
  * @returns {boolean} Verdict
  */
 function includes(search, start) {
-  var _start = typeof start !== 'number' ? 0 : start;
+  const _start = typeof start !== 'number' ? 0 : start;
 
   if (_start + search.length > this.length) {
     return false;
@@ -294,7 +294,7 @@ function includes(search, start) {
 }
 
 
-module.exports = {
+export default {
   static: {
     editDistance,
     getSimilarity,

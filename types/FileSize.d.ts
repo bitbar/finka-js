@@ -1,5 +1,6 @@
 declare global {
   class FileSize {
+    constructor(bytes: number);
     bytes: number;
     toReadableString(): string;
     static UNITS: string[];

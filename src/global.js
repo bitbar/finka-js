@@ -13,7 +13,7 @@ const isNodeJs = global.process && global.process.release && global.process.rele
  * @returns {string} ISO 639-1 language string
  */
 function getLanguage() {
-  var lang;
+  let lang;
 
   if(global.isNodeJs) {
     lang = process.env.LANGUAGE || process.env.LANG;
@@ -30,14 +30,14 @@ function getLanguage() {
  * Tries to get country from language
  *
  * @global
- * @returns {(string|null)} Country code or null if couldn't find
+ * @returns {(string|null)} Country code or null if it couldn't find
  */
 function getCountry() {
   if(typeof global.userCountry !== 'undefined') {
     return global.userCountry;
   }
 
-  var country;
+  let country;
 
   if(global.isNodeJs) {
     country = process.env.LANG;
@@ -45,7 +45,7 @@ function getCountry() {
     country = navigator.language;
 
     if(country.length < 3 && navigator.languages) {
-      for(var i = 0; i < navigator.languages.length; i++) {
+      for(let i = 0; i < navigator.languages.length; i++) {
         if(navigator.languages[i].length > 2) {
           country = navigator.languages[i];
           break;
@@ -54,7 +54,7 @@ function getCountry() {
     }
   }
 
-  var countryMatch = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
+  const countryMatch = country.match(/^[a-z]{2}[_-]([A-Z]{2})/);
   if(countryMatch !== null) {
     country = countryMatch[1];
   }
@@ -78,7 +78,7 @@ function isNumeric(n) {
  *
  * @global
  * @param {*} value Value to be parsed
- * @returns {*} Parsed value
+ * @returns {number|boolean|object} Parsed value
  */
 function parseValue(value) {
   // check if it's even a string
@@ -92,7 +92,7 @@ function parseValue(value) {
   }
 
   // check if it's a boolean
-  var _value = value.toLowerCase();
+  const _value = value.toLowerCase();
   if (_value === 'true' || _value === 'false') {
     return _value === 'true';
   }
@@ -111,10 +111,10 @@ function parseValue(value) {
  * @param {string} String to be hashed
  * @returns {string} Hash
  */
-const md5 = require('./md5');
+import md5 from'./md5';
 
 
-module.exports = {
+export default  {
   constant: {
     isNodeJs
   },
