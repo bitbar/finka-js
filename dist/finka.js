@@ -1,4 +1,4 @@
-/* Finka.js v2.4.5 |  Copyright 2024 (c) Bitbar Technologies and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
+/* Finka.js v3.0.1 |  Copyright 2025 (c) Smartbear Software and contributors | https://github.com/bitbar/finka-js/blob/master/LICENSE.md */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
