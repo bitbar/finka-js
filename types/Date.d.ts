@@ -19,7 +19,7 @@ declare global {
     TOMORROW: number,
     DAYAFTERTOMORROW: number,
 
-    parseValue(value: string | number | Date): Date,
+    parseValue(value: any): Date,
     daysFromNow(days: number): number,
     getLocalDateFormat(fullFormat?: boolean): string,
     getTimezoneName(): string,
