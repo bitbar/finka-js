@@ -19,6 +19,7 @@ declare global {
     TOMORROW: number,
     DAYAFTERTOMORROW: number,
 
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     parseValue(value: any): Date,
     daysFromNow(days: number): number,
     getLocalDateFormat(fullFormat?: boolean): string,

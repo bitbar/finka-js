@@ -1,5 +1,5 @@
 declare global {
-  interface RegExp {
+  interface RegExpConstructor {
     escapeString(str: string): string
   }
 }
