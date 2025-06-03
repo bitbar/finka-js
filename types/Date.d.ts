@@ -5,7 +5,7 @@ declare class DateHMSFormat {
   ms: number;
 }
 
-declare type DateAccuracy = 'hours' | 'minutes' | 'seconds';
+export declare type DateAccuracy = 'hours' | 'minutes' | 'seconds';
 
 declare global {
   interface DateConstructor {
@@ -31,7 +31,7 @@ declare global {
   }
 
   interface Date {
-    daysPassed(toDate: Date|string|number): number
+    daysPassed(toDate?: Date|string|number): number
     toCustomDate(format: string): string,
     toUiTime(showSeconds: boolean): string,
     toUiDate(): string,
@@ -40,6 +40,7 @@ declare global {
     toInputDateFormat(): string,
     addTime(time: number): number
   }
+
 }
 
 export { };
