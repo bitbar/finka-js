@@ -6,7 +6,7 @@ databaseName = "javascript-db"
 scmTargetPath = "finka-js"
 repo = "git@github.com:bitbar/finka-js.git"
 credentialsId = "bitbar-dev-ssh"
-githubApiCredentialsId = "4235c5e0-e60b-4c7d-8816-9508e60f484d"
+githubApiCredentialsId = "github-bitbar-dev-token"
 branch = "master"
 language = "javascript" //It's for both javascript and typescript
 
