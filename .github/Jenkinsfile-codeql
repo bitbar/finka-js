@@ -56,7 +56,7 @@ def init() {
 }
 
 def analyze() {
-    docker.image("node:14.21.3-bullseye").inside("-u 0:0") {
+    docker.image("node:26.13.0-bookworm").inside("-u 0:0") {
         sh("${WORKSPACE}/codeql/codeql database create ${databaseName} --language=${language} --source-root=${scmTargetPath}")
         sh("${WORKSPACE}/codeql/codeql database analyze ${databaseName} --format=sarif-latest --output=${outputFile}")
     }

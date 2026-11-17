@@ -48,8 +48,7 @@ function getBabel() {
       [
         '@babel/env',
         {
-          useBuiltIns: 'entry',
-          corejs: '3.6'
+          modules: false
         }
       ]
     ]
